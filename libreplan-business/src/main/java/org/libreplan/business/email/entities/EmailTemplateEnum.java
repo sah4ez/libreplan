@@ -19,24 +19,24 @@
 
 package org.libreplan.business.email.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 /**
  * Available E-mail templates.
  *
- * TEMPLATE_N(_("Template N")) - for i18n
+ * TEMPLATE_N(helperi18n("Template N")) - for i18n
  * TEMPLATE_A("Template A") - for general use (no internationalizing)
  *
  * @author Vova Perebykivskyi <vova@libreplan-enterprise.com>
  */
 public enum EmailTemplateEnum {
 
-    TEMPLATE_TASK_ASSIGNED_TO_RESOURCE(_("Task assigned to resource")),
-    TEMPLATE_RESOURCE_REMOVED_FROM_TASK(_("Resource removed from task")),
-    TEMPLATE_MILESTONE_REACHED(_("Milestone reached")),
-    TEMPLATE_TODAY_TASK_SHOULD_START(_("Task should start")),
-    TEMPLATE_TODAY_TASK_SHOULD_FINISH(_("Task should finish")),
-    TEMPLATE_ENTER_DATA_IN_TIMESHEET(_("Enter data in timesheet"));
+    TEMPLATE_TASK_ASSIGNED_TO_RESOURCE(helperi18n("Task assigned to resource")),
+    TEMPLATE_RESOURCE_REMOVED_FROM_TASK(helperi18n("Resource removed from task")),
+    TEMPLATE_MILESTONE_REACHED(helperi18n("Milestone reached")),
+    TEMPLATE_TODAY_TASK_SHOULD_START(helperi18n("Task should start")),
+    TEMPLATE_TODAY_TASK_SHOULD_FINISH(helperi18n("Task should finish")),
+    TEMPLATE_ENTER_DATA_IN_TIMESHEET(helperi18n("Enter data in timesheet"));
 
     private final String templateType;
 

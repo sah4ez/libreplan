@@ -18,7 +18,7 @@
  */
 package org.libreplan.web.planner.adaptplanning;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.Date;
 import java.util.List;
@@ -57,7 +57,7 @@ public class AdaptPlanningCommand implements IAdaptPlanningCommand {
 
     @Override
     public String getName() {
-        return _("Adapt planning according to timesheets");
+        return helperi18n("Adapt planning according to timesheets");
     }
 
     @Override
@@ -67,7 +67,7 @@ public class AdaptPlanningCommand implements IAdaptPlanningCommand {
 
                     @Override
                     public String getName() {
-                        return _("Adapting planning according to timesheets");
+                        return helperi18n("Adapting planning according to timesheets");
                     }
 
                     @Override

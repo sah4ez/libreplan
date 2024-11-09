@@ -21,7 +21,7 @@
 
 package org.libreplan.business.orders.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -536,7 +536,7 @@ public abstract class CriterionRequirementHandler<T, S, R> {
                             newRequirement);
         } else {
             throw new IllegalStateException(
-                    _("The criterion already exists into another task"));
+                    helperi18n("The criterion already exists into another task"));
         }
     }
 

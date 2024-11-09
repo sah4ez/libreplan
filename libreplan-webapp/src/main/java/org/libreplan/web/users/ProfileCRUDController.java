@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 /**
  * Controller for CRUD actions over a {@link Profile}.
@@ -80,7 +80,7 @@ public class ProfileCRUDController extends BaseCRUDController<Profile> {
         roles.remove(UserRole.ROLE_BOUND_USER);
 
         for (UserRole role : roles) {
-            Comboitem item = combo.appendItem(_(role.getDisplayName()));
+            Comboitem item = combo.appendItem(helperi18n(role.getDisplayName()));
             item.setValue(role);
         }
     }
@@ -120,12 +120,12 @@ public class ProfileCRUDController extends BaseCRUDController<Profile> {
 
     @Override
     protected String getEntityType() {
-        return _("Profile");
+        return helperi18n("Profile");
     }
 
     @Override
     protected String getPluralEntityType() {
-        return _("Profiles");
+        return helperi18n("Profiles");
     }
 
     @Override
@@ -155,7 +155,7 @@ public class ProfileCRUDController extends BaseCRUDController<Profile> {
     }
 
     private void showCannotDeleteProfileDialog(String message) {
-        Messagebox.show(_(message), _("Warning"), Messagebox.OK, Messagebox.EXCLAMATION);
+        Messagebox.show(helperi18n(message), helperi18n("Warning"), Messagebox.OK, Messagebox.EXCLAMATION);
     }
     @Override
     protected boolean beforeDeleting(Profile profile){
@@ -173,7 +173,7 @@ public class ProfileCRUDController extends BaseCRUDController<Profile> {
             public void render(Row row, Object data, int i) throws Exception {
                 final UserRole role = (UserRole) data;
 
-                row.appendChild(new Label(_(role.getDisplayName())));
+                row.appendChild(new Label(helperi18n(role.getDisplayName())));
 
                 row.appendChild(Util.createRemoveButton(new EventListener() {
                     @Override

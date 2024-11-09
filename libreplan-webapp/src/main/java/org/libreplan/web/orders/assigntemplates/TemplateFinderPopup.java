@@ -20,7 +20,7 @@
  */
 package org.libreplan.web.orders.assigntemplates;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import org.libreplan.business.templates.entities.OrderElementTemplate;
 import org.libreplan.business.templates.entities.OrderTemplate;
@@ -118,12 +118,12 @@ public class TemplateFinderPopup extends HtmlMacroComponent {
         super.afterCompose();
 
         acceptButton = (Button) getFellow("acceptButton");
-        acceptButton.setLabel(_("Create task"));
+        acceptButton.setLabel(helperi18n("Create task"));
         acceptButton.setClass("add-button");
         acceptButton.addEventListener(Events.ON_CLICK, event -> onAccept());
 
         cancelButton = (Button) getFellow("cancelButton");
-        cancelButton.setLabel(_("Cancel"));
+        cancelButton.setLabel(helperi18n("Cancel"));
         cancelButton.setClass("add-button");
         cancelButton.addEventListener(Events.ON_CLICK, event -> onCancel());
 
@@ -131,7 +131,7 @@ public class TemplateFinderPopup extends HtmlMacroComponent {
         popup = (Popup) getFellow("finderPopup");
 
         caption = (Caption) getFellow("finderCaption");
-        caption.setLabel(_("Choosing Template"));
+        caption.setLabel(helperi18n("Choosing Template"));
     }
 
 }

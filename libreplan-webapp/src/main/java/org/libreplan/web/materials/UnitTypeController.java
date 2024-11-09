@@ -44,7 +44,7 @@ import org.zkoss.zkplus.spring.SpringUtil;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 /**
  * Controller for the listing and editing unit types.
@@ -123,12 +123,12 @@ public class UnitTypeController extends BaseCRUDController<UnitType> {
             public void validate(Component comp, Object value) {
                 String strValue = (String) value;
                 if (StringUtils.isBlank(strValue)) {
-                    throw new WrongValueException(comp, _("cannot be empty"));
+                    throw new WrongValueException(comp, helperi18n("cannot be empty"));
                 }
 
                 if (unitTypeModel.existsAnotherUnitTypeWithName(strValue)) {
                     throw new WrongValueException(comp,
-                            _("The meausure name is not valid. There is " +
+                            helperi18n("The meausure name is not valid. There is " +
                                     "another unit type with the same " +
                                     "measure name"));
                 }
@@ -143,12 +143,12 @@ public class UnitTypeController extends BaseCRUDController<UnitType> {
             public void validate(Component comp, Object value) {
                 String strValue = (String) value;
                 if (StringUtils.isBlank(strValue)) {
-                    throw new WrongValueException(comp, _("cannot be empty"));
+                    throw new WrongValueException(comp, helperi18n("cannot be empty"));
                 }
 
                 if (unitTypeModel.existsAnotherUnitTypeWithCode(strValue)) {
                     throw new WrongValueException(comp,
-                            _("The code is not valid. There is another " +
+                            helperi18n("The code is not valid. There is another " +
                                     "unit type with the same code"));
                 }
             }
@@ -176,12 +176,12 @@ public class UnitTypeController extends BaseCRUDController<UnitType> {
 
     @Override
     protected String getEntityType() {
-        return _("Material Unit");
+        return helperi18n("Material Unit");
     }
 
     @Override
     protected String getPluralEntityType() {
-        return _("Material Units");
+        return helperi18n("Material Units");
     }
 
     @Override

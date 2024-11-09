@@ -48,7 +48,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 
 /**
@@ -257,25 +257,25 @@ public class IssueLogCRUDController extends BaseCRUDController<IssueLog> {
     public ArrayList<String> getIssueStatusEnum() {
         ArrayList<String> result = new ArrayList<>();
         if (getIssueLog().getType() == IssueTypeEnum.REQUEST_FOR_CHANGE){
-            result.add(_("Must have"));
-            result.add(_("Should have"));
-            result.add(_("Could have"));
-            result.add(_("Won't have"));
+            result.add(helperi18n("Must have"));
+            result.add(helperi18n("Should have"));
+            result.add(helperi18n("Could have"));
+            result.add(helperi18n("Won't have"));
 
             return result;
         }
         if (getIssueLog().getType() == IssueTypeEnum.PROBLEM_OR_CONCERN) {
-            result.add(_("Minor"));
-            result.add(_("Significant"));
-            result.add(_("Major"));
-            result.add(_("Critical"));
+            result.add(helperi18n("Minor"));
+            result.add(helperi18n("Significant"));
+            result.add(helperi18n("Major"));
+            result.add(helperi18n("Critical"));
 
             return result;
         }
 
-        result.add(_("Low"));
-        result.add(_("Medium"));
-        result.add(_("High"));
+        result.add(helperi18n("Low"));
+        result.add(helperi18n("Medium"));
+        result.add(helperi18n("High"));
         return result;
     }
 
@@ -407,12 +407,12 @@ public class IssueLogCRUDController extends BaseCRUDController<IssueLog> {
 
     @Override
     protected String getEntityType() {
-        return _("issuelog-number");
+        return helperi18n("issuelog-number");
     }
 
     @Override
     protected String getPluralEntityType() {
-        return _("Issue logs");
+        return helperi18n("Issue logs");
     }
 
     @Override
@@ -430,11 +430,11 @@ public class IssueLogCRUDController extends BaseCRUDController<IssueLog> {
     @Override
     protected void save() throws ValidationException {
         if (getIssueLog().getOrder() == null) {
-            throw new WrongValueException(bdProjectIssueLog, _("please select a project"));
+            throw new WrongValueException(bdProjectIssueLog, helperi18n("please select a project"));
         }
 
         if (getIssueLog().getCreatedBy() == null) {
-            throw new WrongValueException(bdUserIssueLog, _("please select an author"));
+            throw new WrongValueException(bdUserIssueLog, helperi18n("please select an author"));
         }
         getIssueLog().setStatus(status.getSelectedItem().getLabel());
         issueLogModel.confirmSave();

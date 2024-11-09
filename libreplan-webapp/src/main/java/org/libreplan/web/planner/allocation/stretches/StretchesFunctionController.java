@@ -21,7 +21,7 @@
 
 package org.libreplan.web.planner.allocation.stretches;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -118,13 +118,13 @@ public class StretchesFunctionController extends GenericForwardComposer {
             stretchesFunctionModel.confirm();
             exit();
         } catch (ValidationException e) {
-            Messagebox.show(e.getMessage(), _("Error"), Messagebox.OK, Messagebox.ERROR);
+            Messagebox.show(e.getMessage(), helperi18n("Error"), Messagebox.OK, Messagebox.ERROR);
         }
     }
 
     public void cancel() throws InterruptedException {
-        int status = Messagebox.show(_("All changes will be lost. Are you sure?"),
-                _("Confirm cancel"), Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
+        int status = Messagebox.show(helperi18n("All changes will be lost. Are you sure?"),
+                helperi18n("Confirm cancel"), Messagebox.YES | Messagebox.NO, Messagebox.QUESTION);
         if ( Messagebox.YES == status ) {
             stretchesFunctionModel.cancel();
             close();
@@ -325,7 +325,7 @@ public class StretchesFunctionController extends GenericForwardComposer {
                         private void checkBetweenZeroAndOneHundred(BigDecimal percent) {
                             if (percent.toBigInteger().intValue() > 100 || percent.toBigInteger().intValue() < 0) {
                                 throw new WrongValueException(tempDecimalbox,
-                                        _("Length percentage should be between 0 and 100"));
+                                        helperi18n("Length percentage should be between 0 and 100"));
                             }
                         }
 
@@ -364,7 +364,7 @@ public class StretchesFunctionController extends GenericForwardComposer {
                         } catch (IllegalArgumentException e) {
                             throw new WrongValueException(
                                     decimalBox,
-                                    _("Amount work percentage should be between 0 and 100"));
+                                    helperi18n("Amount work percentage should be between 0 and 100"));
                         }
                     });
 
@@ -384,7 +384,7 @@ public class StretchesFunctionController extends GenericForwardComposer {
                 button = new Button("", "/common/img/ico_borrar1.png");
                 button.setHoverImage("/common/img/ico_borrar.png");
                 button.setSclass("icono");
-                button.setTooltiptext(_("Delete"));
+                button.setTooltiptext(helperi18n("Delete"));
 
                 button.addEventListener(Events.ON_CLICK, event -> {
                     stretchesFunctionModel.removeStretch(stretch);

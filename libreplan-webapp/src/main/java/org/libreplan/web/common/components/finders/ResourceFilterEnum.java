@@ -26,12 +26,12 @@ package org.libreplan.web.common.components.finders;
 
 public enum ResourceFilterEnum implements IFilterEnum {
 
-    Criterion(_("Criterion")), CostCategory(_("Cost category"));
+    Criterion(helperi18n("Criterion")), CostCategory(helperi18n("Cost category"));
 
     /**
      * Forces to mark the string as needing translation
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

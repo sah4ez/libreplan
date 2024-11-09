@@ -242,23 +242,23 @@ public abstract class EarnedValueChartFiller extends ChartFiller {
      */
     public enum EarnedValueType {
 
-        BCWS(_("BCWS"), _("Budgeted Cost Work Scheduled"), "#0000FF"), ACWP(
-                _("ACWP"), _("Actual Cost Work Performed"), "#FF0000"), BCWP(
-                _("BCWP"), _("Budgeted Cost Work Performed"), "#00FF00"), CV(
-                _("CV"), _("Cost Variance"), "#FF8800"), SV(_("SV"),
-                _("Schedule Variance"), "#00FFFF"), BAC(_("BAC"),
-                _("Budget At Completion"), "#FF00FF"), EAC(_("EAC"),
-                _("Estimate At Completion"), "#880000"), VAC(_("VAC"),
-                _("Variance At Completion"), "#000088"), ETC(_("ETC"),
-                _("Estimate To Complete"), "#008800"), CPI(_("CPI"),
-                _("Cost Performance Index"), "#888800"), SPI(_("SPI"),
-                _("Schedule Performance Index"), "#008888")
+        BCWS(helperi18n("BCWS"), helperi18n("Budgeted Cost Work Scheduled"), "#0000FF"), ACWP(
+                helperi18n("ACWP"), helperi18n("Actual Cost Work Performed"), "#FF0000"), BCWP(
+                helperi18n("BCWP"), helperi18n("Budgeted Cost Work Performed"), "#00FF00"), CV(
+                helperi18n("CV"), helperi18n("Cost Variance"), "#FF8800"), SV(helperi18n("SV"),
+                helperi18n("Schedule Variance"), "#00FFFF"), BAC(helperi18n("BAC"),
+                helperi18n("Budget At Completion"), "#FF00FF"), EAC(helperi18n("EAC"),
+                helperi18n("Estimate At Completion"), "#880000"), VAC(helperi18n("VAC"),
+                helperi18n("Variance At Completion"), "#000088"), ETC(helperi18n("ETC"),
+                helperi18n("Estimate To Complete"), "#008800"), CPI(helperi18n("CPI"),
+                helperi18n("Cost Performance Index"), "#888800"), SPI(helperi18n("SPI"),
+                helperi18n("Schedule Performance Index"), "#008888")
         ;
 
         /**
          * Forces to mark the string as needing translation
          */
-        private static String _(String string) {
+        private static String helperi18n(String string) {
             return string;
         }
 
@@ -273,11 +273,11 @@ public abstract class EarnedValueChartFiller extends ChartFiller {
         }
 
         public String getAcronym() {
-            return I18nHelper._(acronym);
+            return I18nHelper.helperi18n(acronym);
         }
 
         public String getName() {
-            return I18nHelper._(name);
+            return I18nHelper.helperi18n(name);
         }
 
         public String getColor() {

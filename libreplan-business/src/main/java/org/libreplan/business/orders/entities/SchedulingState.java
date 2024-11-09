@@ -20,7 +20,7 @@
  */
 package org.libreplan.business.orders.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -363,21 +363,21 @@ public class SchedulingState {
 
     public String getStateName() {
         if (isCompletelyScheduled()) {
-            return _("Fully scheduled");
+            return helperi18n("Fully scheduled");
         } else if (isPartiallyScheduled()) {
-            return _("Partially scheduled");
+            return helperi18n("Partially scheduled");
         } else {
-            return _("Unscheduled");
+            return helperi18n("Unscheduled");
         }
     }
 
     public String getStateAbbreviation() {
         if (isCompletelyScheduled()) {
-            return _("F");
+            return helperi18n("F");
         } else if (isPartiallyScheduled()) {
-            return _("P");
+            return helperi18n("P");
         } else {
-            return _("U");
+            return helperi18n("U");
         }
     }
 

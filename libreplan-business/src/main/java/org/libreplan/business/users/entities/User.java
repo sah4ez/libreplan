@@ -21,7 +21,7 @@
 
 package org.libreplan.business.users.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 import java.util.HashSet;
 import java.util.List;
@@ -370,8 +370,8 @@ public class User extends BaseEntity implements IHumanIdentifiable{
 
     public enum UserAuthenticationType {
 
-        DATABASE(_("Database")),
-        LDAP(_("LDAP"));
+        DATABASE(helperi18n("Database")),
+        LDAP(helperi18n("LDAP"));
 
         private String name;
 

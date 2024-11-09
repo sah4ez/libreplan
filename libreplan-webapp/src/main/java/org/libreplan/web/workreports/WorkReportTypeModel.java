@@ -21,7 +21,7 @@
 
 package org.libreplan.web.workreports;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -405,13 +405,13 @@ public class WorkReportTypeModel extends IntegrationEntityModel implements IWork
             throws IllegalArgumentException {
         if ((name == null) || (name.isEmpty())) {
             throw new IllegalArgumentException(
-                    _("name cannot be empty"));
+                    helperi18n("name cannot be empty"));
         }
 
         getWorkReportType().setName(name);
         if (!getWorkReportType().isUniqueWorkReportTypeNameConstraint()) {
             throw new IllegalArgumentException(
-                    _("There is another timesheet template with the same name"));
+                    helperi18n("There is another timesheet template with the same name"));
         }
     }
 
@@ -420,17 +420,17 @@ public class WorkReportTypeModel extends IntegrationEntityModel implements IWork
             throws IllegalArgumentException {
         if ((code == null) || (code.isEmpty())) {
             throw new IllegalArgumentException(
-                    _("Code cannot be empty"));
+                    helperi18n("Code cannot be empty"));
         }
         if (code.contains("_")) {
             throw new IllegalArgumentException(
-                    _("Value is not valid.\n Code cannot contain chars like '_'."));
+                    helperi18n("Value is not valid.\n Code cannot contain chars like '_'."));
         }
 
         getWorkReportType().setCode(code);
         if (!getWorkReportType().isUniqueCodeConstraint()) {
             throw new IllegalArgumentException(
-                    _("There is another timesheet template with the same code"));
+                    helperi18n("There is another timesheet template with the same code"));
         }
     }
 

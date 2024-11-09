@@ -21,7 +21,7 @@
 
 package org.libreplan.web.planner.order;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import org.libreplan.business.planner.entities.Task;
 import org.libreplan.business.planner.entities.TaskElement;
@@ -50,7 +50,7 @@ public class SubcontractCommand implements ISubcontractCommand {
 
     @Override
     public String getName() {
-        return _("Subcontract");
+        return helperi18n("Subcontract");
     }
 
     @Override

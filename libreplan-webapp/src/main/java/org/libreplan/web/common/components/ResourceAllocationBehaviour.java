@@ -35,7 +35,7 @@ import org.libreplan.web.common.components.NewAllocationSelector.AllocationType;
  */
 public enum ResourceAllocationBehaviour {
 
-    NON_LIMITING(_("Normal")) {
+    NON_LIMITING(helperi18n("Normal")) {
 
         @Override
         public boolean allowMultipleSelection() {
@@ -60,7 +60,7 @@ public enum ResourceAllocationBehaviour {
         }
 
     },
-    LIMITING(_("Queue-based")) {
+    LIMITING(helperi18n("Queue-based")) {
 
         @Override
         public boolean allowMultipleSelection() {
@@ -89,7 +89,7 @@ public enum ResourceAllocationBehaviour {
     /**
      * Forces to mark the string as needing translation
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

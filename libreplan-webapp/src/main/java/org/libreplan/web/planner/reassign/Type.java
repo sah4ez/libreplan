@@ -22,13 +22,13 @@ package org.libreplan.web.planner.reassign;
 
 import org.zkoss.zul.Radio;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 public enum Type {
 
     ALL {
         @Override
         public String getName() {
-            return _("All project tasks");
+            return helperi18n("All project tasks");
         }
 
         @Override
@@ -40,7 +40,7 @@ public enum Type {
     FROM_TODAY {
         @Override
         public String getName() {
-            return _("From today");
+            return helperi18n("From today");
         }
 
         @Override
@@ -52,7 +52,7 @@ public enum Type {
     FROM_CHOSEN {
         @Override
         public String getName() {
-            return _("From chosen date");
+            return helperi18n("From chosen date");
         }
 
         @Override

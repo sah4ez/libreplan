@@ -40,7 +40,7 @@ import org.zkoss.zul.SimpleListModel;
 
 import java.util.List;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 /**
  * Controller for CRUD actions over a {@link CustomerCommunication}.
@@ -193,7 +193,7 @@ public class CustomerCommunicationCRUDController extends GenericForwardComposer 
             buttonEdit.setSclass("icono");
             buttonEdit.setImage("/common/img/ico_editar1.png");
             buttonEdit.setHoverImage("/common/img/ico_editar.png");
-            buttonEdit.setTooltiptext(_("Edit"));
+            buttonEdit.setTooltiptext(helperi18n("Edit"));
             buttonEdit.addEventListener(Events.ON_CLICK, arg0 -> goToEdit(customerCommunication));
             row.appendChild(buttonEdit);
         }

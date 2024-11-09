@@ -21,7 +21,7 @@
 
 package org.zkoss.ganttz.resourceload;
 
-import static org.zkoss.ganttz.i18n.I18nHelper._;
+import static org.zkoss.ganttz.i18n.I18nHelper.helperi18n;
 
 import java.util.List;
 
@@ -83,9 +83,9 @@ public class ResourcesLoadPanel extends HtmlMacroComponent {
 
     private WeakReferencedListeners<IFilterChangedListener> zoomListeners = WeakReferencedListeners.create();
 
-    private final String FILTER_RESOURCES = _("Resources");
+    private final String FILTER_RESOURCES = helperi18n("Resources");
 
-    private final String FILTER_CRITERIA = _("Generic allocation criteria");
+    private final String FILTER_CRITERIA = helperi18n("Generic allocation criteria");
 
     private final String FILTER_BY_NAME_COMBO_COMPONENT = "filterByNameCombo";
 
@@ -156,10 +156,10 @@ public class ResourcesLoadPanel extends HtmlMacroComponent {
     public void setFilter(String filterBy) {
         if ( filterBy.equals(FILTER_RESOURCES) ) {
             this.filterbyResources = true;
-            this.feedBackMessage = _("showing resources");
+            this.feedBackMessage = helperi18n("showing resources");
         } else {
             this.filterbyResources = false;
-            this.feedBackMessage = _("showing criteria");
+            this.feedBackMessage = helperi18n("showing criteria");
         }
 
         refreshNameFilter = true;
@@ -395,7 +395,7 @@ public class ResourcesLoadPanel extends HtmlMacroComponent {
         ((South) getFellow("graphics")).setOpen(this.visibleChart);
 
         if (!visibleChart) {
-            ((South) getFellow("graphics")).setTitle(_("Graphics are disabled"));
+            ((South) getFellow("graphics")).setTitle(helperi18n("Graphics are disabled"));
         }
 
         savePreviousData();
@@ -471,8 +471,8 @@ public class ResourcesLoadPanel extends HtmlMacroComponent {
         }
 
         Comboitem lastItem = new Comboitem();
-        lastItem.setLabel(_("All"));
-        lastItem.setDescription(_("Show all elements"));
+        lastItem.setLabel(helperi18n("All"));
+        lastItem.setDescription(helperi18n("Show all elements"));
         lastItem.setValue(-1);
         filterByNameCombo.appendChild(lastItem);
 
@@ -507,7 +507,7 @@ public class ResourcesLoadPanel extends HtmlMacroComponent {
             if ( paginationType != PaginationType.NONE ) {
                 this.filterByNamePosition = filterByNamePosition;
                 this.lastSelectedName = comboByName.getSelectedIndex();
-                this.feedBackMessage = _("filtering by name");
+                this.feedBackMessage = helperi18n("filtering by name");
 
                 changeNameFilterWithFeedback();
             }

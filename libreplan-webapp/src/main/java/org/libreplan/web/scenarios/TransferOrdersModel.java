@@ -21,7 +21,7 @@
 
 package org.libreplan.web.scenarios;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -141,16 +141,16 @@ public class TransferOrdersModel implements ITransferOrdersModel {
 
         if (sourceScenario == null) {
             throw new ValidationException(
-                    _("Please select a source scenario"));
+                    helperi18n("Please select a source scenario"));
         }
         if (destinationScenario == null) {
             throw new ValidationException(
-                    _("Please, select a destination scenario"));
+                    helperi18n("Please, select a destination scenario"));
         }
 
         if (sourceScenario.getId().equals(destinationScenario.getId())) {
             throw new ValidationException(
-                    _("Source and destination scenarios should be different"));
+                    helperi18n("Source and destination scenarios should be different"));
         }
 
         orderDAO.save(order);
@@ -167,7 +167,7 @@ public class TransferOrdersModel implements ITransferOrdersModel {
                 && (sourceOrderVersion.getId().equals(destinationOrderVersion
                         .getId()))) {
             throw new ValidationException(
-                    _("Project version is the same in source and destination scenarios"));
+                    helperi18n("Project version is the same in source and destination scenarios"));
         }
 
         order.useSchedulingDataFor(sourceOrderVersion);

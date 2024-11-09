@@ -81,7 +81,7 @@
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-        </dependency>
+            </dependency>
 
         <!-- Commons -->
         <dependency>
@@ -101,7 +101,7 @@
 
         <dependency>
             <groupId>org.zkoss.zk</groupId>
-            <artifactId>zkplus</artifactId>
+            <artifactId>zkplus-legacy</artifactId>
         </dependency>
 
         <dependency>
@@ -128,11 +128,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.easymock</groupId>
-            <artifactId>easymockclassextension</artifactId>
-            <scope>test</scope>
-        </dependency>
 
         <!-- JFreeChart -->
         <dependency>

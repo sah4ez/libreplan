@@ -25,7 +25,7 @@
 
 package org.libreplan.web.orders;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import org.libreplan.business.INewObject;
 import org.libreplan.business.requirements.entities.CriterionRequirement;
@@ -43,7 +43,7 @@ import org.libreplan.business.resources.entities.ResourceEnum;
  */
 public class CriterionRequirementWrapper  implements INewObject {
 
-    private final String DIRECT = _("Direct");
+    private final String DIRECT = helperi18n("Direct");
 
     private String type;
 
@@ -84,7 +84,7 @@ public class CriterionRequirementWrapper  implements INewObject {
     }
 
     public static String getIndirectTypeLabel() {
-        return _("Inherited");
+        return helperi18n("Inherited");
     }
 
     public CriterionWithItsType getCriterionWithItsType() {
@@ -213,7 +213,7 @@ public class CriterionRequirementWrapper  implements INewObject {
     }
 
     public String getLabelValidate() {
-        return isValid() ? _("Invalidate") : _("Validate");
+        return isValid() ? helperi18n("Invalidate") : helperi18n("Validate");
     }
 
     public boolean isUpdatable(){

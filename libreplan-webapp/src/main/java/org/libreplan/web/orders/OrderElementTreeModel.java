@@ -21,7 +21,7 @@
 
 package org.libreplan.web.orders;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.List;
 
@@ -50,7 +50,7 @@ public class OrderElementTreeModel extends EntitiesTree<OrderElement> {
     protected OrderElement createNewElement() {
         OrderElement newOrderElement = OrderLine
                 .createOrderLineWithUnfixedPercentage(0);
-        newOrderElement.setName(_("New task"));
+        newOrderElement.setName(helperi18n("New task"));
         return newOrderElement;
     }
 

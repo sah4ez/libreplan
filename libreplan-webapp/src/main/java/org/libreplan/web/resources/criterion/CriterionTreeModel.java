@@ -27,7 +27,7 @@
 package org.libreplan.web.resources.criterion;
 
 import static org.libreplan.business.common.exceptions.ValidationException.invalidValue;
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -120,7 +120,7 @@ public class CriterionTreeModel implements ICriterionTreeModel {
 
     private CriterionDTO createNewCriterion(String name) {
         CriterionDTO newCriterion = new CriterionDTO();
-        newCriterion.setName(_(name));
+        newCriterion.setName(helperi18n(name));
         Criterion criterion = Criterion.create(criterionType);
         newCriterion.setCriterion(criterion);
         return newCriterion;
@@ -327,7 +327,7 @@ public class CriterionTreeModel implements ICriterionTreeModel {
         for(CriterionDTO criterion : criterions){
             if(criterion.getName().equals(name)){
                 throw new ValidationException(invalidValue(
-                        _("Already exists another "
+                        helperi18n("Already exists another "
                                 + "criterion with the same name"), "name",
                         criterion.getName(), criterion));
             }
@@ -339,7 +339,7 @@ public class CriterionTreeModel implements ICriterionTreeModel {
         throws ValidationException{
         if(name.isEmpty()){
             throw new ValidationException(
-                    invalidValue(_("Name of criterion is empty."), "name",
+                    invalidValue(helperi18n("Name of criterion is empty."), "name",
                         "",criterionType));
             }
     }

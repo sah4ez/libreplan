@@ -28,12 +28,12 @@ import org.libreplan.business.resources.entities.Resource;
  */
 public enum ResourceFilterEnumByResourceAndCriterion implements IFilterEnum {
 
-    RESOURCE(_("Resource")), CRITERION(_("Criterion"));
+    RESOURCE(helperi18n("Resource")), CRITERION(helperi18n("Criterion"));
 
     /**
      * Forces to mark the string as needing translation
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

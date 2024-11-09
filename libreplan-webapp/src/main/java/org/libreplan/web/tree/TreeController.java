@@ -20,7 +20,7 @@
  */
 package org.libreplan.web.tree;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -292,7 +292,7 @@ public abstract class TreeController<T extends ITreeNode<T>> extends GenericForw
         Intbox hours = (Intbox) cmp.getFellow("newOrderElementHours");
 
         if (StringUtils.isEmpty(name.getValue())) {
-            throw new WrongValueException(name, _("cannot be empty"));
+            throw new WrongValueException(name, helperi18n("cannot be empty"));
         }
 
         if (hours.getValue() == null) {
@@ -774,7 +774,7 @@ public abstract class TreeController<T extends ITreeNode<T>> extends GenericForw
         protected void checkInvalidValues(String property, Integer value, final Intbox component) {
             Set<ConstraintViolation<T>> violations = validator.validateValue(type, property, value);
             if (!violations.isEmpty()) {
-                throw new WrongValueException(component, _(violations.iterator().next().getMessage()));
+                throw new WrongValueException(component, helperi18n(violations.iterator().next().getMessage()));
             }
         }
 
@@ -1010,11 +1010,11 @@ public abstract class TreeController<T extends ITreeNode<T>> extends GenericForw
             return (comp, value) -> {
 
                 if (value == null) {
-                    throw new WrongValueException(comp, _("cannot be empty"));
+                    throw new WrongValueException(comp, helperi18n("cannot be empty"));
                 }
 
                 if (((BigDecimal) value).compareTo(BigDecimal.ZERO) < 0) {
-                    throw new WrongValueException(comp, _("cannot be negative"));
+                    throw new WrongValueException(comp, helperi18n("cannot be negative"));
                 }
             };
         }
@@ -1035,7 +1035,7 @@ public abstract class TreeController<T extends ITreeNode<T>> extends GenericForw
             if (!readOnly && element.isLeaf()) {
                 if (getHoursGroupHandler().hasMoreThanOneHoursGroup(element)) {
                     boxHours.setReadonly(true);
-                    tc.setTooltiptext(_("Disabled because of it contains more than one hours group"));
+                    tc.setTooltiptext(helperi18n("Disabled because of it contains more than one hours group"));
                 } else {
                     boxHours.setReadonly(false);
                     tc.setTooltiptext("");
@@ -1140,7 +1140,7 @@ public abstract class TreeController<T extends ITreeNode<T>> extends GenericForw
                 if (!getHoursGroupHandler().isTotalHoursValid(line, ((Integer) value))) {
                     throw new WrongValueException(
                             comp,
-                            _("Value is not valid in current list of Hours Group"));
+                            helperi18n("Value is not valid in current list of Hours Group"));
                 }
             };
         }
@@ -1160,7 +1160,7 @@ public abstract class TreeController<T extends ITreeNode<T>> extends GenericForw
             if (readOnly) {
                 result = createButton(
                         "/common/img/ico_borrar_out.png",
-                        _("Delete"),
+                        helperi18n("Delete"),
                         "/common/img/ico_borrar_out.png",
                         "icono",
                         removeListener);
@@ -1169,7 +1169,7 @@ public abstract class TreeController<T extends ITreeNode<T>> extends GenericForw
             } else {
                 result = createButton(
                         "/common/img/ico_borrar1.png",
-                        _("Delete"),
+                        helperi18n("Delete"),
                         "/common/img/ico_borrar.png",
                         "icono",
                         removeListener);
@@ -1296,7 +1296,7 @@ public abstract class TreeController<T extends ITreeNode<T>> extends GenericForw
         // Check if marked label has been previously added
         if (!(tc.getLastChild() instanceof org.zkoss.zul.Label)) {
             org.zkoss.zul.Label modifiedMark = new org.zkoss.zul.Label("*");
-            modifiedMark.setTooltiptext(_("Modified"));
+            modifiedMark.setTooltiptext(helperi18n("Modified"));
             modifiedMark.setSclass("modified-mark");
             tc.appendChild(modifiedMark);
             cellsMarkedAsModified.add(tc);

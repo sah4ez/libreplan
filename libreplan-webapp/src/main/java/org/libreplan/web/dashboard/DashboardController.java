@@ -19,7 +19,7 @@
 
 package org.libreplan.web.dashboard;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -167,12 +167,12 @@ public class DashboardController extends GenericForwardComposer {
         BigDecimal relativeMargin = dashboardModel.getMarginWithDeadLine();
 
         if ( (lblAbsolute != null) && (absoluteMargin != null) ) {
-            lblAbsolute.setValue(_(
+            lblAbsolute.setValue(helperi18n(
                     "There is a margin of {0} days with the project global deadline ({1}%).",
                     absoluteMargin,
                     (new DecimalFormat("#.##")).format(relativeMargin.doubleValue() * 100)));
         } else {
-            lblAbsolute.setValue(_("No project deadline defined"));
+            lblAbsolute.setValue(helperi18n("No project deadline defined"));
         }
 
     }
@@ -180,10 +180,10 @@ public class DashboardController extends GenericForwardComposer {
     private void renderDeadlineViolation() {
         final String divId = "deadline-violation";
 
-        PieChart<Number> pieChart = new PieChart<>(_("Task deadline violations"));
-        pieChart.addValue(_("On schedule"), dashboardModel.getPercentageOfOnScheduleTasks());
-        pieChart.addValue(_("Violated deadline"), dashboardModel.getPercentageOfTasksWithViolatedDeadline());
-        pieChart.addValue(_("No deadline"), dashboardModel.getPercentageOfTasksWithNoDeadline());
+        PieChart<Number> pieChart = new PieChart<>(helperi18n("Task deadline violations"));
+        pieChart.addValue(helperi18n("On schedule"), dashboardModel.getPercentageOfOnScheduleTasks());
+        pieChart.addValue(helperi18n("Violated deadline"), dashboardModel.getPercentageOfTasksWithViolatedDeadline());
+        pieChart.addValue(helperi18n("No deadline"), dashboardModel.getPercentageOfTasksWithNoDeadline());
 
         pieChart.addIntervalColors("#8fbe86", "#eb6b71", "#cfcfcf");
 
@@ -216,7 +216,7 @@ public class DashboardController extends GenericForwardComposer {
         final String divId = "task-completation-lag";
 
         BarChart<Integer> barChart;
-        barChart = new BarChart<>(_("Task Completation Lead/Lag"));
+        barChart = new BarChart<>(helperi18n("Task Completation Lead/Lag"));
 
         barChart.setFillZero(true);
         barChart.setHighlightMouseDown(true);
@@ -234,9 +234,9 @@ public class DashboardController extends GenericForwardComposer {
 
         barChart.getAxes()
                 .getXaxis()
-                .setLabel(_("Days Interval (Calculated as task completion end date minus estimated end date)"));
+                .setLabel(helperi18n("Days Interval (Calculated as task completion end date minus estimated end date)"));
 
-        barChart.getAxes().yAxisInstance().setLabel(_("Number of tasks"));
+        barChart.getAxes().yAxisInstance().setLabel(helperi18n("Number of tasks"));
 
         renderChart(barChart, divId);
     }
@@ -245,7 +245,7 @@ public class DashboardController extends GenericForwardComposer {
         final String divId = "estimation-accuracy";
 
         BarChart<Integer> barChart;
-        barChart = new BarChart<>(_("Estimation deviation on completed tasks"));
+        barChart = new BarChart<>(helperi18n("Estimation deviation on completed tasks"));
 
         barChart.setFillZero(true);
         barChart.setHighlightMouseDown(true);
@@ -263,22 +263,22 @@ public class DashboardController extends GenericForwardComposer {
 
         barChart.getAxes()
                 .getXaxis()
-                .setLabel(_("% Deviation interval (difference % between consumed and estimated hours)"));
+                .setLabel(helperi18n("% Deviation interval (difference % between consumed and estimated hours)"));
 
-        barChart.getAxes().yAxisInstance().setLabel(_("Number of tasks"));
+        barChart.getAxes().yAxisInstance().setLabel(helperi18n("Number of tasks"));
 
         renderChart(barChart, divId);
     }
 
     private String statusLegend(TaskStatusEnum status, Map<TaskStatusEnum, Integer> taskStatus) {
-        return _(status.toString()) + String.format(_(" (%d tasks)"), taskStatus.get(status));
+        return helperi18n(status.toString()) + String.format(helperi18n(" (%d tasks)"), taskStatus.get(status));
     }
 
     private void renderTaskStatus() {
         final String divId = "task-status";
 
         Map<TaskStatusEnum, Integer> taskStatus = dashboardModel.calculateTaskStatus();
-        PieChart<Number> taskStatusPieChart = new PieChart<>(_("Task Status"));
+        PieChart<Number> taskStatusPieChart = new PieChart<>(helperi18n("Task Status"));
 
         taskStatusPieChart.addValue(
                 statusLegend(TaskStatusEnum.FINISHED, taskStatus),

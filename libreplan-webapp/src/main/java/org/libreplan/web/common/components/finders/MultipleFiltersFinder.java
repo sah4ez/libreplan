@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 abstract class MultipleFiltersFinder implements IMultipleFiltersFinder {
 
@@ -198,7 +198,7 @@ abstract class MultipleFiltersFinder implements IMultipleFiltersFinder {
             labelPattern.setParent(item);
 
             final Listcell labelType = new Listcell();
-            labelType.setLabel(_(filterPair.getTypeComplete()));
+            labelType.setLabel(helperi18n(filterPair.getTypeComplete()));
             labelType.setParent(item);
 
         }

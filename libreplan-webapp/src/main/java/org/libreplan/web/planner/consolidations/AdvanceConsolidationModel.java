@@ -21,7 +21,7 @@
 
 package org.libreplan.web.planner.consolidations;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -455,7 +455,7 @@ public class AdvanceConsolidationModel implements IAdvanceConsolidationModel {
     }
 
     private String getInfoAdvanceAssignment(DirectAdvanceAssignment assignment) {
-        return assignment == null || assignment.getMaxValue() == null ? "" : _("( max: {0} )", assignment.getMaxValue());
+        return assignment == null || assignment.getMaxValue() == null ? "" : helperi18n("( max: {0} )", assignment.getMaxValue());
     }
 
     private List<AdvanceMeasurement> getAdvances() {
@@ -478,8 +478,8 @@ public class AdvanceConsolidationModel implements IAdvanceConsolidationModel {
 
     public String infoMessages() {
         return !getAdvances().isEmpty()
-                ? _("Progress cannot be consolidated.")
-                : _("There is not any assigned progress to current task");
+                ? helperi18n("Progress cannot be consolidated.")
+                : helperi18n("There is not any assigned progress to current task");
     }
 
     public void setConsolidationDTOs(List<AdvanceConsolidationDTO> consolidationDTOs) {

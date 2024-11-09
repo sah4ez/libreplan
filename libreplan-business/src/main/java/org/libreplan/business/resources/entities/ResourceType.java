@@ -19,7 +19,7 @@
 
 package org.libreplan.business.resources.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 /**
  * Enumerate with the three basic types of resource: non-limiting, limiting and strategic.
@@ -27,8 +27,8 @@ import static org.libreplan.business.i18n.I18nHelper._;
  */
 public enum ResourceType {
 
-    NON_LIMITING_RESOURCE(_("Normal resource")),
-    LIMITING_RESOURCE(_("Queue-based resource"));
+    NON_LIMITING_RESOURCE(helperi18n("Normal resource")),
+    LIMITING_RESOURCE(helperi18n("Queue-based resource"));
 
     private String option;
 

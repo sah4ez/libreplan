@@ -21,7 +21,7 @@
 
 package org.libreplan.business.orders.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 import java.util.EnumSet;
 
@@ -33,15 +33,15 @@ import java.util.EnumSet;
  */
 public enum OrderStatusEnum {
 
-    PRE_SALES(_("PRE-SALES"), 0),
-    OFFERED(_("OFFERED"), 1),
-    OUTSOURCED(_("OUTSOURCED"), 2),
-    ACCEPTED(_("ACCEPTED"), 3),
-    STARTED(_("STARTED"), 4),
-    ON_HOLD(_("ON HOLD"), 5),
-    FINISHED(_("FINISHED"), 6),
-    CANCELLED(_("CANCELLED"), 7),
-    STORED(_("ARCHIVED"), 8);
+    PRE_SALES(helperi18n("PRE-SALES"), 0),
+    OFFERED(helperi18n("OFFERED"), 1),
+    OUTSOURCED(helperi18n("OUTSOURCED"), 2),
+    ACCEPTED(helperi18n("ACCEPTED"), 3),
+    STARTED(helperi18n("STARTED"), 4),
+    ON_HOLD(helperi18n("ON HOLD"), 5),
+    FINISHED(helperi18n("FINISHED"), 6),
+    CANCELLED(helperi18n("CANCELLED"), 7),
+    STORED(helperi18n("ARCHIVED"), 8);
 
     private String description;
 

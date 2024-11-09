@@ -74,7 +74,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 /**
  * Model to manage UI operations from main template.
@@ -326,11 +326,11 @@ public class TemplateModel implements ITemplateModel {
     }
 
     private IDesktopUpdate showStart(final int ordersNumber) {
-        return sendMessage(_("Reassigning {0} projects", ordersNumber));
+        return sendMessage(helperi18n("Reassigning {0} projects", ordersNumber));
     }
 
     private IDesktopUpdate showProgress(int remaining) {
-        return sendMessage(_("{0} projects remaining to reassign", remaining));
+        return sendMessage(helperi18n("{0} projects remaining to reassign", remaining));
     }
 
     private IDesktopUpdate sendMessage(final String message) {

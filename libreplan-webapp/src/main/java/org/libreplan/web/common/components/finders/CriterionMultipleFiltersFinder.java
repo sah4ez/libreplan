@@ -40,7 +40,7 @@ public class CriterionMultipleFiltersFinder extends MultipleFiltersFinder {
     /**
      * Forces to mark the string as needing translation
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

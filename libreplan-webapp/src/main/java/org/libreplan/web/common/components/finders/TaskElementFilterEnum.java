@@ -31,12 +31,12 @@ import org.libreplan.business.planner.entities.TaskElement;
  */
 public enum TaskElementFilterEnum implements IFilterEnum {
 
-    Criterion(_("Criterion")), Label(_("Label")), Resource(_("Resource"));
+    Criterion(helperi18n("Criterion")), Label(helperi18n("Label")), Resource(helperi18n("Resource"));
 
     /**
      * Forces to mark the string as needing translation
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

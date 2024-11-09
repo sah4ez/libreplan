@@ -19,7 +19,7 @@
 
 package org.libreplan.web.util;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import org.libreplan.business.common.exceptions.ValidationException;
 import org.libreplan.business.common.exceptions.ValidationException.InvalidValue;
@@ -49,14 +49,14 @@ public class ValidationExceptionPrinter {
     }
 
     private static void showAt(Component comp, InvalidValue invalidValue) {
-        throw new WrongValueException(comp, _(invalidValue.getMessage()));
+        throw new WrongValueException(comp, helperi18n(invalidValue.getMessage()));
     }
 
     private static void showAt(Grid comp, InvalidValue invalidValue) {
         Row row = ComponentsFinder.findRowByValue(comp,
                 invalidValue.getInvalidValue());
         if (row != null) {
-            throw new WrongValueException(row, _(invalidValue.getMessage()));
+            throw new WrongValueException(row, helperi18n(invalidValue.getMessage()));
         }
     }
 

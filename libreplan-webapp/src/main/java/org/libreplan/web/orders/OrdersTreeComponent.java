@@ -20,7 +20,7 @@
  */
 package org.libreplan.web.orders;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,14 +66,14 @@ public class OrdersTreeComponent extends TreeComponent {
         columns.add(codeColumn);
         columns.add(nameAndDescriptionColumn);
 
-        columns.add(new OrdersTreeColumn(_("Hours"), "hours", _("Total task hours")) {
+        columns.add(new OrdersTreeColumn(helperi18n("Hours"), "hours", helperi18n("Total task hours")) {
             @Override
             protected void doCell(OrderElementTreeitemRenderer treeRenderer, OrderElement currentElement) {
                 treeRenderer.addHoursCell(currentElement);
             }
         });
 
-        columns.add(new OrdersTreeColumn(_("Budget"), "budget", _("Total task budget")) {
+        columns.add(new OrdersTreeColumn(helperi18n("Budget"), "budget", helperi18n("Total task budget")) {
             @Override
             protected void doCell(OrderElementTreeitemRenderer treeRenderer, OrderElement currentElement) {
                 treeRenderer.addBudgetCell(currentElement);
@@ -81,7 +81,7 @@ public class OrdersTreeComponent extends TreeComponent {
         });
 
         if (resourcesBudgetEnabled) {
-            columns.add(new OrdersTreeColumn(_("Expenses"), "budget", _("Budget minus resources costs")) {
+            columns.add(new OrdersTreeColumn(helperi18n("Expenses"), "budget", helperi18n("Budget minus resources costs")) {
                 @Override
                 protected void doCell(OrderElementTreeitemRenderer treeRenderer, OrderElement currentElement) {
                     treeRenderer.addResourcesBudgetCell(currentElement);
@@ -90,9 +90,9 @@ public class OrdersTreeComponent extends TreeComponent {
         }
 
         columns.add(new OrdersTreeColumn(
-                _("Must start after"),
+                helperi18n("Must start after"),
                 "estimated_init",
-                _("Estimated start date for the task " +
+                helperi18n("Estimated start date for the task " +
                         "(press enter in textbox to open calendar popup or type in date directly)")) {
 
             @Override
@@ -102,9 +102,9 @@ public class OrdersTreeComponent extends TreeComponent {
         });
 
         columns.add(new OrdersTreeColumn(
-                _("Deadline"),
+                helperi18n("Deadline"),
                 "estimated_end",
-                _("Estimated end date for the task " +
+                helperi18n("Estimated end date for the task " +
                         "(press enter in textbox to open calendar popup or type in date directly)")) {
 
             @Override

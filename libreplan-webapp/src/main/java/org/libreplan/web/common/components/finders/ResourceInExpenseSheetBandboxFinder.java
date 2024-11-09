@@ -41,12 +41,12 @@ public class ResourceInExpenseSheetBandboxFinder extends BandboxFinder implement
     @Autowired
     private IResourceDAO resourceDAO;
 
-    private final String headers[] = { _("Resource name (Resource code)"), _("Type") };
+    private final String headers[] = { helperi18n("Resource name (Resource code)"), helperi18n("Type") };
 
     /**
      * Forces to mark the string as needing translation
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

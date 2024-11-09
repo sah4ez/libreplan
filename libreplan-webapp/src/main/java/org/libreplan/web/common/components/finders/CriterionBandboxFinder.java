@@ -41,7 +41,7 @@ public class CriterionBandboxFinder extends BandboxFinder implements IBandboxFin
     @Autowired
     private ICriterionDAO criterionDAO;
 
-    private final String headers[] = { _("Type"), _("Criterion Name") };
+    private final String headers[] = { helperi18n("Type"), helperi18n("Criterion Name") };
 
     private final ListitemRenderer orderRenderer = (item, data, i) -> {
         Criterion criterion = (Criterion)data;
@@ -59,7 +59,7 @@ public class CriterionBandboxFinder extends BandboxFinder implements IBandboxFin
     /**
      * Forces to mark the string as needing translation.
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

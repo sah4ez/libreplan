@@ -29,7 +29,7 @@
         <intercept-url pattern="/ws/rest/**" access="hasAnyRole('ROLE_WS_WRITER')" method="DELETE" />
 
         <!-- Web application -->
-        <intercept-url pattern="/common/img/**" access="permitAll" />
+        <intercept-url pattern="/common/img/**" access="permitAll" ></intercept-url>
         <intercept-url pattern="/common/css/**" access="permitAll" />
         <intercept-url pattern="/planner/css/**" access="permitAll" />
         <intercept-url pattern="/callback/**" access="permitAll" />

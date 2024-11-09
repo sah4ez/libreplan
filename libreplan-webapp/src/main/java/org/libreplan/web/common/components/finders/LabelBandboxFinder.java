@@ -48,12 +48,12 @@ public class LabelBandboxFinder extends BandboxFinder implements IBandboxFinder 
     @Autowired
     private ILabelDAO labelDAO;
 
-    private final String headers[] = { _("Type"), _("Name") };
+    private final String headers[] = { helperi18n("Type"), helperi18n("Name") };
 
     /**
      * Forces to mark the string as needing translation.
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

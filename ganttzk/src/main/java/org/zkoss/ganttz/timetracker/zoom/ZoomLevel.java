@@ -31,7 +31,7 @@ import org.joda.time.LocalDate;
  */
 public enum ZoomLevel {
 
-    DETAIL_ONE(_("Year")) {
+    DETAIL_ONE(helperi18n("Year")) {
         @Override
         public TimeTrackerState getTimeTrackerState(IDetailItemModifier firstLevel, IDetailItemModifier secondLevel) {
             return new DetailOneTimeTrackerState(firstLevel, secondLevel);
@@ -43,7 +43,7 @@ public enum ZoomLevel {
         }
     },
 
-    DETAIL_TWO(_("Quarter")) {
+    DETAIL_TWO(helperi18n("Quarter")) {
         @Override
         public TimeTrackerState getTimeTrackerState(IDetailItemModifier firstLevel, IDetailItemModifier secondLevel) {
             return new DetailTwoTimeTrackerState(firstLevel, secondLevel);
@@ -55,7 +55,7 @@ public enum ZoomLevel {
         }
     },
 
-    DETAIL_THREE(_("Month")) {
+    DETAIL_THREE(helperi18n("Month")) {
         @Override
         public TimeTrackerState getTimeTrackerState(IDetailItemModifier firstLevel, IDetailItemModifier secondLevel) {
             return new DetailThreeTimeTrackerState(firstLevel, secondLevel);
@@ -67,7 +67,7 @@ public enum ZoomLevel {
         }
     },
 
-    DETAIL_FOUR(_("Week")) {
+    DETAIL_FOUR(helperi18n("Week")) {
         @Override
         public TimeTrackerState getTimeTrackerState(IDetailItemModifier firstLevel, IDetailItemModifier secondLevel) {
             return new DetailFourTimeTrackerState(firstLevel, secondLevel);
@@ -79,7 +79,7 @@ public enum ZoomLevel {
         }
     },
 
-    DETAIL_FIVE(_("Day")) {
+    DETAIL_FIVE(helperi18n("Day")) {
         @Override
         public TimeTrackerState getTimeTrackerState(IDetailItemModifier firstLevel, IDetailItemModifier secondLevel) {
             return new DetailFiveTimeTrackerState(firstLevel, secondLevel);
@@ -100,7 +100,7 @@ public enum ZoomLevel {
     /**
      * Forces to mark the string as needing translation.
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 
@@ -129,7 +129,7 @@ public enum ZoomLevel {
 
     @Override
     public String toString() {
-        return _(internalName);
+        return helperi18n(internalName);
     }
 
     public static ZoomLevel getFromString(String zoomLevelParameter) {

@@ -20,7 +20,7 @@
  */
 package org.libreplan.web.templates;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +57,7 @@ public class TemplatesTreeComponent extends TreeComponent {
     }
 
     public String getAddElementLabel() {
-        return _("New Template element");
+        return helperi18n("New Template element");
     }
 
     public boolean isCreateTemplateEnabled() {
@@ -65,7 +65,7 @@ public class TemplatesTreeComponent extends TreeComponent {
     }
 
     public String getRemoveElementLabel() {
-        return _("Delete Template element");
+        return helperi18n("Delete Template element");
     }
 
     @Override
@@ -75,28 +75,28 @@ public class TemplatesTreeComponent extends TreeComponent {
         result.add(schedulingStateColumn);
         result.add(nameAndDescriptionColumn);
 
-        result.add(new TemplatesTreeColumn(_("Hours"), "hours") {
+        result.add(new TemplatesTreeColumn(helperi18n("Hours"), "hours") {
             @Override
             protected void doCell(TemplatesTreeRenderer renderer, Treeitem item, OrderElementTemplate currentElement) {
                 renderer.addHoursCell(currentElement);
             }
         });
 
-        result.add(new TemplatesTreeColumn(_("Budget"), "budget") {
+        result.add(new TemplatesTreeColumn(helperi18n("Budget"), "budget") {
             @Override
             protected void doCell(TemplatesTreeRenderer renderer, Treeitem item, OrderElementTemplate currentElement) {
                 renderer.addBudgetCell(currentElement);
             }
         });
 
-        result.add(new TemplatesTreeColumn(_("Must start after (days since project start)"), "estimated_init") {
+        result.add(new TemplatesTreeColumn(helperi18n("Must start after (days since project start)"), "estimated_init") {
             @Override
             protected void doCell(TemplatesTreeRenderer renderer, Treeitem item, OrderElementTemplate currentElement) {
                 renderer.addInitCell(currentElement);
             }
         });
 
-        result.add(new TemplatesTreeColumn(_("Deadline (days since project start)"), "estimated_end") {
+        result.add(new TemplatesTreeColumn(helperi18n("Deadline (days since project start)"), "estimated_end") {
             @Override
             protected void doCell(TemplatesTreeRenderer renderer, Treeitem item, OrderElementTemplate currentElement) {
                 renderer.addEndCell(currentElement);

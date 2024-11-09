@@ -21,7 +21,7 @@
 
 package org.libreplan.web.planner.consolidations;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.List;
 
@@ -106,8 +106,8 @@ public class AdvanceConsolidationController extends GenericForwardComposer {
         String infoAdvanceAssignment = advanceConsolidationModel.getInfoAdvanceAssignment();
 
         return infoAdvanceAssignment.isEmpty()
-                ? _("Progress measurements")
-                : _("Progress measurements") + ": " + infoAdvanceAssignment;
+                ? helperi18n("Progress measurements")
+                : helperi18n("Progress measurements") + ": " + infoAdvanceAssignment;
     }
 
     public List<AdvanceConsolidationDTO> getAdvances() {

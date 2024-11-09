@@ -45,7 +45,7 @@ import org.zkoss.zkplus.spring.SpringUtil;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 /**
  * Controller for Criterions.
@@ -93,8 +93,8 @@ public class CriterionAdminController extends BaseCRUDController<CriterionType> 
 
     private void showConfirmingHierarchyWindow() {
         int status = Messagebox.show(
-                _("Disable hierarchy will cause criteria tree to be flattened. Are you sure?"),
-                _("Question"), Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
+                helperi18n("Disable hierarchy will cause criteria tree to be flattened. Are you sure?"),
+                helperi18n("Question"), Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
 
         if (Messagebox.OK == status) {
             disableHierarchy();
@@ -109,7 +109,7 @@ public class CriterionAdminController extends BaseCRUDController<CriterionType> 
 
         messagesForUser.showMessage(
                 Level.INFO,
-                _("Tree {0} sucessfully flattened", criterionsModel.getCriterionType().getName()));
+                helperi18n("Tree {0} sucessfully flattened", criterionsModel.getCriterionType().getName()));
 
         Util.reloadBindings(listWindow);
     }
@@ -146,7 +146,7 @@ public class CriterionAdminController extends BaseCRUDController<CriterionType> 
 
     private void setupResourceCombobox(Combobox combo) {
         for (ResourceEnum resource : ResourceEnum.values()) {
-            Comboitem item = combo.appendItem(_(resource.getDisplayName()));
+            Comboitem item = combo.appendItem(helperi18n(resource.getDisplayName()));
             item.setValue(resource);
         }
     }
@@ -197,12 +197,12 @@ public class CriterionAdminController extends BaseCRUDController<CriterionType> 
 
     @Override
     protected String getEntityType() {
-        return _("Criterion Type");
+        return helperi18n("Criterion Type");
     }
 
     @Override
     protected String getPluralEntityType() {
-        return _("Criterion Types");
+        return helperi18n("Criterion Types");
     }
 
     @Override
@@ -248,7 +248,7 @@ public class CriterionAdminController extends BaseCRUDController<CriterionType> 
         if (!criterionsModel.canRemove(criterionType)) {
             messagesForUser.showMessage(
                     Level.WARNING,
-                    _("This criterion type cannot be deleted because it is assigned to projects or resources"));
+                    helperi18n("This criterion type cannot be deleted because it is assigned to projects or resources"));
 
             return false;
         }

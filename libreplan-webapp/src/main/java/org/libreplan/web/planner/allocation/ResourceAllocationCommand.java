@@ -21,7 +21,7 @@
 
 package org.libreplan.web.planner.allocation;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import org.libreplan.business.planner.entities.Task;
 import org.libreplan.business.planner.entities.TaskElement;
@@ -68,7 +68,7 @@ public class ResourceAllocationCommand implements IResourceAllocationCommand {
 
     @Override
     public String getName() {
-        return _("Resource allocation");
+        return helperi18n("Resource allocation");
     }
 
     @Override

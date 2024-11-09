@@ -19,7 +19,7 @@
 
 package org.libreplan.web.users.dashboard;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import org.joda.time.LocalDate;
 import org.libreplan.business.common.entities.PersonalTimesheetsPeriodicityEnum;
@@ -122,12 +122,12 @@ public class PersonalTimesheetDTO {
                         string += " (" + start.toString(MMMM_d_Y_PATTERN) + " - " + end.toString(MMMM_d_Y_PATTERN) + ")";
                     }
                 }
-                return _("Week {0}", string);
+                return helperi18n("Week {0}", string);
 
             case TWICE_MONTHLY:
                 return (date.getDayOfMonth() <= 15)
-                        ? _("{0} 1st fortnight", date.toString(MMMM_d_Y_PATTERN))
-                        : _("{0} 2nd fortnight", date.toString(MMMM_d_Y_PATTERN));
+                        ? helperi18n("{0} 1st fortnight", date.toString(MMMM_d_Y_PATTERN))
+                        : helperi18n("{0} 2nd fortnight", date.toString(MMMM_d_Y_PATTERN));
 
             case MONTHLY:
             default:

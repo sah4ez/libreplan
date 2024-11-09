@@ -21,7 +21,7 @@
 
 package org.libreplan.web.common;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -38,6 +38,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.glassfish.jaxb.runtime.v2.runtime.BinderImpl;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -46,6 +47,7 @@ import org.libreplan.business.common.Configuration;
 import org.libreplan.business.common.Registry;
 import org.springframework.web.context.ContextLoaderListener;
 import org.zkoss.bind.DefaultBinder;
+import org.zkoss.bind.impl.AnnotateBinderHelper;
 import org.zkoss.ganttz.util.ComponentsFinder;
 import org.zkoss.image.AImage;
 import org.zkoss.image.Image;
@@ -53,11 +55,12 @@ import org.zkoss.util.Locales;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.InputEvent;
-import org.zkoss.zkplus.databind.AnnotateDataBinder;
-import org.zkoss.zkplus.databind.DataBinder;
+import org.zkoss.bind.AnnotateBinder;
+import org.zkoss.bind.Binder;
 import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Checkbox;
@@ -150,10 +153,10 @@ public class Util {
         for (Component reload : toReload) {
 
             // TODO resolve deprecated
-            DataBinder binder = Util.getBinder(reload);
+            Binder binder = Util.getBinder(reload);
 
             if (binder != null && (forceReload || notReloadedInThisRequest(reload))) {
-                binder.loadComponent(reload);
+                binder.loadComponent(reload, forceReload);
                 markAsReloadedForThisRequest(reload);
             }
         }
@@ -203,17 +206,17 @@ public class Util {
     public static void saveBindings(Component... toReload) {
         for (Component reload : toReload) {
             /* TODO resolve deprecated */
-            DataBinder binder = Util.getBinder(reload);
+            Binder binder = Util.getBinder(reload);
 
             if (binder != null) {
-                binder.saveComponent(reload);
+                binder.addCommandBinding(reload, Binder.SAVE_EVENT, "", null);
             }
         }
     }
 
     /** TODO resolve deprecated */
-    public static DataBinder getBinder(Component component) {
-        return (DataBinder) component.getAttribute("binder", true);
+    public static Binder getBinder(Component component) {
+        return (Binder) component.getAttribute("binder", true);
     }
 
     public static void executeIgnoringCreationOfBindings(Runnable action) {
@@ -231,7 +234,10 @@ public class Util {
         }
 
         /* TODO resolve deprecated */
-        AnnotateDataBinder binder = new AnnotateDataBinder(result, true);
+        DefaultBinder binder = new DefaultBinder();
+        AnnotateBinderHelper annotatedBinder = new AnnotateBinderHelper(binder);
+        annotatedBinder.initComponentBindings(result);
+        
 
         /*
          * Before it was:
@@ -240,7 +246,7 @@ public class Util {
          * Boolean value for setAttribute() means recursive actions, but in setVariable() it was not so.
          * And after, it still was calling method setAttribute() with (attr1, attr2, !booleanValue).
          */
-        result.setAttribute("binder", binder, false);
+        //result.setAttribute("binder", binder, false);
 
         markAsNotReloadedForThisRequest(result);
     }
@@ -665,7 +671,7 @@ public class Util {
      */
     public static Button createEditButton(EventListener eventListener) {
         Button result = new Button();
-        result.setTooltiptext(_("Edit"));
+        result.setTooltiptext(helperi18n("Edit"));
         result.setSclass("icono");
         result.setImage("/common/img/ico_editar1.png");
         result.setHoverImage("/common/img/ico_editar.png");
@@ -684,7 +690,7 @@ public class Util {
      */
     public static Button createRemoveButton(EventListener eventListener) {
         Button result = new Button();
-        result.setTooltiptext(_("Remove"));
+        result.setTooltiptext(helperi18n("Remove"));
         result.setSclass("icono");
         result.setImage("/common/img/ico_borrar1.png");
         result.setHoverImage("/common/img/ico_borrar.png");
@@ -738,7 +744,7 @@ public class Util {
      */
     public static void ensureUniqueListeners(Component component, String eventName, EventListener... uniqueListeners) {
         // TODO Replace deprecated method
-        Iterator<?> listenerIterator = component.getListenerIterator(eventName);
+        Iterator<?> listenerIterator = component.getEventListeners(eventName).iterator();
 
         while (listenerIterator.hasNext()) {
             listenerIterator.next();

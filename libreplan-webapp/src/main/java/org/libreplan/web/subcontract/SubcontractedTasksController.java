@@ -22,7 +22,7 @@
  */
 package org.libreplan.web.subcontract;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.io.IOException;
 import java.util.List;
@@ -123,7 +123,7 @@ public class SubcontractedTasksController extends GenericForwardComposer {
             row.setTooltiptext(subcontractedTaskData.getWorkDescription());
             appendLabel(row, Util.addCurrencySymbol(subcontractedTaskData.getSubcontractPrice()));
             appendLabel(row, Util.formatDate(subcontractedTaskData.getLastRequiredDeliverDate()));
-            appendLabel(row, _(toString(subcontractedTaskData.getState())));
+            appendLabel(row, helperi18n(toString(subcontractedTaskData.getState())));
             appendOperations(row, subcontractedTaskData);
         }
 
@@ -199,13 +199,13 @@ public class SubcontractedTasksController extends GenericForwardComposer {
         }
 
         private Button getSendButton(final SubcontractedTaskData subcontractedTaskData) {
-            Button sendButton = new Button(_("Send"));
+            Button sendButton = new Button(helperi18n("Send"));
             sendButton.setClass("add-button");
             sendButton.addEventListener(Events.ON_CLICK, event -> {
                 try {
                     subcontractedTasksModel.sendToSubcontractor(subcontractedTaskData);
                     messagesForUser.showMessage(Level.INFO,
-                            _("Subcontracted task sent successfully"));
+                            helperi18n("Subcontracted task sent successfully"));
                 } catch (UnrecoverableErrorServiceException e) {
                     messagesForUser.showMessage(Level.ERROR, e.getMessage());
                 } catch (ConnectionProblemsException e) {

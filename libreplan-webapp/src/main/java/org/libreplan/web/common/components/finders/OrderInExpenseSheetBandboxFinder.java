@@ -41,12 +41,12 @@ public class OrderInExpenseSheetBandboxFinder extends BandboxFinder implements I
     @Autowired
     private IOrderDAO orderDAO;
 
-    private final String headers[] = { _("Project name (Project code)") };
+    private final String headers[] = { helperi18n("Project name (Project code)") };
 
     /**
      * Forces to mark the string as needing translation
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

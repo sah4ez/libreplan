@@ -19,7 +19,7 @@
 
 package org.libreplan.web.orders;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -135,7 +135,7 @@ class TimSynchronizationController extends GenericForwardComposer {
 
 
     public void startExportToTim() {
-        txtProductCode.setConstraint("no empty:" + _("cannot be empty"));
+        txtProductCode.setConstraint("no empty:" + helperi18n("cannot be empty"));
         try {
             exportTimesheetsToTim.exportTimesheets(txtProductCode.getValue(), getOrder());
 
@@ -144,7 +144,7 @@ class TimSynchronizationController extends GenericForwardComposer {
             shwoImpExpInfo();
 
         } catch (ConnectorException e) {
-            messagesForUser.showMessage(Level.ERROR, _("Exporting timesheets to Tim failed. Check the Tim connector"));
+            messagesForUser.showMessage(Level.ERROR, helperi18n("Exporting timesheets to Tim failed. Check the Tim connector"));
         }
     }
 

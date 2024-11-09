@@ -12,6 +12,31 @@
     <packaging>war</packaging>
     <name>LibrePlan Web Client Module</name>
 
+    <properties>
+        <!-- Explicitly declaring the source encoding eliminates the following
+            message: -->
+        <!-- [WARNING] Using platform encoding (UTF-8 actually) to copy filtered
+            resources, i.e. build is platform dependent! -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- JBoss dependency versions -->
+        <version.wildfly.maven.plugin>5.0.1.Final</version.wildfly.maven.plugin>
+        <version.wildfly.bom>34.0.0.Final</version.wildfly.bom>
+
+        <!--Use JUnit 5 here - the WildFly bom still brings 4.x -->
+        <version.junit5>5.10.1</version.junit5>
+
+        <!-- other plugin versions -->
+        <version.compiler.plugin>3.13.0</version.compiler.plugin>
+        <version.surefire.plugin>3.0.0</version.surefire.plugin>
+        <version.failsafe.plugin>3.5.1</version.failsafe.plugin>
+        <version.war.plugin>3.4.0</version.war.plugin>
+
+        <!-- maven-compiler-plugin -->
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+    </properties>
+
     <profiles>
 
         <profile>
@@ -48,12 +73,12 @@
                             <dependency>
                                 <groupId>net.sf.jasperreports</groupId>
                                 <artifactId>jasperreports</artifactId>
-                                <version>4.7.0</version>
+                                <version>6.19.0</version>
                             </dependency>
                             <dependency>
                                 <groupId>net.sf.jasperreports</groupId>
                                 <artifactId>jasperreports-fonts</artifactId>
-                                <version>4.0.0</version>
+                                <version>6.19.0</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -250,7 +275,147 @@
 
     <build>
         <finalName>libreplan-webapp</finalName>
+        <plugins>
+            <!--Configuration of the maven-compiler-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${version.compiler.plugin}</version>
+                <configuration></configuration>
+            </plugin>
+
+            <!--Build configuration for the WAR plugin: -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>${version.war.plugin}</version>
+                <configuration>
+                    <!-- Jakarta EE doesn't require web.xml, Maven needs to catch up! -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
+            <!-- The WildFly plugin deploys your war to a local JBoss AS container -->
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${version.wildfly.maven.plugin}</version>
+                <configuration>
+                    <feature-packs>
+                        <feature-pack>
+                            <location>org.wildfly:wildfly-galleon-pack:${version.wildfly.bom}</location>
+                        </feature-pack>
+                    </feature-packs>
+                    <layers>
+                        <!-- layers may be used to customize the server to provision-->
+                        <layer>cloud-server</layer>
+                    </layers>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${version.failsafe.plugin}</version>
+                <configuration>
+                    <includes>
+                        <include>**/*IT</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Main Apache Maven Repository</name>
+            <url>https://repo.maven.apache.org/maven2/</url>
+            <layout>default</layout>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+            <id>jboss-public-repository-group</id>
+            <name>JBoss Public Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <name>Main Apache Maven Repository</name>
+            <url>https://repo.maven.apache.org/maven2/</url>
+            <releases>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <releases>
+            </releases>
+            <snapshots>
+            </snapshots>
+            <id>jboss-public-repository-group</id>
+            <name>JBoss Public Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+    <dependencyManagement>
+        <dependencies>
+            <!-- JBoss distributes a complete set of Jakarta EE APIs including
+                a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+                a collection) of artifacts. We use this here so that we always get the correct
+                versions of artifacts (you can read this as the WildFly stack of the Jakarta EE APIs,
+                with some extras tools for your project, such as Arquillian for testing) -->
+            <dependency>
+                <groupId>org.wildfly.bom</groupId>
+                <artifactId>wildfly-ee-with-tools</artifactId>
+                <version>${version.wildfly.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--Define the JUnit5 bom. WildFly BOM still contains JUnit4, so we have to declare a version here -->
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${version.junit5}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- Jasper Reports -->
@@ -353,7 +518,7 @@
 
         <dependency>
             <groupId>org.zkoss.zk</groupId>
-            <artifactId>zkplus</artifactId>
+            <artifactId>zkplus-legacy</artifactId>
         </dependency>
 
         <dependency>
@@ -370,6 +535,7 @@
         <dependency>
             <groupId>org.libreplan</groupId>
             <artifactId>ganttzk</artifactId>
+            <version>1.6.0</version>
         </dependency>
 
         <!-- LibrePlan Business  -->
@@ -405,16 +571,11 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.easymock</groupId>
-            <artifactId>easymockclassextension</artifactId>
-            <scope>test</scope>
-        </dependency>
 
         <!-- Servlet -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
 
         <!-- Java mail -->
@@ -422,12 +583,25 @@
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
         </dependency>
+		<dependency>
+			<groupId>javax.xml.soap</groupId>
+			<artifactId>javax.xml.soap-api</artifactId>
+			<version>1.4.0</version>
+		</dependency>
 
         <!-- JAX-RS API -->
         <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
         </dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
 
         <!-- CXF -->
         <dependency>
@@ -495,6 +669,73 @@
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
+        </dependency>
+
+        <!-- Import the CDI API, we use provided scope as the API is included in WildFly -->
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Import the JAX-RS API, we use provided scope as the API is included in WildFly -->
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Test scope dependencies -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.junit5</groupId>
+            <artifactId>arquillian-junit5-container</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.protocol</groupId>
+            <artifactId>arquillian-protocol-servlet-jakarta</artifactId>
+            <!-- temporary overriding as the 1.9.1.Final version pulled by
+                 WildFly BOM does not exist.
+            -->
+            <version>10.0.0.Final</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.wildfly.arquillian</groupId>
+            <artifactId>wildfly-arquillian-container-managed</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-client</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--See https://issues.redhat.com/browse/WFLY-19779 and https://github.com/wildfly/quickstart/pull/957/
+            httpclient needs commons-logging yet the server uses this instead,
+            to be fully compatible on apps we need to add this dependency whenever commons-logging is needed,
+            but on testing clients like this we could use commons-logging instead -->
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>commons-logging-jboss-logging</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+        	<groupId>org.zkoss.zk</groupId>
+        	<artifactId>zk</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>org.zkoss.zk</groupId>
+        	<artifactId>zkplus</artifactId>
         </dependency>
     </dependencies>
 </project>

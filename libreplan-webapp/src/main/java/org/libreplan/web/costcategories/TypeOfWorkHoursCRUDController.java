@@ -37,7 +37,7 @@ import org.zkoss.zul.Messagebox;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 /**
  * Controller for CRUD actions over a {@link TypeOfWorkHours}
@@ -98,17 +98,17 @@ public class TypeOfWorkHoursCRUDController extends BaseCRUDController<TypeOfWork
     }
 
     private void showCannotDeleteWorkHoursTypeDialog(String message) {
-        Messagebox.show(_(message), _("Warning"), Messagebox.OK, Messagebox.EXCLAMATION);
+        Messagebox.show(helperi18n(message), helperi18n("Warning"), Messagebox.OK, Messagebox.EXCLAMATION);
     }
 
     @Override
     protected String getEntityType() {
-        return _("Hours Type");
+        return helperi18n("Hours Type");
     }
 
     @Override
     protected String getPluralEntityType() {
-        return _("Hours Types");
+        return helperi18n("Hours Types");
     }
 
     @Override

@@ -63,7 +63,7 @@ import javax.ws.rs.core.Response.Status;
 import java.io.*;
 import java.util.*;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 /**
  * Controller for {@link Configuration} entity.
@@ -243,7 +243,7 @@ public class ConfigurationController extends GenericForwardComposer {
                 !areEmailFieldsValid() ) {
 
             messages.clearMessages();
-            messages.showMessage(Level.ERROR, _("Check all fields"));
+            messages.showMessage(Level.ERROR, helperi18n("Check all fields"));
 
         } else {
             ConstraintChecker.isValid(configurationWindow);
@@ -251,7 +251,7 @@ public class ConfigurationController extends GenericForwardComposer {
                 try {
                     configurationModel.confirm();
                     configurationModel.init();
-                    messages.showMessage(Level.INFO, _("Changes saved"));
+                    messages.showMessage(Level.INFO, helperi18n("Changes saved"));
 
                     // Send data to server
                     if (!SecurityUtils.isGatheredStatsAlreadySent && (configurationDAO.getConfigurationWithReadOnlyTransaction() == null || configurationDAO.getConfigurationWithReadOnlyTransaction().isAllowedToGatherUsageStatsEnabled())) {
@@ -262,7 +262,7 @@ public class ConfigurationController extends GenericForwardComposer {
                             !configurationModel.scheduleOrUnscheduleJobs(getSelectedConnector())) {
 
                         messages.showMessage(Level.ERROR,
-                                _("Scheduling or unscheduling of jobs for this connector is not completed"));
+                                helperi18n("Scheduling or unscheduling of jobs for this connector is not completed"));
                     }
 
                     reloadWindow();
@@ -291,7 +291,7 @@ public class ConfigurationController extends GenericForwardComposer {
     public void cancel() {
         configurationModel.cancel();
         messages.clearMessages();
-        messages.showMessage(Level.INFO, _("Changes have been canceled"));
+        messages.showMessage(Level.INFO, helperi18n("Changes have been canceled"));
         reloadWindow();
         reloadEntitySequences();
         reloadConnectors();
@@ -326,10 +326,10 @@ public class ConfigurationController extends GenericForwardComposer {
                     new EqualsFilter(configurationModel.getLdapConfiguration().getLdapUserId(), "test").toString(),
                     "test");
 
-            messages.showMessage(Level.INFO, _("LDAP connection was successful"));
+            messages.showMessage(Level.INFO, helperi18n("LDAP connection was successful"));
         } catch (Exception e) {
             LOG.info(e);
-            messages.showMessage(Level.ERROR, _("Cannot connect to LDAP server"));
+            messages.showMessage(Level.ERROR, helperi18n("Cannot connect to LDAP server"));
         }
     }
 
@@ -341,7 +341,7 @@ public class ConfigurationController extends GenericForwardComposer {
      */
     public void testConnection() {
         if (selectedConnector == null) {
-            messages.showMessage(Level.ERROR, _("Please select a connector to test it"));
+            messages.showMessage(Level.ERROR, helperi18n("Please select a connector to test it"));
             return;
         }
 
@@ -379,9 +379,9 @@ public class ConfigurationController extends GenericForwardComposer {
      */
     private void testTimConnection(String url, String username, String password) {
         if ( TimSoapClient.checkAuthorization(url, username, password) ) {
-            messages.showMessage(Level.INFO, _("Tim connection was successful"));
+            messages.showMessage(Level.INFO, helperi18n("Tim connection was successful"));
         } else {
-            messages.showMessage(Level.ERROR, _("Cannot connet to Tim server"));
+            messages.showMessage(Level.ERROR, helperi18n("Cannot connet to Tim server"));
         }
     }
 
@@ -407,15 +407,15 @@ public class ConfigurationController extends GenericForwardComposer {
             Response response = client.get();
 
             if ( response.getStatus() == Status.OK.getStatusCode() ) {
-                messages.showMessage(Level.INFO, _("JIRA connection was successful"));
+                messages.showMessage(Level.INFO, helperi18n("JIRA connection was successful"));
             } else {
                 LOG.error("Status code: " + response.getStatus());
-                messages.showMessage(Level.ERROR, _("Cannot connect to JIRA server"));
+                messages.showMessage(Level.ERROR, helperi18n("Cannot connect to JIRA server"));
             }
 
         } catch (Exception e) {
             LOG.error(e);
-            messages.showMessage(Level.ERROR, _("Cannot connect to JIRA server"));
+            messages.showMessage(Level.ERROR, helperi18n("Cannot connect to JIRA server"));
         }
     }
 
@@ -462,26 +462,26 @@ public class ConfigurationController extends GenericForwardComposer {
             messages.clearMessages();
             if (transport != null) {
                 if ( transport.isConnected() ) {
-                    messages.showMessage(Level.INFO, _("Connection successful!"));
+                    messages.showMessage(Level.INFO, helperi18n("Connection successful!"));
                 }
                 else if ( !transport.isConnected() ) {
-                    messages.showMessage(Level.WARNING, _("Connection unsuccessful"));
+                    messages.showMessage(Level.WARNING, helperi18n("Connection unsuccessful"));
                 }
             }
         }
         catch (AuthenticationFailedException e) {
             messages.clearMessages();
-            messages.showMessage(Level.ERROR, _("Invalid credentials"));
+            messages.showMessage(Level.ERROR, helperi18n("Invalid credentials"));
         }
         catch (MessagingException e) {
             LOG.error(e);
             messages.clearMessages();
-            messages.showMessage(Level.ERROR, _("Cannot connect"));
+            messages.showMessage(Level.ERROR, helperi18n("Cannot connect"));
         }
         catch (Exception e) {
             LOG.error(e);
             messages.clearMessages();
-            messages.showMessage(Level.ERROR, _("Failed to connect"));
+            messages.showMessage(Level.ERROR, helperi18n("Failed to connect"));
         }
     }
 
@@ -510,7 +510,7 @@ public class ConfigurationController extends GenericForwardComposer {
                 } catch (IllegalArgumentException e) {
                     throw new WrongValueException(
                             digitsBox,
-                            _("number of digits must be between {0} and {1}",
+                            helperi18n("number of digits must be between {0} and {1}",
                                     EntitySequence.MIN_NUMBER_OF_DIGITS, EntitySequence.MAX_NUMBER_OF_DIGITS));
                 }
             }
@@ -818,7 +818,7 @@ public class ConfigurationController extends GenericForwardComposer {
         @Override
         public void render(Listitem listitem, Object o, int i) throws Exception {
             ProgressType progressType = (ProgressType) o;
-            listitem.setLabel(_(progressType.getValue()));
+            listitem.setLabel(helperi18n(progressType.getValue()));
             listitem.setValue(progressType);
         }
     }
@@ -830,7 +830,7 @@ public class ConfigurationController extends GenericForwardComposer {
             final EntityNameEnum entityName = entitySequence.getEntityName();
 
             row.setValue(entityName);
-            row.appendChild(new Label(_("{0} sequences", entityName.getDescription())));
+            row.appendChild(new Label(helperi18n("{0} sequences", entityName.getDescription())));
 
             row.setValue(entitySequence);
             appendActiveRadiobox(row, entitySequence);
@@ -840,7 +840,7 @@ public class ConfigurationController extends GenericForwardComposer {
             appendOperations(row, entitySequence);
 
             if ( entitySequence.isAlreadyInUse() ) {
-                row.setTooltiptext(_("Code sequence is already in use and cannot be updated"));
+                row.setTooltiptext(helperi18n("Code sequence is already in use and cannot be updated"));
             }
 
             if ( (row.getPreviousSibling() != null) &&
@@ -902,7 +902,7 @@ public class ConfigurationController extends GenericForwardComposer {
                         } catch (IllegalArgumentException e) {
                             throw new WrongValueException(
                                     tempIntbox,
-                                    _("number of digits must be between {0} and {1}",
+                                    helperi18n("number of digits must be between {0} and {1}",
                                             EntitySequence.MIN_NUMBER_OF_DIGITS, EntitySequence.MAX_NUMBER_OF_DIGITS));
                         }
                     });
@@ -967,10 +967,10 @@ public class ConfigurationController extends GenericForwardComposer {
         if ( !configurationModel.checkPrefixFormat(sequence) ) {
 
             String message =
-                    _("Invalid format prefix. Format prefix cannot be empty, contain '_' or contain whitespaces.");
+                    helperi18n("Invalid format prefix. Format prefix cannot be empty, contain '_' or contain whitespaces.");
 
             if ( sequence.getEntityName().canContainLowBar() ) {
-                message = _("format prefix invalid. It cannot be empty or contain whitespaces.");
+                message = helperi18n("format prefix invalid. It cannot be empty or contain whitespaces.");
             }
 
             return message;
@@ -990,7 +990,7 @@ public class ConfigurationController extends GenericForwardComposer {
                 } catch (IllegalArgumentException e) {
                     throw new WrongValueException(
                             comp,
-                            _("number of digits must be between {0} and {1}",
+                            helperi18n("number of digits must be between {0} and {1}",
                                     EntitySequence.MIN_NUMBER_OF_DIGITS, EntitySequence.MAX_NUMBER_OF_DIGITS));
                 }
             }
@@ -1012,7 +1012,7 @@ public class ConfigurationController extends GenericForwardComposer {
 
     private void showMessageNotDelete() {
         Messagebox.show(
-                _("It can not be deleted. At least one sequence is necessary."), _("Deleting sequence"),
+                helperi18n("It can not be deleted. At least one sequence is necessary."), helperi18n("Deleting sequence"),
                 Messagebox.OK, Messagebox.INFORMATION);
     }
 
@@ -1041,11 +1041,11 @@ public class ConfigurationController extends GenericForwardComposer {
     public void addNewEntitySequence() {
         if ( entityCombo != null && numDigitBox != null ) {
             if ( entityCombo.getSelectedItem() == null ) {
-                throw new WrongValueException(entityCombo, _("Select entity, please"));
+                throw new WrongValueException(entityCombo, helperi18n("Select entity, please"));
             }
 
             if ( prefixBox.getValue() == null || prefixBox.getValue().isEmpty() ) {
-                throw new WrongValueException(prefixBox, _("cannot be empty"));
+                throw new WrongValueException(prefixBox, helperi18n("cannot be empty"));
             }
 
             try {
@@ -1247,7 +1247,7 @@ public class ConfigurationController extends GenericForwardComposer {
     public ListitemRenderer getPersonalTimesheetsPeriodicityRenderer() {
         return (listitem, o, i) -> {
             PersonalTimesheetsPeriodicityEnum periodicity = (PersonalTimesheetsPeriodicityEnum) o;
-            listitem.setLabel(_(periodicity.getName()));
+            listitem.setLabel(helperi18n(periodicity.getName()));
             listitem.setValue(periodicity);
         };
     }
@@ -1280,7 +1280,7 @@ public class ConfigurationController extends GenericForwardComposer {
      */
     public String getPersonalTimesheetsPeriodicityTooltip() {
         return isPersonalTimesheetsPeriodicityDisabled()
-                ? _("Periocity cannot be changed because there is already any personal timesheet stored")
+                ? helperi18n("Periocity cannot be changed because there is already any personal timesheet stored")
                 : "";
     }
 
@@ -1352,7 +1352,7 @@ public class ConfigurationController extends GenericForwardComposer {
                 ConnectorProperty property = (ConnectorProperty) o;
                 row.setValue(property);
 
-                Util.appendLabel(row, _(property.getKey()));
+                Util.appendLabel(row, helperi18n(property.getKey()));
 
                 if ("Protocol".equals(property.getKey())) {
                     appendValueCombobox(row, property);
@@ -1439,7 +1439,7 @@ public class ConfigurationController extends GenericForwardComposer {
                 return (comp, value) -> {
                     if ( key.equals(PredefinedConnectorProperties.ACTIVATED) ) {
                         if ( !"Y".equalsIgnoreCase((String) value) && !"N".equalsIgnoreCase((String) value)) {
-                            throw new WrongValueException(comp, _("Only {0} allowed", "Y/N"));
+                            throw new WrongValueException(comp, helperi18n("Only {0} allowed", "Y/N"));
                         }
                     } else if ( key.equals(PredefinedConnectorProperties.SERVER_URL) ||
                             key.equals(PredefinedConnectorProperties.USERNAME) ||
@@ -1450,14 +1450,14 @@ public class ConfigurationController extends GenericForwardComposer {
                             key.equals(PredefinedConnectorProperties.EMAIL_SENDER) ||
                             key.equals(PredefinedConnectorProperties.PROTOCOL) ) {
 
-                        ((InputElement) comp).setConstraint("no empty:" + _("cannot be empty"));
+                        ((InputElement) comp).setConstraint("no empty:" + helperi18n("cannot be empty"));
 
                     } else if ( key.equals(PredefinedConnectorProperties.TIM_NR_DAYS_TIMESHEET) ||
                             key.equals(PredefinedConnectorProperties.TIM_NR_DAYS_ROSTER) ||
                             key.equals(PredefinedConnectorProperties.PORT) ) {
 
                         if ( !isNumeric((String) value) ) {
-                            throw new WrongValueException(comp, _("Only digits allowed"));
+                            throw new WrongValueException(comp, helperi18n("Only digits allowed"));
                         }
                     }
                 };
@@ -1561,7 +1561,7 @@ public class ConfigurationController extends GenericForwardComposer {
                 ((org.zkoss.zul.Image) configurationWindow.getFellow(LOGO_PREVIEW_COMPONENT)).setContent(Util.logo);
 
             } else {
-                messages.showMessage(Level.WARNING, _("The only current supported formats are png and jpeg"));
+                messages.showMessage(Level.WARNING, helperi18n("The only current supported formats are png and jpeg"));
             }
         }
     }

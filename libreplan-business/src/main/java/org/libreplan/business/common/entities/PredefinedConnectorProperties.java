@@ -19,7 +19,7 @@
 
 package org.libreplan.business.common.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 /**
  * Simply class to keep constants of {@link ConnectorProperty properties} for LibrePlan {@link Connector connectors}.
@@ -31,20 +31,20 @@ import static org.libreplan.business.i18n.I18nHelper._;
 public class PredefinedConnectorProperties {
 
     // Generic
-    public static String ACTIVATED = _("Activated");
-    public static String SERVER_URL = _("Server URL");
-    public static String USERNAME = _("Username");
-    public static String PASSWORD = _("Password");
+    public static String ACTIVATED = helperi18n("Activated");
+    public static String SERVER_URL = helperi18n("Server URL");
+    public static String USERNAME = helperi18n("Username");
+    public static String PASSWORD = helperi18n("Password");
 
     // Specific for Tim
-    public static String TIM_NR_DAYS_TIMESHEET = _("Number of days timesheet to Tim");
-    public static String TIM_NR_DAYS_ROSTER = _("Number of days roster from Tim");
-    public static String TIM_PRODUCTIVITY_FACTOR = _("Productivity factor");
-    public static String TIM_DEPARTAMENTS_IMPORT_ROSTER = _("Department IDs to import toster");
+    public static String TIM_NR_DAYS_TIMESHEET = helperi18n("Number of days timesheet to Tim");
+    public static String TIM_NR_DAYS_ROSTER = helperi18n("Number of days roster from Tim");
+    public static String TIM_PRODUCTIVITY_FACTOR = helperi18n("Productivity factor");
+    public static String TIM_DEPARTAMENTS_IMPORT_ROSTER = helperi18n("Department IDs to import toster");
 
     // Specific for JIRA
-    public static String JIRA_LABELS = _("JIRA labels: comma-separated list of labels or URL");
-    public static String JIRA_HOURS_TYPE = _("Hours type");
+    public static String JIRA_LABELS = helperi18n("JIRA labels: comma-separated list of labels or URL");
+    public static String JIRA_HOURS_TYPE = helperi18n("Hours type");
 
     /**
      * Code prefix for different entities integrated with JIRA.
@@ -52,11 +52,11 @@ public class PredefinedConnectorProperties {
     public static final String JIRA_CODE_PREFIX = "JIRA-";
 
     // Specific for E-mail
-    public static String PROTOCOL = _("Protocol");
-    public static String HOST = _("Host");
-    public static String PORT = _("Port");
-    public static String EMAIL_SENDER = _("From address (no reply)");
-    public static String EMAIL_USERNAME = _("Username (optional)");
-    public static String EMAIL_PASSWORD = _("Password (optional)");
+    public static String PROTOCOL = helperi18n("Protocol");
+    public static String HOST = helperi18n("Host");
+    public static String PORT = helperi18n("Port");
+    public static String EMAIL_SENDER = helperi18n("From address (no reply)");
+    public static String EMAIL_USERNAME = helperi18n("Username (optional)");
+    public static String EMAIL_PASSWORD = helperi18n("Password (optional)");
 
 }

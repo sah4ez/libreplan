@@ -21,7 +21,7 @@
 
 package org.libreplan.web.externalcompanies;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,9 +119,9 @@ public class ExternalCompanyCRUDController extends BaseCRUDController<ExternalCo
         appURI.setDisabled(false);
         ourCompanyLogin.setDisabled(false);
         ourCompanyPassword.setDisabled(false);
-        appURI.setConstraint("no empty:" + _("cannot be empty"));
-        ourCompanyLogin.setConstraint("no empty:" + _("cannot be empty"));
-        ourCompanyPassword.setConstraint("no empty:" + _("cannot be empty"));
+        appURI.setConstraint("no empty:" + helperi18n("cannot be empty"));
+        ourCompanyLogin.setConstraint("no empty:" + helperi18n("cannot be empty"));
+        ourCompanyPassword.setConstraint("no empty:" + helperi18n("cannot be empty"));
     }
 
     private void disableInteractionFields() {
@@ -135,12 +135,12 @@ public class ExternalCompanyCRUDController extends BaseCRUDController<ExternalCo
 
     @Override
     protected String getEntityType() {
-        return _("Company");
+        return helperi18n("Company");
     }
 
     @Override
     protected String getPluralEntityType() {
-        return _("Companies");
+        return helperi18n("Companies");
     }
 
     @Override
@@ -172,7 +172,7 @@ public class ExternalCompanyCRUDController extends BaseCRUDController<ExternalCo
         if (externalCompanyModel.isAlreadyInUse(company)) {
             messagesForUser.showMessage(
                     Level.WARNING,
-                    _("{0} \"{1}\" can not be deleted because of it is being used", getEntityType(), company.getHumanId()));
+                    helperi18n("{0} \"{1}\" can not be deleted because of it is being used", getEntityType(), company.getHumanId()));
             return false;
         }
         return true;

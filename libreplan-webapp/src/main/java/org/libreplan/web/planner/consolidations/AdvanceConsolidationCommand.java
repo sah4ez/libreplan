@@ -21,7 +21,7 @@
 
 package org.libreplan.web.planner.consolidations;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import org.libreplan.business.planner.entities.Task;
 import org.libreplan.business.planner.entities.TaskElement;
@@ -64,7 +64,7 @@ public class AdvanceConsolidationCommand implements
 
     @Override
     public String getName() {
-        return _("Progress consolidation");
+        return helperi18n("Progress consolidation");
     }
 
     @Override

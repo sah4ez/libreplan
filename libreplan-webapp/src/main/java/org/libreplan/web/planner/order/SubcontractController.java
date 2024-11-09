@@ -21,7 +21,7 @@
 
 package org.libreplan.web.planner.order;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.Date;
 import java.util.List;
@@ -136,7 +136,7 @@ public class SubcontractController extends GenericForwardComposer {
 
     public void addDeliverDate(Datebox newDeliverDate){
         if ( newDeliverDate == null || newDeliverDate.getValue() == null ) {
-            messagesForUser.showMessage(Level.ERROR, _("You must select a valid date. "));
+            messagesForUser.showMessage(Level.ERROR, helperi18n("You must select a valid date. "));
 
             return;
         }
@@ -144,14 +144,14 @@ public class SubcontractController extends GenericForwardComposer {
         if ( thereIsSomeCommunicationDateEmpty() ) {
             messagesForUser.showMessage(
                     Level.ERROR,
-                    _("It will only be possible to add a Deliver Date if " +
+                    helperi18n("It will only be possible to add a Deliver Date if " +
                             "all the deliver date exiting in the table have a CommunicationDate not empty. "));
             return;
         }
         if ( subcontractModel.alreadyExistsRepeatedDeliverDate(newDeliverDate.getValue()) ) {
             messagesForUser.showMessage(
                     Level.ERROR,
-                    _("It already exists a deliver date with the same date. "));
+                    helperi18n("It already exists a deliver date with the same date. "));
             return;
         }
 
@@ -204,7 +204,7 @@ public class SubcontractController extends GenericForwardComposer {
             deleteButton.setSclass("icono");
             deleteButton.setImage("/common/img/ico_borrar1.png");
             deleteButton.setHoverImage("/common/img/ico_borrar.png");
-            deleteButton.setTooltiptext(_("Delete"));
+            deleteButton.setTooltiptext(helperi18n("Delete"));
 
             deleteButton.addEventListener(
                     Events.ON_CLICK, (EventListener) event -> removeRequiredDeliverDate(subcontractorDeliverDate));
@@ -267,10 +267,10 @@ public class SubcontractController extends GenericForwardComposer {
 
         private Button getUpdateButton(final EndDateCommunication endDateFromSubcontractor) {
 
-            Button updateButton = new Button(_("Update task end"));
+            Button updateButton = new Button(helperi18n("Update task end"));
             updateButton.setDisabled(!isUpgradeable(endDateFromSubcontractor));
 
-            updateButton.setTooltiptext(_("Update task end"));
+            updateButton.setTooltiptext(helperi18n("Update task end"));
             updateButton.setSclass("add-button");
 
             updateButton.addEventListener(

@@ -43,7 +43,7 @@ public class UserBandboxFinder extends BandboxFinder implements IBandboxFinder {
     @Autowired
     private IUserDAO userDAO;
 
-    private final String headers[] = { _("Username"), _("Full name") };
+    private final String headers[] = { helperi18n("Username"), helperi18n("Full name") };
 
     private final ListitemRenderer usersRenderer = (item, data, i) -> {
         User user = (User) data;
@@ -57,7 +57,7 @@ public class UserBandboxFinder extends BandboxFinder implements IBandboxFinder {
     /**
      * Forces to mark the string as needing translation.
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

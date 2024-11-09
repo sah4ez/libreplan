@@ -19,6 +19,11 @@
 
 package org.libreplan.importers;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -26,13 +31,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.UUID;
 
-import net.sf.mpxj.DateRange;
+import net.sf.mpxj.LocalTimeRange;
 import net.sf.mpxj.DayType;
 import net.sf.mpxj.Duration;
+import net.sf.mpxj.ProjectCalendarHours;
 import net.sf.mpxj.ProjectCalendar;
-import net.sf.mpxj.ProjectCalendarDateRanges;
 import net.sf.mpxj.ProjectCalendarException;
 import net.sf.mpxj.ProjectCalendarWeek;
 import net.sf.mpxj.ProjectFile;
@@ -124,7 +130,7 @@ public class MPXJProjectFileConverter {
 
         for (ProjectCalendar projectCalendar : derivedProjectCalendars) {
 
-            if (projectCalendar.getResource() == null &&
+            if (projectCalendar.getResources() == null &&
                     projectCalendar.getName() != null && projectCalendar.getName().length() != 0) {
 
                 calendarDTOs.add(toCalendarDTO(projectCalendar));
@@ -195,9 +201,9 @@ public class MPXJProjectFileConverter {
 
         List<CalendarExceptionDTO> calendarExceptionDTOs = new ArrayList<>();
 
-        Date fromDate = projectCalendarException.getFromDate();
+        LocalDate fromDate = projectCalendarException.getFromDate();
 
-        Date toDate  = projectCalendarException.getToDate();
+        LocalDate toDate  = projectCalendarException.getToDate();
 
         Period period = new Period(new DateTime(fromDate), new DateTime(toDate));
 
@@ -206,7 +212,8 @@ public class MPXJProjectFileConverter {
         int day =  period.getDays();
 
         Calendar cal = Calendar.getInstance();
-        cal.setTime(fromDate);
+        Date localFromdate = Date.from(fromDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        cal.setTime(localFromdate);
 
         List<Integer> duration = toHours(projectCalendarException);
 
@@ -299,21 +306,20 @@ public class MPXJProjectFileConverter {
 
         List<CalendarWeekDTO> calendarDataDTOs = new ArrayList<>();
 
-        Date startCalendarDate;
-        Date endCalendarDate;
+        LocalDateTime startCalendarDate;
+        LocalDateTime endCalendarDate;
 
-        if (projectCalendar.getDateRange() == null) {
-            startCalendarDate = projectCalendar.getParentFile().getProjectProperties().getStartDate();
-            endCalendarDate = projectCalendar.getParentFile().getProjectProperties().getFinishDate();
+		startCalendarDate = projectCalendar.getParentFile().getProjectProperties().getStartDate();
+		endCalendarDate = projectCalendar.getParentFile().getProjectProperties().getFinishDate();
+		
+		Date localStartCalendarDate = Date.from(LocalDateTime.ofInstant(startCalendarDate.toInstant((ZoneOffset) ZoneId.systemDefault()),
+				ZoneId.systemDefault()).toInstant(null));
+		Date localEndCalendarDate = Date.from(LocalDateTime.ofInstant(endCalendarDate.toInstant((ZoneOffset) ZoneId.systemDefault()),
+				ZoneId.systemDefault()).toInstant(null));
 
-        } else {
-            startCalendarDate = projectCalendar.getDateRange().getStart();
-            endCalendarDate = projectCalendar.getDateRange().getEnd();
-
-        }
 
         if (workWeeks.isEmpty()) {
-            calendarDataDTOs.add(toCalendarWeekDTO(projectCalendar));
+            calendarDataDTOs.add(toCalendarWeekDTO(projectCalendar.getWorkWeek(null)));
         } else {
 
             /*
@@ -323,51 +329,59 @@ public class MPXJProjectFileConverter {
              *  Including the ones with the default value that are in the middle of two.
              */
 
-            Date firsWorkWeekCalendarDate = workWeeks.get(0).getDateRange().getStart();
+            LocalDate firsWorkWeekCalendarDate = workWeeks.get(0).getDateRange().getStart();
+            Date localFromDate = Date.from(firsWorkWeekCalendarDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
             Calendar calendar1 = Calendar.getInstance();
             Calendar calendar2 = Calendar.getInstance();
 
             // If the star of the first work week is after the start of the default we have to fill the hole
-            if (startCalendarDate.compareTo(firsWorkWeekCalendarDate) < 0) {
-                calendar1.setTime(firsWorkWeekCalendarDate);
+            if (localStartCalendarDate.compareTo(localFromDate) < 0) {
+                calendar1.setTime(localFromDate);
                 calendar1.set(Calendar.DAY_OF_MONTH, -1);
-                calendarDataDTOs.add(toCalendarWeekDTO(projectCalendar));
+                calendarDataDTOs.add(toCalendarWeekDTO(projectCalendar.getWorkWeek(firsWorkWeekCalendarDate)));
             }
 
-            Date endDate;
-            Date nextStartDate;
+            LocalDate endDate;
+            LocalDate nextStartDate;
 
             int j;
             for (int i = 0; i < workWeeks.size(); i++) {
                 endDate = workWeeks.get(i).getDateRange().getEnd();
-                calendarDataDTOs.add(toCalendarWeekDTO(workWeeks.get(i)));
+				Date localEndDate = Date.from(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                ProjectCalendarWeek ww = workWeeks.get(i);
+                calendarDataDTOs.add(toCalendarWeekDTO(ww));
 
                 j = i + 1;
 
                 // If is not the last one
                 if (j < workWeeks.size()) {
                     nextStartDate = workWeeks.get(i + 1).getDateRange().getStart();
-                    calendar1.setTime(endDate);
+
+					Date localNextStartDate = Date.from(nextStartDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                    calendar1.setTime(localEndDate);
                     calendar1.set(Calendar.DAY_OF_MONTH, +1);
 
                     // If the end of the current work week is more than one day before the beginning of the next
-                    if (calendar1.getTime().compareTo(nextStartDate) < 0) {
-                        calendar2.setTime(nextStartDate);
+                    if (calendar1.getTime().compareTo(localNextStartDate) < 0) {
+                        calendar2.setTime(localNextStartDate);
                         calendar1.set(Calendar.DAY_OF_MONTH, -1);
 
                         // Adds a new default calendar week in the hole
-                        calendarDataDTOs.add(toCalendarWeekDTO(projectCalendar));
+                        calendarDataDTOs.add(toCalendarWeekDTO(projectCalendar.getWorkWeek(nextStartDate)));
                     }
                 }
             }
 
-            Date endWorkWeekCalendarDate = workWeeks.get(workWeeks.size()).getDateRange().getEnd();
+            LocalDate endWorkWeekCalendarDate = workWeeks.get(workWeeks.size()).getDateRange().getEnd();
+
+			Date localEndWorkWeekCalendarDate = Date.from(LocalDateTime.ofInstant(endCalendarDate.toInstant((ZoneOffset) ZoneId.systemDefault()),
+				ZoneId.systemDefault()).toInstant(null));
 
             // If the end of the last work week is earlier than the end of the default we have to fill the hole
-            if (endCalendarDate.compareTo(endWorkWeekCalendarDate) > 0) {
-                calendar1.setTime(endWorkWeekCalendarDate);
+            if (localEndCalendarDate.compareTo(localEndWorkWeekCalendarDate) > 0) {
+                calendar1.setTime(localEndWorkWeekCalendarDate);
                 calendar1.set(Calendar.DAY_OF_MONTH, +1);
-                calendarDataDTOs.add(toCalendarWeekDTO(projectCalendar));
+                calendarDataDTOs.add(toCalendarWeekDTO(projectCalendar.getWorkWeek(endWorkWeekCalendarDate)));
             }
 
         }
@@ -386,51 +400,43 @@ public class MPXJProjectFileConverter {
 
         CalendarWeekDTO calendarDataDTO = new CalendarWeekDTO();
 
-        if (projectCalendarWeek.getDateRange() != null) {
 
-            calendarDataDTO.startDate = projectCalendarWeek.getDateRange().getStart();
+		calendarDataDTO.startDate = null;
 
-            calendarDataDTO.endDate = projectCalendarWeek.getDateRange().getEnd();
+		calendarDataDTO.endDate = null;
 
-        } else {
-
-            calendarDataDTO.startDate = null;
-
-            calendarDataDTO.endDate = null;
-
-        }
         List<CalendarDayHoursDTO> calendarDaysHourDTOs = new ArrayList<>();
 
         CalendarDayHoursDTO calendarDayHoursDTO;
 
-        for (int i = 0; i < 7; i++) {
+		for (DayOfWeek i : DayOfWeek.values())
+		{
+				calendarDayHoursDTO = new CalendarDayHoursDTO();
 
-            calendarDayHoursDTO = new CalendarDayHoursDTO();
+				calendarDayHoursDTO.type = toCalendarTypeDayDTO(projectCalendarWeek.getCalendarDayType(i));
+				calendarDayHoursDTO.day = CalendarDayDTO.values()[i.get(null)];
 
-            calendarDayHoursDTO.type = toCalendarTypeDayDTO(projectCalendarWeek.getDays()[i]);
-            calendarDayHoursDTO.day = CalendarDayDTO.values()[i];
+				List<Integer> duration = toHours(projectCalendarWeek.getCalendarHours(i));
 
-            List<Integer> duration = toHours(projectCalendarWeek.getHours()[i]);
+				if (duration != null) {
+					calendarDayHoursDTO.hours = duration.get(0);
 
-            if (duration != null) {
-                calendarDayHoursDTO.hours = duration.get(0);
+					calendarDayHoursDTO.minutes = duration.get(1);
+				} else {
+					if (calendarDayHoursDTO.type == CalendarTypeDayDTO.WORKING) {
+						calendarDayHoursDTO.hours = 8;
+					} else if (calendarDayHoursDTO.type == CalendarTypeDayDTO.NOT_WORKING) {
+						calendarDayHoursDTO.hours = 0;
+					} else if (calendarDayHoursDTO.type == CalendarTypeDayDTO.DEFAULT) {
 
-                calendarDayHoursDTO.minutes = duration.get(1);
-            } else {
-                if (calendarDayHoursDTO.type == CalendarTypeDayDTO.WORKING) {
-                    calendarDayHoursDTO.hours = 8;
-                } else if (calendarDayHoursDTO.type == CalendarTypeDayDTO.NOT_WORKING) {
-                    calendarDayHoursDTO.hours = 0;
-                } else if (calendarDayHoursDTO.type == CalendarTypeDayDTO.DEFAULT) {
+						// TODO Grab the ones form default
+						calendarDayHoursDTO.hours = 0;
+					}
+					calendarDayHoursDTO.minutes = 0;
 
-                    // TODO Grab the ones form default
-                    calendarDayHoursDTO.hours = 0;
-                }
-                calendarDayHoursDTO.minutes = 0;
-
-            }
-            calendarDaysHourDTOs.add(calendarDayHoursDTO);
-        }
+				}
+				calendarDaysHourDTOs.add(calendarDayHoursDTO);
+		}
 
         calendarDataDTO.hoursPerDays = calendarDaysHourDTOs;
 
@@ -464,7 +470,7 @@ public class MPXJProjectFileConverter {
      *            ProjectCalendarDateRanges to extract data from.
      * @return Integer  with the total number of hours or null if the projectCalendarHours is null.
      */
-    private static List<Integer> toHours(ProjectCalendarDateRanges projectCalendarDateRanges) {
+    private static List<Integer> toHours(ProjectCalendarHours projectCalendarDateRanges) {
 
         if (projectCalendarDateRanges != null) {
 
@@ -474,7 +480,7 @@ public class MPXJProjectFileConverter {
 
             int minutes = 0;
 
-            for (DateRange dateRange : projectCalendarDateRanges) {
+            for (LocalTimeRange dateRange : projectCalendarDateRanges) {
 
                 DateTime start = new DateTime(dateRange.getStart());
 
@@ -522,14 +528,14 @@ public class MPXJProjectFileConverter {
 
         properties = file.getProjectProperties();
 
-        importData.startDate = properties.getStartDate();
+        importData.startDate = Date.from(properties.getStartDate().toInstant(null));
 
         importData.tasks = getImportTasks(file.getChildTasks());
 
         importData.milestones = getImportMilestones(file.getChildTasks());
 
         // MPXJ don't provide a deadline for the project so we take the finish date
-        importData.deadline = properties.getFinishDate();
+        importData.deadline = Date.from(properties.getFinishDate().toInstant(null));
 
         importData.dependencies = createDependencies();
 
@@ -633,11 +639,10 @@ public class MPXJProjectFileConverter {
         mapTask = new HashMap<>();
 
         properties = file.getProjectProperties();
-
-        importData.startDate = properties.getStartDate();
+        importData.startDate = Date.from(properties.getStartDate().toInstant(null));
 
         // MPXJ doesn't provide a deadline for the project so we take the finish date
-        importData.deadline = properties.getFinishDate();
+        importData.deadline = Date.from(properties.getFinishDate().toInstant(null));
 
         for (Task task : file.getChildTasks()) {
             // Projects are represented as a level 0 task with all real task as its children.
@@ -714,7 +719,8 @@ public class MPXJProjectFileConverter {
 
         milestone.name = task.getName();
 
-        milestone.startDate = task.getStart();
+        Date localGetStart = Date.from(task.getStart().toInstant(null));
+        milestone.startDate = localGetStart;
 
         toLibreplanConstraint(task);
 
@@ -798,13 +804,13 @@ public class MPXJProjectFileConverter {
 
         importTask.name = task.getName();
 
-        importTask.startDate = task.getStart();
+        importTask.startDate = Date.from(task.getStart().toInstant(null));
 
-        importTask.endDate = task.getFinish();
+        importTask.endDate = Date.from(task.getFinish().toInstant(null));
 
         importTask.totalHours = durationToIntHours(task.getDuration(), properties);
 
-        importTask.deadline = task.getDeadline();
+        importTask.deadline = Date.from(task.getDeadline().toInstant(null));
 
         toLibreplanConstraint(task);
 
@@ -835,17 +841,17 @@ public class MPXJProjectFileConverter {
 
             case AS_SOON_AS_POSSIBLE:
                 constraint = ConstraintDTO.AS_SOON_AS_POSSIBLE;
-                constraintDate = task.getConstraintDate();
+                constraintDate = Date.from(task.getConstraintDate().toInstant(null));
                 return;
 
             case AS_LATE_AS_POSSIBLE:
                 constraint = ConstraintDTO.AS_LATE_AS_POSSIBLE;
-                constraintDate = task.getConstraintDate();
+                constraintDate = Date.from(task.getConstraintDate().toInstant(null));;
                 return;
 
             case MUST_START_ON:
                 constraint = ConstraintDTO.START_IN_FIXED_DATE;
-                constraintDate = task.getConstraintDate();
+                constraintDate = Date.from(task.getConstraintDate().toInstant(null));;
                 return;
 
             case MUST_FINISH_ON:
@@ -855,7 +861,7 @@ public class MPXJProjectFileConverter {
 
             case START_NO_EARLIER_THAN:
                 constraint = ConstraintDTO.START_NOT_EARLIER_THAN;
-                constraintDate = task.getConstraintDate();
+                constraintDate = Date.from(task.getConstraintDate().toInstant(null));;
                 return;
 
             case START_NO_LATER_THAN:
@@ -870,7 +876,7 @@ public class MPXJProjectFileConverter {
 
             case FINISH_NO_LATER_THAN:
                 constraint = ConstraintDTO.FINISH_NOT_LATER_THAN;
-                constraintDate = task.getConstraintDate();
+                constraintDate = Date.from(task.getConstraintDate().toInstant(null));;
                 return;
 
             default:
@@ -888,8 +894,8 @@ public class MPXJProjectFileConverter {
      */
     private static Date recalculateConstraintDateSum(Task task) {
 
-        return new Date(task.getConstraintDate().getTime() +
-                (durationToIntHours(task.getDuration(), properties) * 60 * 60 * 1000));
+        return new Date((task.getConstraintDate().getHour() +
+                (durationToIntHours(task.getDuration(), properties)) * 60 * 60 * 1000));
     }
 
     /**
@@ -901,7 +907,7 @@ public class MPXJProjectFileConverter {
      */
     private static Date recalculateConstraintDateMin(Task task) {
 
-        return new Date(task.getConstraintDate().getTime() -
-                (durationToIntHours(task.getDuration(), properties) * 60 * 60 * 1000));
+        return new Date((task.getConstraintDate().getHour() -
+                (durationToIntHours(task.getDuration(), properties)) * 60 * 60 * 1000));
     }
 }

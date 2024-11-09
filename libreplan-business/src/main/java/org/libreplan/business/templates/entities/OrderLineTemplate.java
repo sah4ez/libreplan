@@ -20,7 +20,7 @@
  */
 package org.libreplan.business.templates.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -163,7 +163,7 @@ public class OrderLineTemplate extends OrderElementTemplate {
 
     @Override
     public String getType() {
-        return _("Line");
+        return helperi18n("Line");
     }
 
     public Integer getWorkHours() {

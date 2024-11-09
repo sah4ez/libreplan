@@ -27,15 +27,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.ByteArrayInputStream;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.xml.DOMConfigurator;
 
+import org.apache.logging.log4j.core.config.ConfigurationSource;
+import org.apache.logging.log4j.core.config.xml.XmlConfigurationFactory;
+import org.apache.logging.log4j.core.config.Configuration;
+import org.apache.logging.log4j.core.config.ConfigurationFactory;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.LogManager;
 /**
+ * 
  * It tries to replace ${log-directory} property for a suitable location.
  *
  * @author Oscar Gonzalez Fernandez <ogonzalez@igalia.com>
@@ -57,7 +63,13 @@ public class LoggingConfiguration implements ServletContextListener {
         replacements.put("libreplan-log-directory", findLogDirectory(sce.getServletContext()));
         try {
             StringReader newConfiguration = new StringReader(getContents(replacements));
-            new DOMConfigurator().doConfigure(newConfiguration, LogManager.getLoggerRepository());
+        	byte[] bytes = newConfiguration.toString().getBytes();
+        	ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+            ConfigurationSource source = new ConfigurationSource(bais);
+        	ConfigurationFactory factory = ConfigurationFactory.getInstance();
+            Configuration configuration = factory.getConfiguration(LoggerContext.getContext(), source);
+            LoggerContext context = (LoggerContext) LogManager.getContext(false);
+            context.start(configuration);
         } catch (IOException e) {
             e.printStackTrace();
             // Let log4j be loaded without replacements

@@ -34,14 +34,10 @@ public class I18nHelper {
     }
 
     /**
-     * TODO It should be changed since JDK9
-     *
-     * Use of '_' as an identifier might not be supported in releases after Java SE 8.
-     *
      * @param text
      * @return Text depends on locale
      */
-    public static String _(String text) {
+    public static String helperi18n(String text) {
         return text;
     }
 

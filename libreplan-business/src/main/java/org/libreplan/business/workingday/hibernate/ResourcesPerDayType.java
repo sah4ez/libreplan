@@ -30,6 +30,7 @@ import java.sql.Types;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.usertype.UserType;
 import org.libreplan.business.workingday.ResourcesPerDay;
@@ -84,29 +85,28 @@ public class ResourcesPerDayType implements UserType {
     public boolean isMutable() {
         return false;
     }
+    
+	@Override
+	public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner)
+			throws HibernateException, SQLException {
+		 BigDecimal bigDecimal = (BigDecimal) StandardBasicTypes.BIG_DECIMAL
+	                .nullSafeGet(rs, names[0], session);
+	        if (bigDecimal == null) {
+	            return null;
+	        }
+	        return ResourcesPerDay.amount(bigDecimal);
+	}
 
-    @Override
-    public Object nullSafeGet(ResultSet rs, String[] names,
-            SessionImplementor session, Object owner)
-            throws HibernateException, SQLException {
-        BigDecimal bigDecimal = (BigDecimal) StandardBasicTypes.BIG_DECIMAL
-                .nullSafeGet(rs, names[0], session);
-        if (bigDecimal == null) {
-            return null;
-        }
-        return ResourcesPerDay.amount(bigDecimal);
-    }
-
-    @Override
-    public void nullSafeSet(PreparedStatement st, Object value, int index,
-            SessionImplementor session) throws HibernateException, SQLException {
-        BigDecimal amount = null;
+	@Override
+	public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session)
+			throws HibernateException, SQLException {
+		BigDecimal amount = null;
         if (value != null) {
             amount = ((ResourcesPerDay) value).getAmount();
         }
         StandardBasicTypes.BIG_DECIMAL.nullSafeSet(st, amount, index, session);
-
-    }
+		
+	}
 
     @Override
     public Object replace(Object original, Object target, Object owner)
@@ -118,5 +118,6 @@ public class ResourcesPerDayType implements UserType {
     public Class<ResourcesPerDay> returnedClass() {
         return ResourcesPerDay.class;
     }
+
 
 }

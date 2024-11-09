@@ -21,7 +21,7 @@
 
 package org.libreplan.web.common.components.bandboxsearch;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,15 +41,15 @@ import org.zkoss.zk.ui.HtmlMacroComponent;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.InputEvent;
-import org.zkoss.zkplus.databind.DataBinder;
+import org.zkoss.bind.Binder;
 import org.zkoss.zul.Bandbox;
 import org.zkoss.zul.Constraint;
 import org.zkoss.zul.ListModel;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Listhead;
 import org.zkoss.zul.Listheader;
 import org.zkoss.zul.Listitem;
 import org.zkoss.zul.SimpleListModel;
-import org.zkoss.zul.Listbox;
 
 @SuppressWarnings("serial")
 public class BandboxSearch extends HtmlMacroComponent {
@@ -164,10 +164,10 @@ public class BandboxSearch extends HtmlMacroComponent {
         }
 
         /* TODO resolve deprecated */
-        DataBinder binder = Util.getBinder(this);
+        Binder binder = Util.getBinder(this);
 
         if (binder != null) {
-            binder.saveAttribute(this, SELECTED_ELEMENT_ATTRIBUTE);
+            binder.sendCommand(SELECTED_ELEMENT_ATTRIBUTE, this.getAttributes());
         }
     }
 
@@ -203,7 +203,7 @@ public class BandboxSearch extends HtmlMacroComponent {
         final String[] headers = finder.getHeaders();
 
         for (String header : headers) {
-            listhead.getChildren().add(new Listheader(_(header)));
+            listhead.getChildren().add(new Listheader(helperi18n(header)));
         }
     }
 

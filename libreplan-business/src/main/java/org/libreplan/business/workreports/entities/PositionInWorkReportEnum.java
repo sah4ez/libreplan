@@ -24,14 +24,14 @@
  */
 package org.libreplan.business.workreports.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 /**
  * @author Susana Montes Pedreira <smontes@wirelessgalicia.com>
  */
 public enum PositionInWorkReportEnum {
 
-    HEADING(_("heading")), LINE(_("line"));
+    HEADING(helperi18n("heading")), LINE(helperi18n("line"));
 
     private String displayName;
 

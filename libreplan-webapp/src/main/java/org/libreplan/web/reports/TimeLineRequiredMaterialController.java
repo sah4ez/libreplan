@@ -51,7 +51,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 /**
  * @author Susana Montes Pedreira <smontes@wirelessgalicia.com>
@@ -104,13 +104,13 @@ public class TimeLineRequiredMaterialController extends LibrePlanReportControlle
     public void onSelectOrder() {
         Order order = (Order) bdOrders.getSelectedElement();
         if (order == null) {
-            throw new WrongValueException(bdOrders, _("please, select a project"));
+            throw new WrongValueException(bdOrders, helperi18n("please, select a project"));
         }
 
         boolean result = timeLineRequiredMaterialModel.addSelectedOrder(order);
         if (!result) {
             throw new WrongValueException(bdOrders,
-                    _("This project has already been added."));
+                    helperi18n("This project has already been added."));
         } else {
             Util.reloadBindings(lbOrders);
         }
@@ -209,7 +209,7 @@ public class TimeLineRequiredMaterialController extends LibrePlanReportControlle
     }
 
     private String getDefaultStatus() {
-        return _("All");
+        return helperi18n("All");
     }
 
     public String getSelectedStatus(){

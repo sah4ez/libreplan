@@ -74,7 +74,7 @@ import org.zkoss.zkplus.spring.SpringUtil;
 
 import java.util.Map;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 import static org.zkoss.ganttz.adapters.TabsConfiguration.configure;
 
 /**
@@ -210,7 +210,7 @@ public class MultipleTabsPlannerController implements Composer, IGlobalViewEntry
             LongOperationFeedback.execute(tabsSwitcher, new ILongOperation() {
                 @Override
                 public String getName() {
-                    return _("changing perspective");
+                    return helperi18n("changing perspective");
                 }
 
                 @Override
@@ -234,7 +234,7 @@ public class MultipleTabsPlannerController implements Composer, IGlobalViewEntry
     }
 
     public static String getSchedulingLabel() {
-        return _("Planning");
+        return helperi18n("Planning");
     }
 
     public MultipleTabsPlannerController() {
@@ -259,7 +259,7 @@ public class MultipleTabsPlannerController implements Composer, IGlobalViewEntry
                     if ( SecurityUtils.loggedUserCanWrite(mode.getOrder()) ) {
                         ConfirmCloseUtil.setConfirmClose(
                                 desktop,
-                                _("You are about to leave the planning editing. Unsaved changes will be lost!"));
+                                helperi18n("You are about to leave the planning editing. Unsaved changes will be lost!"));
                     }
                     break;
 

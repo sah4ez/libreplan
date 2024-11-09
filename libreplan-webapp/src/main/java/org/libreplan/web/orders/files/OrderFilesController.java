@@ -57,7 +57,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 /**
  * Controller for managing Order files.
@@ -180,7 +180,7 @@ public class OrderFilesController extends GenericForwardComposer {
     public void confirmRemove(OrderFile file){
 
         int status = Messagebox.show(
-                _("Confirm deleting this file. Are you sure?"), _("Delete"),
+                helperi18n("Confirm deleting this file. Are you sure?"), helperi18n("Delete"),
                 Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
 
         if ( Messagebox.OK != status ) {
@@ -280,7 +280,7 @@ public class OrderFilesController extends GenericForwardComposer {
                 updateListbox();
             }
 
-        } else messages.showMessage(Level.ERROR, _("Please, make repository"));
+        } else messages.showMessage(Level.ERROR, helperi18n("Please, make repository"));
 
     }
 

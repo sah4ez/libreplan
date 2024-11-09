@@ -52,7 +52,7 @@ public class NewAllocationSelector extends AllocationSelector {
 
     public enum AllocationType {
 
-        GENERIC_WORKERS(_("generic workers allocation")) {
+        GENERIC_WORKERS(helperi18n("generic workers allocation")) {
             @Override
             public void addTo(NewAllocationSelectorController controller, INewAllocationsAdder allocationsAdder) {
                 allocationsAdder.addGeneric(
@@ -72,7 +72,7 @@ public class NewAllocationSelector extends AllocationSelector {
             }
         },
 
-        GENERIC_MACHINES(_("generic machines allocation")) {
+        GENERIC_MACHINES(helperi18n("generic machines allocation")) {
             @Override
             public void addTo(NewAllocationSelectorController controller, INewAllocationsAdder allocationsAdder) {
                 List<Criterion> criteria = controller.getSelectedCriterions();
@@ -90,7 +90,7 @@ public class NewAllocationSelector extends AllocationSelector {
             }
         },
 
-        SPECIFIC(_("specific allocation")) {
+        SPECIFIC(helperi18n("specific allocation")) {
             @Override
             public void addTo(NewAllocationSelectorController controller, INewAllocationsAdder allocationsAdder) {
                 allocationsAdder.addSpecific(controller.getSelectedWorkers());
@@ -110,7 +110,7 @@ public class NewAllocationSelector extends AllocationSelector {
         /**
          * Forces to mark the string as needing translation.
          */
-        private static String _(String string) {
+        private static String helperi18n(String string) {
             return string;
         }
 
@@ -121,7 +121,7 @@ public class NewAllocationSelector extends AllocationSelector {
         }
 
         public String getName() {
-            return I18nHelper._(name);
+            return I18nHelper.helperi18n(name);
         }
 
         public void doTheSelectionOn(Radiogroup radioGroup) {

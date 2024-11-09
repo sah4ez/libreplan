@@ -110,8 +110,7 @@ public abstract class Finder implements IFinder {
          *            Number of rows (maximum 10, see {@link SimpleListModel}
          */
         public ListModel getSubModel(Object value, int nRows) {
-            // TODO resolve deprecated
-            final String idx = value == null ? "" : objectToString(value);
+            final String idx = value == null ? "" : String.valueOf(value);
 
             if ( nRows < 0 ) {
                 nRows = 10;

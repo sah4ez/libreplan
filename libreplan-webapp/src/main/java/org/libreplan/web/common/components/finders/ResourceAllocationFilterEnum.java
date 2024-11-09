@@ -27,12 +27,12 @@ package org.libreplan.web.common.components.finders;
 
 public enum ResourceAllocationFilterEnum implements IFilterEnum {
 
-    Criterion(_("Criterion")), Resource(_("Resource"));
+    Criterion(helperi18n("Criterion")), Resource(helperi18n("Resource"));
 
     /**
      * Forces to mark the string as needing translation
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

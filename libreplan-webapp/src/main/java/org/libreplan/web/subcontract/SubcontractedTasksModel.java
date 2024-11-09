@@ -20,7 +20,7 @@
  */
 package org.libreplan.web.subcontract;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.io.StringWriter;
 import java.util.Collections;
@@ -235,9 +235,9 @@ public class SubcontractedTasksModel implements ISubcontractedTasksModel {
         } catch (WebApplicationException e) {
             LOG.error(CONNECTION_PROBLEM, e);
 
-            String message = _(CONNECTION_PROBLEM);
+            String message = helperi18n(CONNECTION_PROBLEM);
             if ( e.getMessage() != null ) {
-                message += ". " + _("Error: {0}", e.getMessage());
+                message += ". " + helperi18n("Error: {0}", e.getMessage());
             }
 
             throw new ConnectionProblemsException(message, e);
@@ -272,9 +272,9 @@ public class SubcontractedTasksModel implements ISubcontractedTasksModel {
         } catch (WebApplicationException e) {
             LOG.error(CONNECTION_PROBLEM, e);
 
-            String message = _(CONNECTION_PROBLEM);
+            String message = helperi18n(CONNECTION_PROBLEM);
             if ( e.getMessage() != null ) {
-                message += ". " + _("Error: {0}", e.getMessage());
+                message += ". " + helperi18n("Error: {0}", e.getMessage());
             }
 
             throw new ConnectionProblemsException(message, e);

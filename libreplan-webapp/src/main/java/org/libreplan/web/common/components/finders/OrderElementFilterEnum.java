@@ -33,12 +33,12 @@ import org.libreplan.business.orders.entities.OrderElement;
  */
 public enum OrderElementFilterEnum implements IFilterEnum {
 
-    Criterion(_("Criterion")), Label(_("Label"));
+    Criterion(helperi18n("Criterion")), Label(helperi18n("Label"));
 
     /**
      * Forces to mark the string as needing translation
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

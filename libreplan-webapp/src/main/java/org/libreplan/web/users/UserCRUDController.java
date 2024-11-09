@@ -21,7 +21,7 @@
 
 package org.libreplan.web.users;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -95,9 +95,9 @@ public class UserCRUDController extends BaseCRUDController<User> implements IUse
         row.setValue(user);
 
         Util.appendLabel(row, user.getLoginName());
-        Util.appendLabel(row, user.isDisabled() ? _("Yes") : _("No"));
-        Util.appendLabel(row, user.isSuperuser() ? _("Yes") : _("No"));
-        Util.appendLabel(row, _(user.getUserType().toString()));
+        Util.appendLabel(row, user.isDisabled() ? helperi18n("Yes") : helperi18n("No"));
+        Util.appendLabel(row, user.isSuperuser() ? helperi18n("Yes") : helperi18n("No"));
+        Util.appendLabel(row, helperi18n(user.getUserType().toString()));
         Util.appendLabel(row, user.isBound() ? user.getWorker().getShortDescription() : "");
 
         Button[] buttons =
@@ -106,7 +106,7 @@ public class UserCRUDController extends BaseCRUDController<User> implements IUse
         // Disable remove button for default admin as it's mandatory
         if ( isDefaultAdmin(user) ) {
             buttons[1].setDisabled(true);
-            buttons[1].setTooltiptext(_("Default user \"admin\" cannot be removed as it is mandatory"));
+            buttons[1].setTooltiptext(helperi18n("Default user \"admin\" cannot be removed as it is mandatory"));
         }
     };
 
@@ -159,10 +159,10 @@ public class UserCRUDController extends BaseCRUDController<User> implements IUse
         roles.remove(UserRole.ROLE_BOUND_USER);
 
         // Sorting by ASC
-        Collections.sort(roles, (arg0, arg1) -> _(arg0.getDisplayName()).compareTo(_(arg1.getDisplayName())));
+        Collections.sort(roles, (arg0, arg1) -> helperi18n(arg0.getDisplayName()).compareTo(helperi18n(arg1.getDisplayName())));
 
         for (UserRole role : roles) {
-            Comboitem item = combo.appendItem(_(role.getDisplayName()));
+            Comboitem item = combo.appendItem(helperi18n(role.getDisplayName()));
             item.setValue(role);
         }
     }
@@ -237,10 +237,10 @@ public class UserCRUDController extends BaseCRUDController<User> implements IUse
         roles.removeAll(userRoles);
 
         // Sorting by ASC
-        Collections.sort(roles, (arg0, arg1) -> _(arg0.getDisplayName()).compareTo(_(arg1.getDisplayName())));
+        Collections.sort(roles, (arg0, arg1) -> helperi18n(arg0.getDisplayName()).compareTo(helperi18n(arg1.getDisplayName())));
 
         for (UserRole role : roles) {
-            Comboitem item = combo.appendItem(_(role.getDisplayName()));
+            Comboitem item = combo.appendItem(helperi18n(role.getDisplayName()));
             item.setValue(role);
         }
     }
@@ -283,19 +283,19 @@ public class UserCRUDController extends BaseCRUDController<User> implements IUse
             ((Textbox) comp).setRawValue(value);
 
             if (!value.equals(passwordBox.getValue())) {
-                throw new WrongValueException(comp, _("passwords don't match"));
+                throw new WrongValueException(comp, helperi18n("passwords don't match"));
             }
         };
     }
 
     @Override
     protected String getEntityType() {
-        return _("User");
+        return helperi18n("User");
     }
 
     @Override
     protected String getPluralEntityType() {
-        return _("Users");
+        return helperi18n("Users");
     }
 
     @Override
@@ -303,7 +303,7 @@ public class UserCRUDController extends BaseCRUDController<User> implements IUse
         userModel.initCreate();
 
         // Password is compulsory when creating
-        passwordBox.setConstraint("no empty:" + _("Password cannot be empty"));
+        passwordBox.setConstraint("no empty:" + helperi18n("Password cannot be empty"));
 
         // Clean the password boxes, they are not cleared automatically because they are not directly associated to an attribute
         passwordBox.setRawValue("");
@@ -331,7 +331,7 @@ public class UserCRUDController extends BaseCRUDController<User> implements IUse
         Combobox combo = (Combobox) editWindow.getFellowIfAny("authenticationTypeCombo");
         combo.getChildren().clear();
         for (UserAuthenticationType type : UserAuthenticationType.values()) {
-            Comboitem item = combo.appendItem(_(type.toString()));
+            Comboitem item = combo.appendItem(helperi18n(type.toString()));
             item.setValue(type);
             if (type.equals(getAuthenticationType())) {
                 combo.setSelectedItem(item);
@@ -352,9 +352,9 @@ public class UserCRUDController extends BaseCRUDController<User> implements IUse
         Worker worker = user.getWorker();
 
         return worker == null ||
-                Messagebox.show(_("User is bound to resource \"{0}\" and it will be unbound. " +
+                Messagebox.show(helperi18n("User is bound to resource \"{0}\" and it will be unbound. " +
                                 "Do you want to continue with user removal?", worker.getShortDescription()),
-                        _("Confirm remove user"), Messagebox.YES | Messagebox.NO, Messagebox.QUESTION) == Messagebox.YES;
+                        helperi18n("Confirm remove user"), Messagebox.YES | Messagebox.NO, Messagebox.QUESTION) == Messagebox.YES;
     }
 
     @Override
@@ -379,7 +379,7 @@ public class UserCRUDController extends BaseCRUDController<User> implements IUse
         return (row, data, i) -> {
             final UserRole role = (UserRole) data;
 
-            row.appendChild(new Label(_(role.getDisplayName())));
+            row.appendChild(new Label(helperi18n(role.getDisplayName())));
 
             Button removeButton = Util.createRemoveButton(event -> removeRole(role));
 
@@ -396,7 +396,7 @@ public class UserCRUDController extends BaseCRUDController<User> implements IUse
 
     public String hasBoundResource() {
         User user = getUser();
-        return user != null && user.isBound() ? _("Yes") : _("No");
+        return user != null && user.isBound() ? helperi18n("Yes") : helperi18n("No");
     }
 
     public String getBoundResource() {
@@ -418,8 +418,8 @@ public class UserCRUDController extends BaseCRUDController<User> implements IUse
     }
 
     private int showConfirmWorkerEditionDialog() {
-        return Messagebox.show(_("Unsaved changes will be lost. Would you like to continue?"),
-                _("Confirm edit worker"), Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
+        return Messagebox.show(helperi18n("Unsaved changes will be lost. Would you like to continue?"),
+                helperi18n("Confirm edit worker"), Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
     }
 
     public void unboundResource() {
@@ -432,7 +432,7 @@ public class UserCRUDController extends BaseCRUDController<User> implements IUse
     }
 
     public String getWorkerEditionButtonTooltip() {
-        return isNoRoleWorkers() ? _("You do not have permissions to go to edit worker window") : "";
+        return isNoRoleWorkers() ? helperi18n("You do not have permissions to go to edit worker window") : "";
     }
 
     private boolean isDefaultAdmin(final User user) {
@@ -459,7 +459,7 @@ public class UserCRUDController extends BaseCRUDController<User> implements IUse
 
     public void setAuthenticationType(Comboitem item) {
         if (item == null) {
-            throw new WrongValueException(editWindow.getFellowIfAny("authenticationTypeCombo"), _("cannot be empty"));
+            throw new WrongValueException(editWindow.getFellowIfAny("authenticationTypeCombo"), helperi18n("cannot be empty"));
         }
 
         UserAuthenticationType authenticationType = item.getValue();
@@ -492,15 +492,15 @@ public class UserCRUDController extends BaseCRUDController<User> implements IUse
         Limits usersTypeLimit = limitsModel.getUsersType();
 
         if (isNullOrZeroValue(usersTypeLimit)) {
-            return _("Create");
+            return helperi18n("Create");
         }
 
         Integer users = userModel.getRowCount().intValue();
         int usersLeft = usersTypeLimit.getValue() - users;
         
         return users >= usersTypeLimit.getValue()
-                ? _("User limit reached")
-                : _("Create") + " ( " + usersLeft  + " " + _("left") + " )";
+                ? helperi18n("User limit reached")
+                : helperi18n("Create") + " ( " + usersLeft  + " " + helperi18n("left") + " )";
     }
 
     private boolean isNullOrZeroValue (Limits usersTypeLimit) {

@@ -21,7 +21,7 @@
 
 package org.libreplan.web.planner.calendar;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import org.libreplan.business.planner.entities.Task;
 import org.libreplan.business.planner.entities.TaskElement;
@@ -52,7 +52,7 @@ public class CalendarAllocationCommand implements ICalendarAllocationCommand {
 
     @Override
     public String getName() {
-        return _("Calendar allocation");
+        return helperi18n("Calendar allocation");
     }
 
     @Override

@@ -41,7 +41,7 @@ import org.zkoss.zul.Window;
 import java.util.Collections;
 import java.util.Date;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 /**
  * When you are pushing reassign button ( green button on Project Scheduling page ), it will open Reassign window.
  * This controller handles that window.
@@ -125,7 +125,7 @@ public class ReassignController extends GenericForwardComposer {
         if (currentType.needsAssociatedDate()) {
             Date value = associatedDate.getValue();
             if (value == null) {
-                throw new WrongValueException(associatedDate, _("cannot be empty"));
+                throw new WrongValueException(associatedDate, helperi18n("cannot be empty"));
             }
         }
         window.setVisible(false);

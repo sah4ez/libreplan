@@ -21,7 +21,7 @@
 
 package org.libreplan.web.planner.milestone;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import org.libreplan.business.planner.daos.ITaskElementDAO;
 import org.libreplan.business.planner.entities.TaskElement;
@@ -51,7 +51,7 @@ public class AddMilestoneCommand implements IAddMilestoneCommand {
     @Transactional(readOnly = true)
     public void doAction(IContextWithPlannerTask<TaskElement> context, TaskElement task) {
         TaskMilestone milestone = TaskMilestone.create(task.getEndDate());
-        milestone.setName(_("new milestone"));
+        milestone.setName(helperi18n("new milestone"));
         taskElementDAO.reattach(task);
 
         Position taskPosition = context.getMapper().findPositionFor(task);
@@ -64,7 +64,7 @@ public class AddMilestoneCommand implements IAddMilestoneCommand {
 
     @Override
     public String getName() {
-        return _("Add Milestone");
+        return helperi18n("Add Milestone");
     }
 
     @Override

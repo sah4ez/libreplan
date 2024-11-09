@@ -59,7 +59,7 @@ import java.util.List;
 
 import com.libreplan.java.zk.components.customdetailrowcomponent.Detail;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 /**
  * Controller for showing OrderElement assigned task quality forms.
@@ -168,11 +168,11 @@ public class AssignedTaskQualityFormsToOrderElementController extends GenericFor
         QualityForm qualityForm = (QualityForm) qualityFormFinder.getSelectedElement();
 
         if (qualityForm == null) {
-            throw new WrongValueException(qualityFormFinder, _("please, select a quality form"));
+            throw new WrongValueException(qualityFormFinder, helperi18n("please, select a quality form"));
         }
 
         if (checkQualityFormAssigned.isAssigned(qualityForm)) {
-            throw new WrongValueException(qualityFormFinder, _("already assigned"));
+            throw new WrongValueException(qualityFormFinder, helperi18n("already assigned"));
         }
         qualityFormFinder.clear();
 
@@ -190,8 +190,8 @@ public class AssignedTaskQualityFormsToOrderElementController extends GenericFor
 
     public void confirmRemove(TaskQualityForm taskQualityForm) {
         int status = Messagebox.show(
-                _("Confirm deleting {0}. Are you sure?", getTaskQualityFormName(taskQualityForm)),
-                _(DELETE_ACTION), Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
+                helperi18n("Confirm deleting {0}. Are you sure?", getTaskQualityFormName(taskQualityForm)),
+                helperi18n(DELETE_ACTION), Messagebox.OK | Messagebox.CANCEL, Messagebox.QUESTION);
 
         if (Messagebox.OK == status) {
             deleteTaskQualityForm(taskQualityForm);
@@ -268,7 +268,7 @@ public class AssignedTaskQualityFormsToOrderElementController extends GenericFor
 
             appendDetails(row, taskQualityForm);
             appendNewLabel(row, taskQualityForm.getQualityForm().getName());
-            appendNewLabel(row, _(taskQualityForm.getQualityForm().getQualityFormType().toString()));
+            appendNewLabel(row, helperi18n(taskQualityForm.getQualityForm().getQualityFormType().toString()));
             appendCheckboxReportAdvance(row, taskQualityForm);
             appendOperations(row);
         }
@@ -299,7 +299,7 @@ public class AssignedTaskQualityFormsToOrderElementController extends GenericFor
                         } catch (DuplicateAdvanceAssignmentForOrderElementException e) {
                             messages.showMessage(
                                     Level.ERROR,
-                                    _("Another task in the same branch is already reporting progress" +
+                                    helperi18n("Another task in the same branch is already reporting progress" +
                                             " for this quality form"));
 
                             tmpCheckbox.setChecked(false);
@@ -350,25 +350,25 @@ public class AssignedTaskQualityFormsToOrderElementController extends GenericFor
 
             // Add static headers
             Column columnName = new Column();
-            columnName.setLabel(_("Name"));
+            columnName.setLabel(helperi18n("Name"));
             Util.setSort(columnName, "auto=(name)");
             columnName.setSortDirection(ASCENDING);
             columns.appendChild(columnName);
 
             Column columnPosition = new Column();
-            columnPosition.setLabel(_("Position"));
+            columnPosition.setLabel(helperi18n("Position"));
             columns.appendChild(columnPosition);
 
             Column columnPercentage = new Column();
-            columnPercentage.setLabel(_("Percentage"));
+            columnPercentage.setLabel(helperi18n("Percentage"));
             columns.appendChild(columnPercentage);
 
             Column columnPassed = new Column();
-            columnPassed.setLabel(_("Checked"));
+            columnPassed.setLabel(helperi18n("Checked"));
             columns.appendChild(columnPassed);
 
             Column columnDate = new Column();
-            columnDate.setLabel(_("Date"));
+            columnDate.setLabel(helperi18n("Date"));
             columns.appendChild(columnDate);
 
             columns.setParent(gridItems);
@@ -380,7 +380,7 @@ public class AssignedTaskQualityFormsToOrderElementController extends GenericFor
             buttonRemove.setClass("icono");
             buttonRemove.setImage("/common/img/ico_borrar1.png");
             buttonRemove.setHoverImage("/common/img/ico_borrar.png");
-            buttonRemove.setTooltiptext(_(DELETE_ACTION));
+            buttonRemove.setTooltiptext(helperi18n(DELETE_ACTION));
 
             buttonRemove.addEventListener(Events.ON_CLICK, event -> confirmRemove(row.getValue()));
         }
@@ -391,7 +391,7 @@ public class AssignedTaskQualityFormsToOrderElementController extends GenericFor
     }
 
     private void showInformativeMessage(String message) {
-        Messagebox.show(_(message), _(DELETE_ACTION), Messagebox.OK, Messagebox.ERROR);
+        Messagebox.show(helperi18n(message), helperi18n(DELETE_ACTION), Messagebox.OK, Messagebox.ERROR);
     }
 
     private class TaskQualityFormItemsRowRenderer implements RowRenderer {
@@ -465,11 +465,11 @@ public class AssignedTaskQualityFormsToOrderElementController extends GenericFor
 
                     if ((value == null) && (!item.isIfDateCanBeNullConstraint())) {
                         item.setDate(null);
-                        throw new WrongValueException(comp, _("date not specified"));
+                        throw new WrongValueException(comp, helperi18n("date not specified"));
                     }
                     if (!assignedTaskQualityFormsToOrderElementModel.isCorrectConsecutiveDate(taskQualityForm, item)) {
                         item.setDate(null);
-                        throw new WrongValueException(comp, _("must be after the previous date"));
+                        throw new WrongValueException(comp, helperi18n("must be after the previous date"));
                     }
                 }
             };
@@ -562,13 +562,13 @@ public class AssignedTaskQualityFormsToOrderElementController extends GenericFor
                     if (TaskQualityFormItem.propertyDate.equals(propertyName)) {
                         openDetails(rowItem);
                         Datebox datebox = getDatebox(rowItem);
-                        throw new WrongValueException(datebox, _(invalidValue.getMessage()));
+                        throw new WrongValueException(datebox, helperi18n(invalidValue.getMessage()));
                     }
 
                     if (TaskQualityFormItem.propertyPassed.equals(propertyName)) {
                         openDetails(rowItem);
                         Checkbox checkbox = getCheckbox(rowItem);
-                        throw new WrongValueException(checkbox, _(invalidValue.getMessage()));
+                        throw new WrongValueException(checkbox, helperi18n(invalidValue.getMessage()));
                     }
                 }
             }

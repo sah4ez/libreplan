@@ -19,7 +19,7 @@
 
 package org.libreplan.web.common;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -210,7 +210,7 @@ public class JobSchedulerController extends BaseCRUDController<JobSchedulerConfi
             row.appendChild(groupbox);
 
             if ( synchronizationInfo.isSuccessful() ) {
-                groupbox.appendChild(new Label(_("Completed")));
+                groupbox.appendChild(new Label(helperi18n("Completed")));
             } else {
 
                 Listbox listbox = new Listbox();
@@ -264,8 +264,8 @@ public class JobSchedulerController extends BaseCRUDController<JobSchedulerConfi
      *            Event listener for this button
      */
     private static Button createManualButton(EventListener eventListener) {
-        Button button = new Button(_("Manual"));
-        button.setTooltiptext(_("Manual"));
+        Button button = new Button(helperi18n("Manual"));
+        button.setTooltiptext(helperi18n("Manual"));
         button.setSclass("add-button");
         button.addEventListener(Events.ON_CLICK, eventListener);
 
@@ -325,7 +325,7 @@ public class JobSchedulerController extends BaseCRUDController<JobSchedulerConfi
 
             throw new WrongValueException(
                     cronExpressionInputPopup,
-                    _("Unable to parse cron expression") + ":\n" + e.getMessage());
+                    helperi18n("Unable to parse cron expression") + ":\n" + e.getMessage());
         }
         cronExpressionTextBox.setValue(cronExpression);
         cronExpressionInputPopup.close();
@@ -360,12 +360,12 @@ public class JobSchedulerController extends BaseCRUDController<JobSchedulerConfi
 
     @Override
     protected String getEntityType() {
-        return _("Job scheduling");
+        return helperi18n("Job scheduling");
     }
 
     @Override
     protected String getPluralEntityType() {
-        return _("Job scheduling");
+        return helperi18n("Job scheduling");
     }
 
     @Override
@@ -382,7 +382,7 @@ public class JobSchedulerController extends BaseCRUDController<JobSchedulerConfi
     protected void save() {
         jobSchedulerModel.confirmSave();
         if ( jobSchedulerModel.scheduleOrUnscheduleJob() ) {
-            messagesForUser.showMessage(Level.INFO, _("Job is scheduled/unscheduled"));
+            messagesForUser.showMessage(Level.INFO, helperi18n("Job is scheduled/unscheduled"));
         }
     }
 
@@ -400,7 +400,7 @@ public class JobSchedulerController extends BaseCRUDController<JobSchedulerConfi
     protected void delete(JobSchedulerConfiguration entity) throws InstanceNotFoundException {
         jobSchedulerModel.remove(entity);
         if ( jobSchedulerModel.deleteScheduledJob(entity) ) {
-            messagesForUser.showMessage(Level.INFO, _("Job is deleted from scheduler"));
+            messagesForUser.showMessage(Level.INFO, helperi18n("Job is deleted from scheduler"));
         }
     }
 

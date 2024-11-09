@@ -27,13 +27,13 @@ import org.libreplan.business.planner.entities.TaskGroup;
  */
 public enum TaskGroupFilterEnum implements IFilterEnum {
 
-    Criterion(_("Criterion")), Label(_("Label")), ExternalCompany(_("Customer")), State(
-            _("State")), Code(_("Code")), CustomerReference(
-            _("Customer Reference")), Resource(_("Resource"));
+    Criterion(helperi18n("Criterion")), Label(helperi18n("Label")), ExternalCompany(helperi18n("Customer")), State(
+            helperi18n("State")), Code(helperi18n("Code")), CustomerReference(
+            helperi18n("Customer Reference")), Resource(helperi18n("Resource"));
     /**
      * Forces to mark the string as needing translation
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

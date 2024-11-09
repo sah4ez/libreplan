@@ -26,12 +26,12 @@ package org.libreplan.business.qualityforms.entities;
 
 public enum QualityFormType {
 
-    BY_PERCENTAGE(_("by percentage")), BY_ITEMS(_("by items"));
+    BY_PERCENTAGE(helperi18n("by percentage")), BY_ITEMS(helperi18n("by items"));
 
     /**
      * Forces to mark the string as needing translation
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

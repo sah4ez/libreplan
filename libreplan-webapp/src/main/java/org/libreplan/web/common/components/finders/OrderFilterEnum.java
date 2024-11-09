@@ -27,13 +27,13 @@ package org.libreplan.web.common.components.finders;
 
 public enum OrderFilterEnum implements IFilterEnum {
 
-    Criterion(_("Criterion")), Label(_("Label")), ExternalCompany(_("Customer")), State(
-            _("State")), Code(_("Code")), CustomerReference(
-            _("Customer Reference"));
+    Criterion(helperi18n("Criterion")), Label(helperi18n("Label")), ExternalCompany(helperi18n("Customer")), State(
+            helperi18n("State")), Code(helperi18n("Code")), CustomerReference(
+            helperi18n("Customer Reference"));
     /**
      * Forces to mark the string as needing translation
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

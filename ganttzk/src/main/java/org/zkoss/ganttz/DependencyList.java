@@ -21,7 +21,7 @@
 
 package org.zkoss.ganttz;
 
-import static org.zkoss.ganttz.i18n.I18nHelper._;
+import static org.zkoss.ganttz.i18n.I18nHelper.helperi18n;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -63,7 +63,7 @@ public class DependencyList extends XulElement implements AfterCompose {
             boolean canBeAdded = context.changeType(chosen.getDependency(), type);
 
             if ( !canBeAdded ) {
-                warnUser(_("The specified dependency is not allowed"));
+                warnUser(helperi18n("The specified dependency is not allowed"));
             }
         }
 
@@ -210,7 +210,7 @@ public class DependencyList extends XulElement implements AfterCompose {
 
             MenuBuilder<DependencyComponent> contextMenuBuilder =
                     MenuBuilder.on(getPage(), getDependencyComponents()).item(
-                            _("Erase"),
+                            helperi18n("Erase"),
                             "/common/img/ico_borrar.png",
                             (chosen, event) -> context.removeDependency(chosen.getDependency()));
 
@@ -225,15 +225,15 @@ public class DependencyList extends XulElement implements AfterCompose {
 
             MenuBuilder<DependencyComponent> contextMenuBuilder =
                     MenuBuilder.on(getPage(), getDependencyComponents()).item(
-                            _("Erase"),
+                            helperi18n("Erase"),
                             "/common/img/ico_borrar.png",
                             ((chosen, event) -> context.removeDependency(chosen.getDependency())));
 
-            contextMenuBuilder.item(_("Set End-Start"), null, new ChangeTypeAction(DependencyType.END_START));
+            contextMenuBuilder.item(helperi18n("Set End-Start"), null, new ChangeTypeAction(DependencyType.END_START));
 
-            contextMenuBuilder.item(_("Set Start-Start"), null, new ChangeTypeAction(DependencyType.START_START));
+            contextMenuBuilder.item(helperi18n("Set Start-Start"), null, new ChangeTypeAction(DependencyType.START_START));
 
-            contextMenuBuilder.item(_("Set End-End"), null, new ChangeTypeAction(DependencyType.END_END));
+            contextMenuBuilder.item(helperi18n("Set End-End"), null, new ChangeTypeAction(DependencyType.END_END));
 
             contextMenu = contextMenuBuilder.create();
 

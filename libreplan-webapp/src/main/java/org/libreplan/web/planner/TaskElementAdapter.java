@@ -21,7 +21,7 @@
 
 package org.libreplan.web.planner;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 import static org.libreplan.web.common.Util.addCurrencySymbol;
 import static org.zkoss.ganttz.data.constraint.ConstraintOnComparableValues.biggerOrEqualThan;
 import static org.zkoss.ganttz.data.constraint.ConstraintOnComparableValues.equalTo;
@@ -795,7 +795,7 @@ public class TaskElementAdapter {
                         forCriterionRepresentations.add(c.getName());
                     }
                 } else {
-                    forCriterionRepresentations.add(_("All workers"));
+                    forCriterionRepresentations.add(helperi18n("All workers"));
                 }
 
                 return "[" + StringUtils.join(forCriterionRepresentations, ", ") + "]";
@@ -843,13 +843,13 @@ public class TaskElementAdapter {
                         .append("</strong><br/>");
 
                 result
-                        .append(_("Progress"))
+                        .append(helperi18n("Progress"))
                         .append(": ")
                         .append(progressPercentage)
                         .append("% , ");
 
                 result
-                        .append(_("Hours invested"))
+                        .append(helperi18n("Hours invested"))
                         .append(": ")
                         .append(getHoursAdvanceBarPercentage().multiply(new BigDecimal(100)))
                         .append("% <br/>");
@@ -857,7 +857,7 @@ public class TaskElementAdapter {
                 if ( taskElement.getOrderElement() instanceof Order ) {
 
                     result
-                            .append(_("State"))
+                            .append(helperi18n("State"))
                             .append(": ")
                             .append(getOrderState());
                 } else {
@@ -868,11 +868,11 @@ public class TaskElementAdapter {
                     String costExpenses = addCurrencySymbol(getExpensesMoneyCost());
 
                     result
-                            .append(_("Budget: {0}, Consumed: {1} ({2}%)",
+                            .append(helperi18n("Budget: {0}, Consumed: {1} ({2}%)",
                                     budget, moneyCost, getMoneyCostBarPercentage().multiply(new BigDecimal(100))))
                             .append("<br/>");
 
-                    result.append(_("Hours cost: {0}, Expenses cost: {1}", costHours, costExpenses));
+                    result.append(helperi18n("Hours cost: {0}, Expenses cost: {1}", costHours, costExpenses));
                 }
 
                 String labels = buildLabelsText();
@@ -880,7 +880,7 @@ public class TaskElementAdapter {
 
                     result
                             .append("<div class='tooltip-labels'>")
-                            .append(_("Labels"))
+                            .append(helperi18n("Labels"))
                             .append(": ")
                             .append(labels)
                             .append("</div>");
@@ -911,7 +911,7 @@ public class TaskElementAdapter {
                 } else {
                     cssClass = "order-closed";
                 }
-                return "<font class='" + cssClass + "'>" + _(state.toString()) + "</font>";
+                return "<font class='" + cssClass + "'>" + helperi18n(state.toString()) + "</font>";
             }
 
             @Override
@@ -1210,14 +1210,14 @@ public class TaskElementAdapter {
                 boolean condition = orderElement.getOrder().getHoursMargin() != null;
                 Integer margin = condition ? orderElement.getOrder().getHoursMargin() : 0;
 
-                result.append(_("Hours-status")).append("\n");
+                result.append(helperi18n("Hours-status")).append("\n");
 
-                result.append(_("Project margin: {0}% ({1} hours)={2} hours",
+                result.append(helperi18n("Project margin: {0}% ({1} hours)={2} hours",
                         margin, orderElement.getWorkHours(), orderElement.getWithMarginCalculatedHours()));
 
                 String totalEffortHours = orderElement.getEffortAsString();
 
-                result.append(_(". Already registered: {0} hours", totalEffortHours));
+                result.append(helperi18n(". Already registered: {0} hours", totalEffortHours));
 
                 return result.toString();
             }
@@ -1229,16 +1229,16 @@ public class TaskElementAdapter {
 
                 Integer margin =  condition ? orderElement.getOrder().getBudgetMargin() : 0;
 
-                result.append(_("Budget-status")).append("\n");
+                result.append(helperi18n("Budget-status")).append("\n");
 
-                result.append(_("Project margin: {0}% ({1})={2}",
+                result.append(helperi18n("Project margin: {0}% ({1})={2}",
                         margin,
                         addCurrencySymbol(orderElement.getBudget()),
                         addCurrencySymbol(orderElement.getWithMarginCalculatedBudget())));
 
                 BigDecimal totalExpense = getTotalExpense(orderElement);
 
-                result.append(_(". Already spent: {0}", addCurrencySymbol(totalExpense)));
+                result.append(helperi18n(". Already spent: {0}", addCurrencySymbol(totalExpense)));
 
                 return result.toString();
             }
@@ -1288,7 +1288,7 @@ public class TaskElementAdapter {
                     return DependencyType.END_END;
 
                 default:
-                    throw new RuntimeException(_("{0} not supported yet", type));
+                    throw new RuntimeException(helperi18n("{0} not supported yet", type));
             }
         }
 
@@ -1308,7 +1308,7 @@ public class TaskElementAdapter {
                     return Type.END_END;
 
                 default:
-                    throw new RuntimeException(_("{0} not supported yet", type));
+                    throw new RuntimeException(helperi18n("{0} not supported yet", type));
             }
         }
 

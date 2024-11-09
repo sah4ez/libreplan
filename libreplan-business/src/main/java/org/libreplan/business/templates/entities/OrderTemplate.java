@@ -20,7 +20,7 @@
  */
 package org.libreplan.business.templates.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 import javax.validation.constraints.NotNull;
 import org.libreplan.business.calendars.entities.BaseCalendar;
@@ -62,7 +62,7 @@ public class OrderTemplate extends OrderLineGroupTemplate {
 
     @Override
     public String getType() {
-        return _("Project");
+        return helperi18n("Project");
     }
 
     public void setCalendar(BaseCalendar calendar) {

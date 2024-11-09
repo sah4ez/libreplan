@@ -18,7 +18,7 @@
  */
 package org.libreplan.web.exceptionDays;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.HashSet;
 import java.util.List;
@@ -93,7 +93,7 @@ public class CalendarExceptionTypeModel extends IntegrationEntityModel implement
         if (calendarExceptionTypeDAO.hasCalendarExceptions(exceptionType)) {
 
             throw new IllegalSyntaxException(
-                    _("Cannot remove {0}, since it is being used by some exception day", exceptionType.getName()));
+                    helperi18n("Cannot remove {0}, since it is being used by some exception day", exceptionType.getName()));
         }
         if (!exceptionType.isNewObject()) {
             calendarExceptionTypeDAO.remove(exceptionType.getId());

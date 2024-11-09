@@ -18,7 +18,7 @@
  */
 package org.libreplan.business.logs.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 
 /**
@@ -29,7 +29,7 @@ import static org.libreplan.business.i18n.I18nHelper._;
  */
 public enum LowMediumHighEnum {
 
-    LOW(_("Low")), MEDIUM(_("Medium")), HIGH(_("High"));
+    LOW(helperi18n("Low")), MEDIUM(helperi18n("Medium")), HIGH(helperi18n("High"));
 
     private final String lowMediumHighEnum;
 

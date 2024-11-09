@@ -21,15 +21,15 @@
 
 package org.libreplan.business.planner.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 public enum TaskStatusEnum {
-    ALL(_("All")),
-    FINISHED(_("Finished")),
-    IN_PROGRESS(_("In progress")),
-    PENDING(_("Pending")),
-    BLOCKED(_("Blocked")),
-    READY_TO_START(_("Ready to start"));
+    ALL(helperi18n("All")),
+    FINISHED(helperi18n("Finished")),
+    IN_PROGRESS(helperi18n("In progress")),
+    PENDING(helperi18n("Pending")),
+    BLOCKED(helperi18n("Blocked")),
+    READY_TO_START(helperi18n("Ready to start"));
 
     private String value;
 

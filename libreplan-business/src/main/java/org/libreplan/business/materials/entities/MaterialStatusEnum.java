@@ -21,7 +21,7 @@
 
 package org.libreplan.business.materials.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 /**
  *
@@ -29,11 +29,11 @@ import static org.libreplan.business.i18n.I18nHelper._;
  *
  */
 public enum MaterialStatusEnum {
-    RECEIVED(_("RECEIVED")),
-    PENDING(_("PENDING")),
-    ORDERED(_("ORDERED")),
-    PROCESSING(_("PROCESSING")),
-    CANCELED(_("CANCELED"));
+    RECEIVED(helperi18n("RECEIVED")),
+    PENDING(helperi18n("PENDING")),
+    ORDERED(helperi18n("ORDERED")),
+    PROCESSING(helperi18n("PROCESSING")),
+    CANCELED(helperi18n("CANCELED"));
 
     private String description;
 

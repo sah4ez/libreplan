@@ -36,7 +36,7 @@ import org.libreplan.business.resources.entities.Criterion;
 import org.libreplan.business.resources.entities.CriterionType;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 
 /**
@@ -255,7 +255,7 @@ public class OrdersMultipleFiltersFinder extends MultipleFiltersFinder {
 
     private void searchInOrderStatus(String filter) {
         for (OrderStatusEnum state : OrderStatusEnum.values()) {
-            String name = StringUtils.deleteWhitespace(_(state.name()).toLowerCase());
+            String name = StringUtils.deleteWhitespace(helperi18n(state.name()).toLowerCase());
 
             if (name.contains(filter)) {
                 addState(state);
@@ -313,7 +313,7 @@ public class OrdersMultipleFiltersFinder extends MultipleFiltersFinder {
     }
 
     private void addState(OrderStatusEnum state) {
-        getListMatching().add(new FilterPair(OrderFilterEnum.State, _(state.name()), state));
+        getListMatching().add(new FilterPair(OrderFilterEnum.State, helperi18n(state.name()), state));
     }
 
     private void addCode(String code) {

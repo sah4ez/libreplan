@@ -20,7 +20,7 @@
  */
 package org.libreplan.business.planner.limiting.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 import java.util.EnumMap;
 
@@ -167,7 +167,7 @@ public class LimitingResourceQueueDependency extends BaseEntity {
         Validate.notNull(origin);
         Validate.notNull(destiny);
         Validate.notNull(ganttDependency);
-        Validate.isTrue(!origin.equals(destiny), _("A queue dependency has to " +
+        Validate.isTrue(!origin.equals(destiny), helperi18n("A queue dependency has to " +
             "have an origin different from destiny"));
         this.hasAsOrigin = origin;
         this.hasAsDestiny = destiny;

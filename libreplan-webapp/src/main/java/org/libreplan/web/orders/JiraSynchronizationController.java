@@ -19,7 +19,7 @@
 
 package org.libreplan.web.orders;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -172,10 +172,10 @@ public class JiraSynchronizationController extends GenericForwardComposer {
             jirasyncPopup.open(syncWithJiraButton, "before_start");
 
         } catch (ConnectorException e) {
-            messagesForUser.showMessage(Level.ERROR, _("Failed: {0}", e.getMessage()));
+            messagesForUser.showMessage(Level.ERROR, helperi18n("Failed: {0}", e.getMessage()));
         } catch (WebApplicationException e) {
             LOG.info(e);
-            messagesForUser.showMessage(Level.ERROR, _("Cannot connect to JIRA server"));
+            messagesForUser.showMessage(Level.ERROR, helperi18n("Cannot connect to JIRA server"));
         }
     }
 
@@ -192,7 +192,7 @@ public class JiraSynchronizationController extends GenericForwardComposer {
             List<IssueDTO> issues = jiraOrderElementSynchronizer.getJiraIssues(label);
 
             if ( issues == null || issues.isEmpty() ) {
-                messagesForUser.showMessage(Level.ERROR, _("No JIRA issues to import"));
+                messagesForUser.showMessage(Level.ERROR, helperi18n("No JIRA issues to import"));
                 return;
             }
 
@@ -219,10 +219,10 @@ public class JiraSynchronizationController extends GenericForwardComposer {
             orderController.initEdit(order);
             orderController.selectTab(previousTab.getId());
         } catch (ConnectorException e) {
-            messagesForUser.showMessage(Level.ERROR, _("Failed: {0}", e.getMessage()));
+            messagesForUser.showMessage(Level.ERROR, helperi18n("Failed: {0}", e.getMessage()));
         } catch (WebApplicationException e) {
             LOG.info(e);
-            messagesForUser.showMessage(Level.ERROR, _("Cannot connect to JIRA server"));
+            messagesForUser.showMessage(Level.ERROR, helperi18n("Cannot connect to JIRA server"));
         }
     }
 
@@ -275,12 +275,12 @@ public class JiraSynchronizationController extends GenericForwardComposer {
     private void setupJiraSyncPopup(Component comp, ListModel model) {
 
         startJiraSyncButton = (Button) comp.getFellow("startJiraSyncButton");
-        startJiraSyncButton.setLabel(_("Start sync"));
+        startJiraSyncButton.setLabel(helperi18n("Start sync"));
 
         startJiraSyncButton.addEventListener(Events.ON_CLICK, event -> startSyncWithJira(comboJiraLabel.getValue()));
 
         cancelJiraSyncButton = (Button) comp.getFellow("cancelJiraSyncButton");
-        cancelJiraSyncButton.setLabel(_("Cancel"));
+        cancelJiraSyncButton.setLabel(helperi18n("Cancel"));
 
         cancelJiraSyncButton.addEventListener(Events.ON_CLICK, event -> jirasyncPopup.close());
         comboJiraLabel = (Combobox) comp.getFellowIfAny("comboJiraLabel");
@@ -300,8 +300,7 @@ public class JiraSynchronizationController extends GenericForwardComposer {
         }
 
         public ListModel getSubModel(Object value, int nRows) {
-            //TODO change deprecated method
-            final String idx = value == null ? "" : objectToString(value);
+            final String idx = value == null ? "" : String.valueOf(value);
 
             if ( nRows < 0 ) {
                 nRows = 10;

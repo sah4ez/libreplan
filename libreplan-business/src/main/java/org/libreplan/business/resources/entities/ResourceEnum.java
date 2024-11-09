@@ -26,8 +26,8 @@ package org.libreplan.business.resources.entities;
  */
 public enum ResourceEnum {
 
-    WORKER(Worker.class, _("WORKER")),
-    MACHINE(Machine.class, _("MACHINE"));
+    WORKER(Worker.class, helperi18n("WORKER")),
+    MACHINE(Machine.class, helperi18n("MACHINE"));
 
     private Class<? extends Resource> klass;
 
@@ -41,7 +41,7 @@ public enum ResourceEnum {
     /**
      * Forces to mark the string as needing translation.
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

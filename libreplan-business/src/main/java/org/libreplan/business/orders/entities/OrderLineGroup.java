@@ -21,7 +21,7 @@
 
 package org.libreplan.business.orders.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -969,7 +969,7 @@ public class OrderLineGroup extends OrderElement implements ITreeParentNode<Orde
         for (AdvanceAssignment advanceAssignment : advanceAssignments) {
             if ( advanceAssignment.getReportGlobalAdvance() ) {
                 throw new DuplicateValueTrueReportGlobalAdvanceException(
-                        _("Cannot spread two progress in the same task"),
+                        helperi18n("Cannot spread two progress in the same task"),
                         this, OrderElement.class);
             }
         }

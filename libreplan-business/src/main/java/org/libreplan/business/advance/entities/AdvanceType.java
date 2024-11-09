@@ -21,7 +21,7 @@
 
 package org.libreplan.business.advance.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 import java.math.BigDecimal;
 
@@ -175,14 +175,14 @@ public class AdvanceType extends BaseEntity implements IHumanIdentifiable{
 
     public String getType() {
         if ( isUpdatable() ) {
-            return _("User");
+            return helperi18n("User");
         }
 
         if ( isQualityForm() ) {
-            return _("Quality form");
+            return helperi18n("Quality form");
         }
 
-        return _("Predefined");
+        return helperi18n("Predefined");
     }
 
     public boolean isPrecisionValid(BigDecimal precision) {

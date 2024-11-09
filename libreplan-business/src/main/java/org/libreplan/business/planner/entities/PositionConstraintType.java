@@ -28,21 +28,21 @@ import org.libreplan.business.orders.entities.Order.SchedulingMode;
  * @author Óscar González Fernández <ogonzalez@igalia.com>
  */
 public enum PositionConstraintType {
-    AS_SOON_AS_POSSIBLE(false, _("as soon as possible")) {
+    AS_SOON_AS_POSSIBLE(false, helperi18n("as soon as possible")) {
 
         @Override
         public boolean appliesToTheStart() {
             return true;
         }
     },
-    START_NOT_EARLIER_THAN(true, _("start not earlier than")) {
+    START_NOT_EARLIER_THAN(true, helperi18n("start not earlier than")) {
 
         @Override
         public boolean appliesToTheStart() {
             return true;
         }
     },
-    START_IN_FIXED_DATE(true, _("start in fixed date")) {
+    START_IN_FIXED_DATE(true, helperi18n("start in fixed date")) {
 
         @Override
         public PositionConstraintType newTypeAfterMoved(SchedulingMode mode) {
@@ -54,14 +54,14 @@ public enum PositionConstraintType {
             return true;
         }
     },
-    AS_LATE_AS_POSSIBLE(false, _("as late as possible")) {
+    AS_LATE_AS_POSSIBLE(false, helperi18n("as late as possible")) {
 
         @Override
         public boolean appliesToTheStart() {
             return false;
         }
     },
-    FINISH_NOT_LATER_THAN(true, _("finish not later than")) {
+    FINISH_NOT_LATER_THAN(true, helperi18n("finish not later than")) {
 
         @Override
         public boolean appliesToTheStart() {
@@ -72,7 +72,7 @@ public enum PositionConstraintType {
     /**
      * Forces to mark the string as needing translation
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

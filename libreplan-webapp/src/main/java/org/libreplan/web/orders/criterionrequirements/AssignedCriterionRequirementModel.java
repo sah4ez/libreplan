@@ -21,7 +21,7 @@
 
 package org.libreplan.web.orders.criterionrequirements;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -184,7 +184,7 @@ public abstract class AssignedCriterionRequirementModel<T, M> implements IAssign
 
             // Set generated name
             int number = (asOrderLine()).getHoursGroups().size() - 1;
-            newHoursGroup.setCode(_("New hours group ") + number);
+            newHoursGroup.setCode(helperi18n("New hours group ") + number);
 
             return newHoursGroup;
         }

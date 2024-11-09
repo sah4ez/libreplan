@@ -19,7 +19,7 @@
 
 package org.libreplan.importers;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -605,6 +605,6 @@ public class OrderImporterMPXJ implements IOrderImporter {
             }
         }
 
-        throw new ValidationException(_("Linked calendar not found"));
+        throw new ValidationException(helperi18n("Linked calendar not found"));
     }
 }

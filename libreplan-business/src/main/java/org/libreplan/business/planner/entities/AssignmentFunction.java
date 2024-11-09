@@ -21,7 +21,7 @@
 
 package org.libreplan.business.planner.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 import java.util.List;
 
@@ -70,11 +70,11 @@ public abstract class AssignmentFunction extends BaseEntity {
     public abstract boolean isManual();
 
     public enum AssignmentFunctionName {
-        FLAT(_("Flat")),
-        MANUAL(_("Manual")),
-        STRETCHES(_("Stretches")),
-        INTERPOLATION(_("Interpolation")),
-        SIGMOID(_("Sigmoid"));
+        FLAT(helperi18n("Flat")),
+        MANUAL(helperi18n("Manual")),
+        STRETCHES(helperi18n("Stretches")),
+        INTERPOLATION(helperi18n("Interpolation")),
+        SIGMOID(helperi18n("Sigmoid"));
 
         private String name;
 

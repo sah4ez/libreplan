@@ -24,13 +24,13 @@
  */
 package org.libreplan.business.workreports.entities;
 
-import static org.libreplan.business.i18n.I18nHelper._;
+import static org.libreplan.business.i18n.I18nHelper.helperi18n;
 
 public enum HoursManagementEnum {
 
-    NUMBER_OF_HOURS(_("Number of assigned hours")),
-    HOURS_CALCULATED_BY_CLOCK(_("Number of hours calculated by clock")),
-    NUMBER_OF_HOURS_AND_CLOCK(_("Number of assigned hours and time"));
+    NUMBER_OF_HOURS(helperi18n("Number of assigned hours")),
+    HOURS_CALCULATED_BY_CLOCK(helperi18n("Number of hours calculated by clock")),
+    NUMBER_OF_HOURS_AND_CLOCK(helperi18n("Number of assigned hours and time"));
 
     private String description;
 

@@ -19,7 +19,7 @@
 
 package org.libreplan.web.dashboard;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -52,13 +52,13 @@ public class GlobalProgressChart {
     private List<Series> series = new ArrayList<>();
 
     private GlobalProgressChart() {
-        series.add(Series.create(_("Current"), "#004469"));
-        series.add(Series.create(_("Expected"), "#3C90BE"));
+        series.add(Series.create(helperi18n("Current"), "#004469"));
+        series.add(Series.create(helperi18n("Expected"), "#3C90BE"));
 
-        SPREAD_PROGRESS = _("Spreading progress");
-        ALL_TASKS_HOURS = _("By all tasks hours");
-        CRITICAL_PATH_HOURS = _("By critical path hours");
-        CRITICAL_PATH_DURATION = _("By critical path duration");
+        SPREAD_PROGRESS = helperi18n("Spreading progress");
+        ALL_TASKS_HOURS = helperi18n("By all tasks hours");
+        CRITICAL_PATH_HOURS = helperi18n("By critical path hours");
+        CRITICAL_PATH_DURATION = helperi18n("By critical path duration");
     }
 
     public void current(String key, BigDecimal value) {
@@ -119,8 +119,8 @@ public class GlobalProgressChart {
     public void render() {
         String params = String.format(
                 "'{\"title\": %s, \"label\": %s, \"ticks\": %s, \"series\": %s}'",
-                jsonify(_("Project progress percentage")),
-                jsonify(_("Progress percentage per progress type")),
+                jsonify(helperi18n("Project progress percentage")),
+                jsonify(helperi18n("Progress percentage per progress type")),
                 getTicks(), getSeries());
 
         String command = String.format("global_progress.render(%s, %s);", getPercentages(), params);

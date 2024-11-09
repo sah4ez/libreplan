@@ -1,7 +1,7 @@
 package org.libreplan.web.common;
 
 import static org.libreplan.business.workingday.EffortDuration.zero;
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import org.libreplan.business.workingday.EffortDuration;
 import org.zkoss.zk.ui.WrongValueException;
@@ -46,7 +46,7 @@ public class EffortDurationBox extends Textbox {
         EffortDuration result = EffortDuration.parseFromFormattedString(value);
         if (result == null) {
             throw new WrongValueException(this,
-                    _("Invalid Effort Duration"));
+                    helperi18n("Invalid Effort Duration"));
         }
         return result;
     }

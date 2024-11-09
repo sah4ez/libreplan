@@ -25,8 +25,8 @@ package org.libreplan.web.subcontract;
  * @author Susana Montes Pedreira <smontes@wirelessgalicia.com>
  */
 public enum FilterCommunicationEnum {
-    ALL(_("All")),
-    NOT_REVIEWED(_("Not Reviewed"));
+    ALL(helperi18n("All")),
+    NOT_REVIEWED(helperi18n("Not Reviewed"));
 
     private String displayName;
 
@@ -37,7 +37,7 @@ public enum FilterCommunicationEnum {
     /**
      * Forces to mark the string as needing translation.
      */
-    private static String _(String string) {
+    private static String helperi18n(String string) {
         return string;
     }
 

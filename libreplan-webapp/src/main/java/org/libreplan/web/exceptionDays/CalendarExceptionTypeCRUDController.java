@@ -18,7 +18,7 @@
  */
 package org.libreplan.web.exceptionDays;
 
-import static org.libreplan.web.I18nHelper._;
+import static org.libreplan.web.I18nHelper.helperi18n;
 
 import java.util.ConcurrentModificationException;
 import java.util.List;
@@ -77,7 +77,7 @@ public class CalendarExceptionTypeCRUDController extends BaseCRUDController<Cale
         public void render(Listitem item, Object data, int i) throws Exception {
             CalendarExceptionTypeColor color = (CalendarExceptionTypeColor) data;
             item.setValue(color);
-            item.appendChild(new Listcell(_(color.getName())));
+            item.appendChild(new Listcell(helperi18n(color.getName())));
         }
     };
 
@@ -97,7 +97,7 @@ public class CalendarExceptionTypeCRUDController extends BaseCRUDController<Cale
             }
 
             row.appendChild(new Label(calendarExceptionType.getName()));
-            row.appendChild(new Label(_(calendarExceptionType.getColor().getName())));
+            row.appendChild(new Label(helperi18n(calendarExceptionType.getColor().getName())));
             row.appendChild(new Label(calendarExceptionType.getOverAssignableStr()));
             row.appendChild(new Label(calendarExceptionType.getCapacity().getStandardEffortString()));
             row.appendChild(new Label(calendarExceptionType.getCapacity().getExtraEffortString()));
@@ -208,7 +208,7 @@ public class CalendarExceptionTypeCRUDController extends BaseCRUDController<Cale
         if (PredefinedCalendarExceptionTypes.contains(calendarExceptionType)) {
             messagesForUser.showMessage(
                     Level.ERROR,
-                    _("Cannot remove the predefined calendar exception day \"{0}\"", calendarExceptionType.getHumanId()));
+                    helperi18n("Cannot remove the predefined calendar exception day \"{0}\"", calendarExceptionType.getHumanId()));
 
             return false;
         }
@@ -254,12 +254,12 @@ public class CalendarExceptionTypeCRUDController extends BaseCRUDController<Cale
 
     @Override
     protected String getEntityType() {
-        return _("Calendar Exception Day");
+        return helperi18n("Calendar Exception Day");
     }
 
     @Override
     protected String getPluralEntityType() {
-        return _("Calendar Exception Days");
+        return helperi18n("Calendar Exception Days");
     }
 
     @Override
