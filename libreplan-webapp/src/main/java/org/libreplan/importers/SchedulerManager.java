@@ -34,6 +34,7 @@ import org.libreplan.business.common.entities.JobClassNameEnum;
 import org.libreplan.business.common.entities.JobSchedulerConfiguration;
 import org.quartz.CronExpression;
 import org.quartz.CronTrigger;
+import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
@@ -267,7 +268,7 @@ public class SchedulerManager implements ISchedulerManager {
 
         jobDetailBean.setName(jobSchedulerConfiguration.getJobName());
         jobDetailBean.setGroup(jobSchedulerConfiguration.getJobGroup());
-        jobDetailBean.setJobClass(jobClass);
+        jobDetailBean.setJobClass((Class<? extends Job>) jobClass);
 
         Map<String, Object> jobDataAsMap = new HashMap<>();
         jobDataAsMap.put("applicationContext", applicationContext);

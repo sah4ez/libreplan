@@ -168,6 +168,7 @@ public class TypeOfWorkHours extends IntegrationEntity implements IHumanIdentifi
         return name;
     }
 
+    /* TODO migrate youtrack
     @AssertTrue(message = "type of work hours for JIRA connector cannot be disabled")
     public boolean isJiraConnectorTypeOfWorkHoursNotDisabledConstraint() {
         if (!isNewObject() && !getEnabled()) {
@@ -183,5 +184,6 @@ public class TypeOfWorkHours extends IntegrationEntity implements IHumanIdentifi
 
         return true;
     }
+    */
 
 }

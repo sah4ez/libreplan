@@ -163,7 +163,7 @@ public class ComposeMessage {
 
 			// It is very important to use Session.getInstance() instead of
 			// Session.getDefaultInstance()
-			Session mailSession = Session.getInstance(properties, new javax.mail.Authenticator() {
+			Session mailSession = Session.getInstance(properties, new jakarta.mail.Authenticator() {
 				@Override
 				protected PasswordAuthentication getPasswordAuthentication() {
 					return new PasswordAuthentication(username, password);

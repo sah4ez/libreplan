@@ -109,12 +109,14 @@ public class JiraOrderElementSynchronizer implements IJiraOrderElementSynchroniz
                 PredefinedConnectorProperties.JIRA_LABELS);
 
         String labels;
-        try {
+        /* TODO: migrate to yourack or jakarta web client
+         * try {
             new URL(jiraLabels);
             labels = JiraRESTClient.getAllLables(jiraLabels);
         } catch (MalformedURLException e) {
             labels = jiraLabels;
-        }
+        }*/
+        labels = jiraLabels;
         return Arrays.asList(StringUtils.split(labels, ","));
     }
 
@@ -145,6 +147,9 @@ public class JiraOrderElementSynchronizer implements IJiraOrderElementSynchroniz
      * @return a list of {@link IssueDTO}
      */
     private List<IssueDTO> getJiraIssues(String label, Connector connector) {
+    	List<IssueDTO> issues = new ArrayList<IssueDTO>();
+    	/* TODO: revert jira client with jakarta, but better add youtrack client instead of )))
+    	 * 
         Map<String, String> properties = connector.getPropertiesAsMap();
         String url = properties.get(PredefinedConnectorProperties.SERVER_URL);
 
@@ -156,10 +161,12 @@ public class JiraOrderElementSynchronizer implements IJiraOrderElementSynchroniz
 
         String path = JiraRESTClient.PATH_SEARCH;
         String query = "labels=" + label;
-
+        
+        
+        
         List<IssueDTO> issues = JiraRESTClient.getIssues(url, username, password,
                 path, query);
-
+*/
         return issues;
     }
 
@@ -499,9 +506,12 @@ public class JiraOrderElementSynchronizer implements IJiraOrderElementSynchroniz
 
     }
 
+    
     @Override
     @Transactional
     public List<SynchronizationInfo> syncOrderElementsWithJiraIssues() throws ConnectorException {
+    	List<SynchronizationInfo> syncInfos = new ArrayList<SynchronizationInfo>();
+    	/* TODO migrate youtrack
         Connector connector = getJiraConnector();
         if (connector == null) {
             throw new ConnectorException(helperi18n("JIRA connector not found"));
@@ -560,6 +570,8 @@ public class JiraOrderElementSynchronizer implements IJiraOrderElementSynchroniz
                 syncInfos.add(synchronizationInfo);
             }
         }
+        */
         return syncInfos;
     }
+    
 }

@@ -156,7 +156,8 @@ public class TypeOfWorkHoursDAO extends IntegrationEntityDAO<TypeOfWorkHours>
         checkHasHourCost(type);
         checkHasWorkReportLine(type);
         checkIsPersonalTimesheetsTypeOfWorkHours(type);
-        checkIsJiraConnectorTypeOfWorkHours(type);
+        //TODO migrate to youtrack
+        //checkIsJiraConnectorTypeOfWorkHours(type);
     }
 
     private void checkHasWorkReportLine(TypeOfWorkHours type) {
@@ -200,7 +201,7 @@ public class TypeOfWorkHoursDAO extends IntegrationEntityDAO<TypeOfWorkHours>
         return c.uniqueResult() != null;
     }
 
-    private void checkIsJiraConnectorTypeOfWorkHours(TypeOfWorkHours type) {
+    /*private void checkIsJiraConnectorTypeOfWorkHours(TypeOfWorkHours type) {
         Connector connector = connectorDAO
                 .findUniqueByName(PredefinedConnectors.JIRA.getName());
         if (connector != null) {
@@ -213,6 +214,6 @@ public class TypeOfWorkHoursDAO extends IntegrationEntityDAO<TypeOfWorkHours>
                                 type);
             }
         }
-    }
+    }*/
 
 }

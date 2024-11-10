@@ -19,16 +19,24 @@
 
 package org.libreplan.importers;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.Configuration;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
+import org.jfree.util.Log;
+
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.WebTarget;
+
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import org.libreplan.importers.jira.IssueDTO;
 import org.libreplan.importers.jira.SearchResultDTO;
@@ -71,14 +79,18 @@ public class JiraRESTClient {
     /**
      * Queries Jira for all labels
      *
+     *
      * @param url
      *            the url from where to fetch data
      * @return String with the list of labels sepparated by comma
      */
     public static String getAllLables(String url) {
-        WebClient client = WebClient.create(url).accept(mediaTypes);
+    	
+    	WebTarget client = ClientBuilder.newClient().target(url);
+        //WebClient client = WebClient.create(url).accept(mediaTypes);
 
-        return client.get(String.class);
+        return client.getUri().toString();
+        
     }
 
     /**
@@ -97,7 +109,8 @@ public class JiraRESTClient {
      * @return list of jira issues
      */
     public static List<IssueDTO> getIssues(String url, String username, String password, String path, String query) {
-
+    	return new ArrayList<IssueDTO>();
+    	/*
         WebClient client = createClient(url);
 
         checkAutherization(client, username, password);
@@ -117,6 +130,7 @@ public class JiraRESTClient {
         SearchResultDTO searchResult = client.get(SearchResultDTO.class);
 
         return searchResult.getIssues();
+        */
     }
 
     /**
@@ -128,10 +142,13 @@ public class JiraRESTClient {
      */
     private static WebClient createClient(String url) {
 
+    	return WebClient.create(url);
+    	/*
         JacksonJaxbJsonProvider jacksonJaxbJsonProvider = new JacksonJaxbJsonProvider();
         jacksonJaxbJsonProvider.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        return WebClient.create(url, Collections.singletonList(jacksonJaxbJsonProvider)).accept(mediaTypes);
+        return WebClient.create(url, Collections.singletonList(jacksonJaxbJsonProvider));//.accept(mediaTypes);
+        */
 
     }
 
@@ -146,6 +163,7 @@ public class JiraRESTClient {
      *            login password
      */
     private static void checkAutherization(WebClient client, String login, String password) {
+    	/*
         NaiveTrustProvider.setAlwaysTrust(true);
 
         client.path(PATH_AUTH_SESSION);
@@ -156,6 +174,7 @@ public class JiraRESTClient {
         if ( response.getStatus() != Status.OK.getStatusCode() ) {
             throw new RuntimeException("Authorization failed");
         }
+        */
     }
 
 }

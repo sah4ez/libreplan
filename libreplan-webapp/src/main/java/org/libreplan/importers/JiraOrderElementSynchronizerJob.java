@@ -42,6 +42,7 @@ public class JiraOrderElementSynchronizerJob extends QuartzJobBean {
     @Override
     protected void executeInternal(JobExecutionContext context)
             throws JobExecutionException {
+    	/*
         ApplicationContext applicationContext = (ApplicationContext) context
                 .getJobDetail().getJobDataMap().get("applicationContext");
 
@@ -58,6 +59,8 @@ public class JiraOrderElementSynchronizerJob extends QuartzJobBean {
         } catch (ConnectorException e) {
             LOG.error("Synchronize order elements failed", e);
         }
+        */
+    	LOG.warn("JIRA sync disabled");
     }
 
 }

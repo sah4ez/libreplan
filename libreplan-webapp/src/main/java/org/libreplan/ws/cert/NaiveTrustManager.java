@@ -24,7 +24,7 @@ package org.libreplan.ws.cert;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
-import jakarta.net.ssl.X509TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 /**
  * This Trust Manager is "naive" because it trusts everyone.

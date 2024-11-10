@@ -131,10 +131,13 @@ public class JobSchedulerModel implements IJobSchedulerModel {
             return;
         }
 
+        
+        /*TODO migrate youtrack
         if ( name.equals(JobClassNameEnum.SYNC_ORDERELEMENTS_WITH_JIRA_ISSUES_JOB.getName()) ) {
             synchronizationInfos = jiraOrderElementSynchronizer.syncOrderElementsWithJiraIssues();
             return;
         }
+        */
 
         if ( name.equals(JobClassNameEnum.SEND_EMAIL_TASK_ASSIGNED_TO_RESOURCE.getName()) ) {
             synchronizationInfos = new ArrayList<>();

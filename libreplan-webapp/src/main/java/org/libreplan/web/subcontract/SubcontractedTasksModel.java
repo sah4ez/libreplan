@@ -218,6 +218,7 @@ public class SubcontractedTasksModel implements ISubcontractedTasksModel {
         NaiveTrustProvider.setAlwaysTrust(true);
 
         try {
+        	/*
             WebClient client = WebClient.create(externalCompany.getAppURI());
             client.path("ws/rest/subcontracting/subcontract/update");
 
@@ -231,7 +232,7 @@ public class SubcontractedTasksModel implements ISubcontractedTasksModel {
                     instanceConstraintViolationsListDTO.instanceConstraintViolationsList;
 
             checkConstraintViolations(instanceConstraintViolationsList);
-
+			*/
         } catch (WebApplicationException e) {
             LOG.error(CONNECTION_PROBLEM, e);
 
@@ -254,7 +255,7 @@ public class SubcontractedTasksModel implements ISubcontractedTasksModel {
         NaiveTrustProvider.setAlwaysTrust(true);
 
         try {
-            WebClient client = WebClient.create(externalCompany.getAppURI());
+            /*WebClient client = WebClient.create(externalCompany.getAppURI());
 
             client.path("ws/rest/subcontracting/subcontract/create");
 
@@ -268,7 +269,7 @@ public class SubcontractedTasksModel implements ISubcontractedTasksModel {
                     instanceConstraintViolationsListDTO.instanceConstraintViolationsList;
 
             checkConstraintViolations(instanceConstraintViolationsList);
-
+			*/
         } catch (WebApplicationException e) {
             LOG.error(CONNECTION_PROBLEM, e);
 

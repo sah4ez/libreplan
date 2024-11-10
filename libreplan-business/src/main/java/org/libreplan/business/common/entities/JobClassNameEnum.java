@@ -30,7 +30,9 @@ public enum JobClassNameEnum {
 
     IMPORT_ROSTER_FROM_TIM_JOB("org.libreplan.importers", "ImportRosterFromTimJob"),
     EXPORT_TIMESHEET_TO_TIM_JOB("org.libreplan.importers", "ExportTimesheetToTimJob"),
+    /*TODO migrate youtrack
     SYNC_ORDERELEMENTS_WITH_JIRA_ISSUES_JOB("org.libreplan.importers", "JiraOrderElementSynchronizerJob"),
+    */
 
     SEND_EMAIL_TASK_ASSIGNED_TO_RESOURCE("org.libreplan.importers.notifications.jobs", "SendEmailOnTaskAssignedToResourceJob"),
     SEND_EMAIL_RESOURCE_REMOVED_FROM_TASK("org.libreplan.importers.notifications.jobs", "SendEmailOnResourceRemovedFromTaskJob"),

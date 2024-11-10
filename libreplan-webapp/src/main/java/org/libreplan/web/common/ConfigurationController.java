@@ -397,7 +397,7 @@ public class ConfigurationController extends GenericForwardComposer {
      */
     private void testJiraConnection(String url, String username, String password) {
 
-        try {
+        /*try {
 
             WebClient client = WebClient.create(url);
             client.path(JiraRESTClient.PATH_AUTH_SESSION).accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML);
@@ -416,7 +416,7 @@ public class ConfigurationController extends GenericForwardComposer {
         } catch (Exception e) {
             LOG.error(e);
             messages.showMessage(Level.ERROR, helperi18n("Cannot connect to JIRA server"));
-        }
+        }*/
     }
 
     /**

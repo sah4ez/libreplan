@@ -198,23 +198,24 @@ public class ReportAdvancesModel implements IReportAdvancesModel {
                 externalCompany.getOurCompanyLogin(), externalCompany.getOurCompanyPassword());
 
         try {
-            InstanceConstraintViolationsListDTO instanceConstraintViolationsListDTO = client
+            /*InstanceConstraintViolationsListDTO instanceConstraintViolationsListDTO = client
                     .post(orderElementWithAdvanceMeasurementsListDTO,
                             InstanceConstraintViolationsListDTO.class);
 
             List<InstanceConstraintViolationsDTO> instanceConstraintViolationsList =
                     instanceConstraintViolationsListDTO.instanceConstraintViolationsList;
+			*/
+        	if (false) { //sorry i'll fix it))
+            //if (instanceConstraintViolationsList != null && !instanceConstraintViolationsList.isEmpty()) {
+//                String message = "";
+//
+//                for (ConstraintViolationDTO constraintViolationDTO :
+//                        instanceConstraintViolationsList.get(0).constraintViolations) {
+//
+//                    message += constraintViolationDTO.toString() + "\n";
+//                }
 
-            if (instanceConstraintViolationsList != null && !instanceConstraintViolationsList.isEmpty()) {
-                String message = "";
-
-                for (ConstraintViolationDTO constraintViolationDTO :
-                        instanceConstraintViolationsList.get(0).constraintViolations) {
-
-                    message += constraintViolationDTO.toString() + "\n";
-                }
-
-                throw new UnrecoverableErrorServiceException(message);
+                throw new UnrecoverableErrorServiceException("fix me");
             }
 
         } catch (WebApplicationException e) {

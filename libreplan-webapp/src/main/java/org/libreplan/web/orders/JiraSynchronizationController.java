@@ -95,7 +95,8 @@ public class JiraSynchronizationController extends GenericForwardComposer {
     @Override
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
-
+        LOG.warn("jira need migrate to youtrack");
+        /*
         jiraOrderElementSynchronizer = (IJiraOrderElementSynchronizer) SpringUtil.getBean("jiraOrderElementSynchronizer");
         jiraTimesheetSynchronizer = (IJiraTimesheetSynchronizer) SpringUtil.getBean("jiraTimesheetSynchronizer");
         connectorDAO = (IConnectorDAO) SpringUtil.getBean("connectorDAO");
@@ -104,6 +105,7 @@ public class JiraSynchronizationController extends GenericForwardComposer {
         loadComponentsEditWindow();
         showOrHideJiraEditWindow();
         updateOrderLastSyncInfoScreen();
+        */
     }
 
     public void setOrderController(OrderCRUDController orderController) {
@@ -118,31 +120,39 @@ public class JiraSynchronizationController extends GenericForwardComposer {
     }
 
     private void loadComponentsEditWindow() {
+    	LOG.warn("jira need migrate to youtrack");
+    	/*
         txtLastSyncDate = (Textbox) editWindow.getFellowIfAny("txtLastSyncDate");
         txtImportedLabel = (Textbox) editWindow.getFellowIfAny("txtImportedLabel");
         jiraGroupBox = (Groupbox) editWindow.getFellowIfAny("jiraGroupBox");
         syncWithJiraButton = (Button) editWindow.getFellow("syncWithJiraButton");
         messagesForUser = new MessagesForUser(messagesContainer);
+        */
     }
 
     /**
      * Show or hide <code>JiraEditWindow</code> based on JIRA {@link Connector#isActivated()}.
      */
     private void showOrHideJiraEditWindow() {
+    	LOG.warn("jira need migrate to youtrack");
+    	/*
         jiraGroupBox.setVisible(isJiraActivated());
+        */
     }
 
     /**
      * Updates the UI text last synchronized date and the text imported label.
      */
     private void updateOrderLastSyncInfoScreen() {
+    	LOG.warn("jira need migrate to youtrack");
+    	/*
         OrderSyncInfo orderSyncInfo = jiraOrderElementSynchronizer.getOrderLastSyncInfo(getOrder());
 
         if ( orderSyncInfo != null ) {
             txtLastSyncDate.setValue(Util.formatDateTime(orderSyncInfo
                     .getLastSyncDate()));
             txtImportedLabel.setValue(orderSyncInfo.getKey());
-        }
+        }*/
     }
 
     /**
@@ -150,14 +160,21 @@ public class JiraSynchronizationController extends GenericForwardComposer {
      * Used to show/hide JIRA edit window.
      */
     public boolean isJiraActivated() {
+    	LOG.warn("jira need migrate to youtrack");
+    	return false;
+    	/*TODO migrate youtrack
         Connector connector = connectorDAO.findUniqueByName(PredefinedConnectors.JIRA.getName());
         return connector != null && connector.isActivated();
+        */
     }
 
     /**
      * Synchronize with JIRA.
      */
+    
     public void syncWithJira() {
+    	LOG.warn("jira need migrate to youtrack");
+    	/*
         try {
             List<String> items = jiraOrderElementSynchronizer.getAllJiraLabels();
 
@@ -177,6 +194,7 @@ public class JiraSynchronizationController extends GenericForwardComposer {
             LOG.info(e);
             messagesForUser.showMessage(Level.ERROR, helperi18n("Cannot connect to JIRA server"));
         }
+        */
     }
 
     /**
@@ -186,6 +204,8 @@ public class JiraSynchronizationController extends GenericForwardComposer {
      *            the JIRA label
      */
     public void startSyncWithJira(String label) {
+    	LOG.warn("jira need migrate to youtrack");
+    	/*
         try {
             Order order = getOrder();
 
@@ -224,12 +244,15 @@ public class JiraSynchronizationController extends GenericForwardComposer {
             LOG.info(e);
             messagesForUser.showMessage(Level.ERROR, helperi18n("Cannot connect to JIRA server"));
         }
+        */
     }
 
     /**
      * Shows the success or failure info of synchronization.
      */
     private void showSyncInfo() {
+    	LOG.warn("jira need migrate to youtrack");
+    	/*
         Map<String, Object> args = new HashMap<>();
 
         SynchronizationInfo syncOrderElementInfo = jiraOrderElementSynchronizer.getSynchronizationInfo();
@@ -257,10 +280,13 @@ public class JiraSynchronizationController extends GenericForwardComposer {
         } catch (SuspendNotAllowedException e) {
             throw new RuntimeException(e);
         }
+        */
     }
 
     private boolean isSyncSucceeded(SynchronizationInfo syncInfo) {
-        return syncInfo != null && syncInfo.isSuccessful();
+    	LOG.warn("jira need migrate to youtrack");
+    	return true;
+        //return syncInfo != null && syncInfo.isSuccessful();
     }
 
     /**
@@ -273,7 +299,8 @@ public class JiraSynchronizationController extends GenericForwardComposer {
      *            <code>comboJiraLabel</code>
      */
     private void setupJiraSyncPopup(Component comp, ListModel model) {
-
+    	LOG.warn("jira need migrate to youtrack");
+    	/*
         startJiraSyncButton = (Button) comp.getFellow("startJiraSyncButton");
         startJiraSyncButton.setLabel(helperi18n("Start sync"));
 
@@ -287,6 +314,7 @@ public class JiraSynchronizationController extends GenericForwardComposer {
         comboJiraLabel.setModel(model);
 
         jirasyncPopup = (Popup) comp.getFellow("jirasyncPopup");
+        */
 
     }
 

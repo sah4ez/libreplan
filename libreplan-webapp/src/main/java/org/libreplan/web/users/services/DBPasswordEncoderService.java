@@ -23,8 +23,7 @@ package org.libreplan.web.users.services;
 
 import java.util.Collections;
 
-import org.springframework.security.authentication.dao.SaltSource;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -41,16 +40,11 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public class DBPasswordEncoderService implements IDBPasswordEncoderService {
 
-    private SaltSourcalt saltSource;
-    // TODO resolve deprecated
-    private PasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
 
-    public void setSaltSource(SaltSource saltSource) {
-        this.saltSource = saltSource;
-    }
 
     // TODO resolve deprecated
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+    public void setPasswordEncoder(BCryptPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -70,13 +64,12 @@ public class DBPasswordEncoderService implements IDBPasswordEncoderService {
          */
         UserDetails userDetails = new User(loginName, clearPassword, true, true, true, true, Collections.emptyList());
 
-        Object salt = null;
-
-        if ( saltSource != null ) {
-            salt = saltSource.getSalt(userDetails);
+     
+        if (passwordEncoder == null) {
+        	this.passwordEncoder = new BCryptPasswordEncoder(16);
         }
 
-        return passwordEncoder.encodePassword(clearPassword, salt);
+        return passwordEncoder.encode(clearPassword);
 
     }
 
