@@ -250,9 +250,9 @@
 
             <!-- Javax EL (needed for javax validation) -->
             <dependency>
-                <groupId>javax.el</groupId>
-                <artifactId>javax.el-api</artifactId>
-                <version>3.0.0</version>
+                <groupId>jakarta.el</groupId>
+                <artifactId>jakarta.el-api</artifactId>
+                <version>6.0.1</version>
             </dependency>
 
             <!-- Usertype.Core ( Significant for Hibernate ) -->
@@ -278,10 +278,9 @@
 
             <!-- Jboss Transaction -->
             <dependency>
-                <groupId>org.jboss.spec.javax.transaction</groupId>
-                <artifactId>jboss-transaction-api_1.2_spec</artifactId>
-                <version>1.0.1.Final</version>
-                <scope>compile</scope>
+                <groupId>jakarta.transaction</groupId>
+                <artifactId>jakarta.transaction-api</artifactId>
+                <version>2.0.1</version>
                 <exclusions>
                     <exclusion>
                         <artifactId>xml-apis</artifactId>
@@ -430,7 +429,7 @@
             <dependency>
                 <groupId>org.zkoss.zk</groupId>
                 <artifactId>zul</artifactId>
-                <version>10.0.0</version>
+                <version>10.0.0-jakarta</version>
             </dependency>
 
             <dependency>
@@ -442,19 +441,19 @@
             <dependency>
                 <groupId>org.zkoss.zk</groupId>
                 <artifactId>zkbind</artifactId>
-                <version>10.0.0</version>
+                <version>10.0.0-jakarta</version>
             </dependency>
 
             <dependency>
                 <groupId>org.zkoss.common</groupId>
                 <artifactId>zcommon</artifactId>
-                <version>10.0.0</version>
+                <version>10.0.0-jakarta</version>
             </dependency>
 
             <dependency>
                 <groupId>org.zkoss.zk</groupId>
                 <artifactId>zk</artifactId>
-                <version>10.0.0</version>
+                <version>10.0.0-jakarta</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.jruby</groupId>
@@ -469,7 +468,7 @@
             <dependency>
                 <groupId>org.zkoss.common</groupId>
                 <artifactId>zweb</artifactId>
-                <version>10.0.0</version>
+                <version>10.0.0-jakarta</version>
             </dependency>
 
             <!-- JGraphT -->
@@ -513,19 +512,12 @@
             </dependency>
 
             <!-- Servlet -->
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>3.1.0</version>
-                <type>jar</type>
-                <scope>provided</scope>
-            </dependency>
 
             <!-- JAX-RS API -->
             <dependency>
-                <groupId>javax.ws.rs</groupId>
-                <artifactId>javax.ws.rs-api</artifactId>
-                <version>2.0.1</version>
+                <groupId>jakarta.ws.rs</groupId>
+                <artifactId>jakarta.ws.rs-api</artifactId>
+                <version>4.0.0</version>
             </dependency>
 
             <!-- CXF -->
@@ -676,14 +668,14 @@
             <!-- Java mail -->
             <dependency>
                 <groupId>com.sun.mail</groupId>
-                <artifactId>javax.mail</artifactId>
-                <version>1.5.5</version>
+                <artifactId>jakarta.mail</artifactId>
+                <version>2.0.1</version>
             </dependency>
 
             <dependency>
             	<groupId>org.zkoss.zk</groupId>
             	<artifactId>zkplus</artifactId>
-            	<version>10.0.0</version>
+            	<version>10.0.0-jakarta</version>
             </dependency>
             <dependency>
             	<groupId>net.bytebuddy</groupId>
@@ -694,6 +686,17 @@
             	<groupId>org.apache.commons</groupId>
             	<artifactId>commons-lang3</artifactId>
             	<version>3.17.0</version>
+            </dependency>
+            <dependency>
+            	<groupId>org.zkoss.common</groupId>
+            	<artifactId>zweb-dsp</artifactId>
+            	<version>10.0.0-jakarta</version>
+            </dependency>
+            <dependency>
+            	<groupId>jakarta.servlet</groupId>
+            	<artifactId>jakarta.servlet-api</artifactId>
+            	<version>6.0.1</version>
+            	<scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

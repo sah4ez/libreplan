@@ -25,8 +25,6 @@ package org.libreplan.web;
 import java.util.HashMap;
 import java.util.Locale;
 
-import javax.servlet.http.HttpSession;
-
 import org.libreplan.business.users.entities.User;
 import org.xnap.commons.i18n.I18n;
 import org.xnap.commons.i18n.I18nFactory;
@@ -70,7 +68,7 @@ public class I18nHelper {
         Execution execution = Executions.getCurrent();
         if ( execution != null ) {
             Locale userLocale = getUserLocale();
-            Charsets.setPreferredLocale((HttpSession) execution.getSession().getNativeSession(), userLocale);
+            Charsets.setPreferredLocale((jakarta.servlet.http.HttpSession) execution.getSession().getNativeSession(), userLocale);
             if ( userLocale != null ) {
                 Locales.setThreadLocal(userLocale);
             }
