@@ -28,7 +28,7 @@
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
+            <artifactId>hibernate-core-jakarta</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -143,6 +143,10 @@
         	<groupId>jakarta.annotation</groupId>
         	<artifactId>jakarta.annotation-api</artifactId>
         	<version>3.0.0</version>
+        </dependency>
+        <dependency>
+        	<groupId>jakarta.validation</groupId>
+        	<artifactId>jakarta.validation-api</artifactId>
         </dependency>
     </dependencies>
 

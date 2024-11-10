@@ -95,7 +95,7 @@ public class ResourceDAOTest {
     @Autowired
     private IUserDAO userDAO;
 
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private IDataBootstrap configurationBootstrap;
 
     @Before

@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.Session;

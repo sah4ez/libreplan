@@ -30,7 +30,7 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.libreplan.business.common.entities.Configuration;
 import org.libreplan.business.common.Registry;
 import org.libreplan.business.labels.entities.Label;

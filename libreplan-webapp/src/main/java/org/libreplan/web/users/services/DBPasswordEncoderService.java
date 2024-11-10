@@ -24,7 +24,7 @@ package org.libreplan.web.users.services;
 import java.util.Collections;
 
 import org.springframework.security.authentication.dao.SaltSource;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -41,7 +41,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public class DBPasswordEncoderService implements IDBPasswordEncoderService {
 
-    private SaltSource saltSource;
+    private SaltSourcalt saltSource;
     // TODO resolve deprecated
     private PasswordEncoder passwordEncoder;
 

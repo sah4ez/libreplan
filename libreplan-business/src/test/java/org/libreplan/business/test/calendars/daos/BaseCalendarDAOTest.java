@@ -32,7 +32,7 @@ import static org.libreplan.business.test.BusinessGlobalNames.BUSINESS_SPRING_CO
 import java.util.List;
 import java.util.UUID;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.hibernate.SessionFactory;
 import org.joda.time.LocalDate;
