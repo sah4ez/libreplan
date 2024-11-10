@@ -52,7 +52,7 @@
  <servlet>
   <description>The servlet loads the DSP pages.</description>
   <servlet-name>dspLoader</servlet-name>
-  <servlet-class>org.zkoss.web.servlet.dsp.impl.InterpretResolver</servlet-class>
+  <servlet-class>org.zkoss.web.servlet.dsp.impl.InterpretContext</servlet-class>
  </servlet>
  <servlet>
   <description>Callback Servlet</description>
@@ -116,6 +116,7 @@
  </session-config>
  <welcome-file-list>
   <welcome-file>/common/index.zul</welcome-file>
+  <welcome-file>index.zul</welcome-file>
  </welcome-file-list>
  <error-page>
   <exception-type>java.lang.Throwable</exception-type>
