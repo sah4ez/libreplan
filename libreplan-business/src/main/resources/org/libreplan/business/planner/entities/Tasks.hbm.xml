@@ -1,249 +1,194 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-
-<hibernate-mapping package="org.libreplan.business.planner.entities" default-access="field">
-
-    <class name="TaskElement" table="task_element">
-
-        <id name="id" column="id" type="long" access="property">
-            <generator class="increment">
-                <param name="max_lo">100</param>
-            </generator>
-        </id>
-
-        <version name="version" access="property" type="long" />
-
-        <property name="name" />
-
-        <property name="notes" type="text" />
-
-        <component name="startDate" class="org.libreplan.business.workingday.IntraDayDate">
-            <property  name="date" column="start_date" not-null="true" />
-
-            <property name="effortDuration" column="start_day_duration"
-                      type="org.libreplan.business.workingday.hibernate.EffortDurationType"/>
-        </component>
-
-        <component name="endDate" class="org.libreplan.business.workingday.IntraDayDate">
-            <property name="date" column="end_date" not-null="true" />
-
-            <property name="effortDuration" column="end_day_duration"
-                      type="org.libreplan.business.workingday.hibernate.EffortDurationType"/>
-        </component>
-
-        <property name="deadline"/>
-
-        <property name="advancePercentage" column="advance_percentage" access="field" scale="4"/>
-
-        <property name="sumOfAssignedEffort" column="sum_of_assigned_effort" access="field"
-                  type="org.libreplan.business.workingday.hibernate.EffortDurationType"/>
-
-        <!-- Indexed -->
-        <many-to-one name="parent" class="TaskGroup" cascade="none" column="parent"
-                     index="idx_task_element_on_task_group" />
-
-        <one-to-one name="taskSource" cascade="delete" />
-
-        <!-- Indexed on the other side -->
-        <set name="dependenciesWithThisOrigin" cascade="all">
-            <key column="origin"/>
-            <one-to-many class="Dependency" />
-        </set>
-
-        <!-- Not indexed -->
-        <set name="dependenciesWithThisDestination" cascade="all">
-            <key column="destination"/>
-            <one-to-many class="Dependency" />
-        </set>
-
-        <!-- Not indexed -->
-        <many-to-one name="calendar" column="base_calendar_id" cascade="none"
-                     class="org.libreplan.business.calendars.entities.BaseCalendar"/>
-
-        <property name="updatedFromTimesheets" column="updated_from_timesheets" />
-
-        <joined-subclass name="Task" table="task">
-
-            <key column="task_element_id"/>
-
-            <property name="calculatedValue" column="calculated_value">
-                <type name="org.hibernate.type.EnumType">
-                    <param name="enumClass">org.libreplan.business.planner.entities.CalculatedValue</param>
-                </type>
-            </property>
-
-            <component name="positionConstraint">
-                <property name="constraintType" column="constraint_type">
-                    <type name="org.hibernate.type.EnumType">
-                        <param name="enumClass">org.libreplan.business.planner.entities.PositionConstraintType</param>
-                    </type>
-                </property>
-
-                <component name="constraintDate" class="org.libreplan.business.workingday.IntraDayDate">
-                    <property name="date" column="constraint_date" />
-
-                    <property name="effortDuration" column="constraint_date_effort_duration"
-                              type="org.libreplan.business.workingday.hibernate.EffortDurationType"/>
-                </component>
-            </component>
-
-            <property name="workableDays" column="workable_days" />
-
-            <property name="lastAllocationDirection" column="allocation_direction">
-                <type name="org.hibernate.type.EnumType">
-                    <param name="enumClass">org.libreplan.business.planner.entities.ResourceAllocation$Direction</param>
-                </type>
-            </property>
-
-            <one-to-one name="consolidation"
-                        class="org.libreplan.business.planner.entities.consolidations.Consolidation" cascade="all"/>
-
-            <!-- Indexed on the other side -->
-            <set name="resourceAllocations" cascade="all-delete-orphan" >
-                <key column="task" />
-                <one-to-many class="ResourceAllocation" />
-            </set>
-
-            <!-- Already indexed because it's unique -->
-            <many-to-one name="subcontractedTaskData" column="subcontracted_task_data_id" unique="true" cascade="all"
-                         lazy="false" />
-
-            <property name="priority" />
-
-        </joined-subclass>
-
-        <joined-subclass name="TaskGroup" table="task_group">
-            <key column="task_element_id"/>
-
-            <one-to-one name="planningData" class="PlanningData" cascade="all" />
-
-            <!-- Indexed on the other side -->
-            <list name="taskElements" cascade="all" lazy="false">
-                <key column="parent" not-null="false"/>
-                <index column="position_in_parent"/>
-                <one-to-many class="TaskElement" />
-            </list>
-        </joined-subclass>
-
-        <joined-subclass name="TaskMilestone" table="task_milestone" >
-            <key column="task_element_id"/>
-
-            <component name="startConstraint">
-                <property name="constraintType" column="constraint_type">
-                    <type name="org.hibernate.type.EnumType">
-                        <param name="enumClass">org.libreplan.business.planner.entities.PositionConstraintType</param>
-                    </type>
-                </property>
-
-                <component name="constraintDate" class="org.libreplan.business.workingday.IntraDayDate">
-                    <property name="date" column="constraint_date" />
-
-                    <property name="effortDuration" column="constraint_date_effort_duration"
-                              type="org.libreplan.business.workingday.hibernate.EffortDurationType"/>
-                </component>
-            </component>
-        </joined-subclass>
-
-    </class>
-
-
-    <!-- PlanningData -->
-    <class name="PlanningData" table="planning_data">
-        <id name="id" column="planning_data_id">
-            <generator class="foreign">
-                <param name="property">rootTask</param>
-            </generator>
-        </id>
-
-        <version name="version" access="property" type="long" />
-
-        <one-to-one name="rootTask" class="TaskGroup" constrained="true" cascade="all" lazy="false" />
-
-        <property name="progressAllByNumHours" column="progress_all_by_num_hours" scale="6" />
-
-        <property name="progressByDuration" column="progress_by_duration" scale="6" />
-
-        <property name="progressByNumHours" column="progress_by_num_hours" scale="6" />
-    </class>
-
-
-    <class name="Dependency" table="dependency">
-
-        <id name="id" type="long" access="property">
-            <generator class="increment"/>
-        </id>
-
-        <version name="version" access="property" type="long" />
-
-        <!-- Indexed -->
-        <many-to-one class="TaskElement" name="origin" column="origin" index="idx_dependency_on_task_element_origin" />
-
-        <!-- Not indexed, navigation in that direction is not useful -->
-        <many-to-one class="TaskElement" name="destination" column="destination" />
-
-        <!-- Not indexed, relation from the other side is one-to-one -->
-        <many-to-one class="org.libreplan.business.planner.limiting.entities.LimitingResourceQueueDependency"
-                     cascade="all" name="queueDependency" column="queue_dependency" unique="false" />
-
-        <property name="type">
-            <type name="org.hibernate.type.EnumType">
-                <param name="enumClass">org.libreplan.business.planner.entities.Dependency$Type</param>
-            </type>
-        </property>
-
-    </class>
-
-    <!-- SubcontractedTaskData -->
-    <class name="SubcontractedTaskData" table="subcontracted_task_data">
-        <id name="id" type="long" access="property">
-            <generator class="increment"/>
-        </id>
-
-        <version name="version" access="property" type="long" />
-
-        <!-- Not indexed, navigation from ExternalCompany to this is not even implemented -->
-        <many-to-one name="externalCompany" class="org.libreplan.business.externalcompanies.entities.ExternalCompany"
-                     column="external_company" />
-
-        <one-to-one name="task" class="Task" property-ref="subcontractedTaskData" lazy="false"/>
-
-        <property name="subcontratationDate" column="subcontratation_date" />
-
-        <property name="subcontractCommunicationDate" column="subcontract_communication_date" />
-
-        <property name="workDescription" column="work_description" />
-
-        <property name="subcontractPrice" column="subcontract_price"/>
-
-        <property name="subcontractedCode" column="subcontracted_code"/>
-
-        <property name="nodeWithoutChildrenExported" column="node_without_children_exported" />
-
-        <property name="labelsExported" column="labels_exported" />
-
-        <property name="materialAssignmentsExported" column="material_assignments_exported" />
-
-        <property name="hoursGroupsExported" column="hours_groups_exported" />
-
-        <property name="state" >
-            <type name="org.hibernate.type.EnumType">
-                <param name="enumClass">org.libreplan.business.planner.entities.SubcontractState</param>
-            </type>
-        </property>
-
-		<set name="requiredDeliveringDates" inverse="false" cascade="all-delete-orphan" access="field"
-             sort="org.libreplan.business.externalcompanies.entities.DeliverDateComparator">
-	        <key column="subcontracted_task_data_id" />
-	        <one-to-many class="org.libreplan.business.planner.entities.SubcontractorDeliverDate" />
-		</set>
-
-		<set name="endDatesCommunicatedFromSubcontractor" inverse="false" cascade="all-delete-orphan" access="field"
-             sort="org.libreplan.business.externalcompanies.entities.EndDateCommunicationComparator">
-	        <key column="subcontracted_task_data_id" />
-	        <one-to-many class="org.libreplan.business.externalcompanies.entities.EndDateCommunication" />
-		</set>
-
-    </class>
-
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field" package="org.libreplan.business.planner.entities">
+ <class name="TaskElement" table="task_element">
+  <id column="id" name="id" type="long">
+   <generator class="increment">
+    <param name="max_lo">100</param>
+   </generator>
+  </id>
+  <version generated="never" name="version" type="long"/>
+  <property generated="never" lazy="false" name="name"/>
+  <property generated="never" lazy="false" name="notes" type="text"/>
+  <component class="org.libreplan.business.workingday.IntraDayDate" name="startDate">
+   <property column="start_date" generated="never" lazy="false"
+    name="date" not-null="true" type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate"/>
+   <property column="start_day_duration" generated="never" lazy="false"
+    name="effortDuration" type="org.libreplan.business.workingday.hibernate.EffortDurationType"/>
+  </component>
+  <component class="org.libreplan.business.workingday.IntraDayDate" name="endDate">
+   <property column="end_date" generated="never" lazy="false"
+    name="date" not-null="true" type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate"/>
+   <property column="end_day_duration" generated="never" lazy="false"
+    name="effortDuration" type="org.libreplan.business.workingday.hibernate.EffortDurationType"/>
+  </component>
+  <property generated="never" lazy="false" name="deadline"/>
+  <property access="field" column="advance_percentage" generated="never"
+   lazy="false" name="advancePercentage" scale="4"/>
+  <property access="field" column="sum_of_assigned_effort"
+   generated="never" lazy="false" name="sumOfAssignedEffort" type="org.libreplan.business.workingday.hibernate.EffortDurationType"/>
+  <!-- Indexed -->
+  <many-to-one class="TaskGroup" column="parent"
+   index="idx_task_element_on_task_group" name="parent"/>
+  <one-to-one cascade="delete" name="taskSource"/>
+  <!-- Indexed on the other side -->
+  <set cascade="all" name="dependenciesWithThisOrigin" sort="unsorted">
+   <key column="origin"/>
+   <one-to-many class="Dependency"/>
+  </set>
+  <!-- Not indexed -->
+  <set cascade="all" name="dependenciesWithThisDestination" sort="unsorted">
+   <key column="destination"/>
+   <one-to-many class="Dependency"/>
+  </set>
+  <!-- Not indexed -->
+  <many-to-one
+   class="org.libreplan.business.calendars.entities.BaseCalendar"
+   column="base_calendar_id" name="calendar"/>
+  <property column="updated_from_timesheets" generated="never"
+   lazy="false" name="updatedFromTimesheets"/>
+  <joined-subclass name="Task" table="task">
+   <key column="task_element_id"/>
+   <property column="calculated_value" generated="never" lazy="false" name="calculatedValue">
+    <type name="org.hibernate.type.EnumType">
+     <param name="enumClass">org.libreplan.business.planner.entities.CalculatedValue</param>
+    </type>
+   </property>
+   <component name="positionConstraint">
+    <property column="constraint_type" generated="never" lazy="false" name="constraintType">
+     <type name="org.hibernate.type.EnumType">
+      <param name="enumClass">org.libreplan.business.planner.entities.PositionConstraintType</param>
+     </type>
+    </property>
+    <component class="org.libreplan.business.workingday.IntraDayDate" name="constraintDate">
+     <property column="constraint_date" generated="never" lazy="false"
+      name="date" type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate"/>
+     <property column="constraint_date_effort_duration"
+      generated="never" lazy="false" name="effortDuration" type="org.libreplan.business.workingday.hibernate.EffortDurationType"/>
+    </component>
+   </component>
+   <property column="workable_days" generated="never" lazy="false" name="workableDays"/>
+   <property column="allocation_direction" generated="never"
+    lazy="false" name="lastAllocationDirection">
+    <type name="org.hibernate.type.EnumType">
+     <param name="enumClass">org.libreplan.business.planner.entities.ResourceAllocation$Direction</param>
+    </type>
+   </property>
+   <one-to-one cascade="all"
+    class="org.libreplan.business.planner.entities.consolidations.Consolidation" name="consolidation"/>
+   <!-- Indexed on the other side -->
+   <set cascade="all-delete-orphan" name="resourceAllocations" sort="unsorted">
+    <key column="task"/>
+    <one-to-many class="ResourceAllocation"/>
+   </set>
+   <!-- Already indexed because it's unique -->
+   <many-to-one cascade="all" column="subcontracted_task_data_id"
+    lazy="false" name="subcontractedTaskData" unique="true"/>
+   <property generated="never" lazy="false" name="priority"/>
+  </joined-subclass>
+  <joined-subclass name="TaskGroup" table="task_group">
+   <key column="task_element_id"/>
+   <one-to-one cascade="all" class="PlanningData" name="planningData"/>
+   <!-- Indexed on the other side -->
+   <list cascade="all" lazy="false" name="taskElements">
+    <key column="parent" not-null="false"/>
+    <index column="position_in_parent"/>
+    <one-to-many class="TaskElement"/>
+   </list>
+  </joined-subclass>
+  <joined-subclass name="TaskMilestone" table="task_milestone">
+   <key column="task_element_id"/>
+   <component name="startConstraint">
+    <property column="constraint_type" generated="never" lazy="false" name="constraintType">
+     <type name="org.hibernate.type.EnumType">
+      <param name="enumClass">org.libreplan.business.planner.entities.PositionConstraintType</param>
+     </type>
+    </property>
+    <component class="org.libreplan.business.workingday.IntraDayDate" name="constraintDate">
+     <property column="constraint_date" generated="never" lazy="false" 
+      name="date" type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate"/>
+     <property column="constraint_date_effort_duration"
+      generated="never" lazy="false" name="effortDuration" type="org.libreplan.business.workingday.hibernate.EffortDurationType"/>
+    </component>
+   </component>
+  </joined-subclass>
+ </class>
+ <!-- PlanningData -->
+ <class name="PlanningData" table="planning_data">
+  <id column="planning_data_id" name="id">
+   <generator class="foreign">
+    <param name="property">rootTask</param>
+   </generator>
+  </id>
+  <version generated="never" name="version" type="long"/>
+  <one-to-one cascade="all" class="TaskGroup" constrained="true"
+   lazy="false" name="rootTask"/>
+  <property column="progress_all_by_num_hours" generated="never"
+   lazy="false" name="progressAllByNumHours" scale="6"/>
+  <property column="progress_by_duration" generated="never" lazy="false"
+   name="progressByDuration" scale="6"/>
+  <property column="progress_by_num_hours" generated="never"
+   lazy="false" name="progressByNumHours" scale="6"/>
+ </class>
+ <class name="Dependency" table="dependency">
+  <id name="id" type="long">
+   <generator class="increment"/>
+  </id>
+  <version generated="never" name="version" type="long"/>
+  <!-- Indexed -->
+  <many-to-one class="TaskElement" column="origin"
+   index="idx_dependency_on_task_element_origin" name="origin"/>
+  <!-- Not indexed, navigation in that direction is not useful -->
+  <many-to-one class="TaskElement" column="destination" name="destination"/>
+  <!-- Not indexed, relation from the other side is one-to-one -->
+  <many-to-one cascade="all"
+   class="org.libreplan.business.planner.limiting.entities.LimitingResourceQueueDependency"
+   column="queue_dependency" name="queueDependency"/>
+  <property generated="never" lazy="false" name="type">
+   <type name="org.hibernate.type.EnumType">
+    <param name="enumClass">org.libreplan.business.planner.entities.Dependency$Type</param>
+   </type>
+  </property>
+ </class>
+ <!-- SubcontractedTaskData -->
+ <class name="SubcontractedTaskData" table="subcontracted_task_data">
+  <id name="id" type="long">
+   <generator class="increment"/>
+  </id>
+  <version generated="never" name="version" type="long"/>
+  <!-- Not indexed, navigation from ExternalCompany to this is not even implemented -->
+  <many-to-one
+   class="org.libreplan.business.externalcompanies.entities.ExternalCompany"
+   column="external_company" name="externalCompany"/>
+  <one-to-one class="Task" lazy="false" name="task" property-ref="subcontractedTaskData"/>
+  <property column="subcontratation_date" generated="never" lazy="false" name="subcontratationDate"/>
+  <property column="subcontract_communication_date" generated="never"
+   lazy="false" name="subcontractCommunicationDate"/>
+  <property column="work_description" generated="never" lazy="false" name="workDescription"/>
+  <property column="subcontract_price" generated="never" lazy="false" name="subcontractPrice"/>
+  <property column="subcontracted_code" generated="never" lazy="false" name="subcontractedCode"/>
+  <property column="node_without_children_exported" generated="never"
+   lazy="false" name="nodeWithoutChildrenExported"/>
+  <property column="labels_exported" generated="never" lazy="false" name="labelsExported"/>
+  <property column="material_assignments_exported" generated="never"
+   lazy="false" name="materialAssignmentsExported"/>
+  <property column="hours_groups_exported" generated="never"
+   lazy="false" name="hoursGroupsExported"/>
+  <property generated="never" lazy="false" name="state">
+   <type name="org.hibernate.type.EnumType">
+    <param name="enumClass">org.libreplan.business.planner.entities.SubcontractState</param>
+   </type>
+  </property>
+  <set access="field" cascade="all-delete-orphan"
+   name="requiredDeliveringDates" sort="org.libreplan.business.externalcompanies.entities.DeliverDateComparator">
+   <key column="subcontracted_task_data_id"/>
+   <one-to-many class="org.libreplan.business.planner.entities.SubcontractorDeliverDate"/>
+  </set>
+  <set access="field" cascade="all-delete-orphan"
+   name="endDatesCommunicatedFromSubcontractor" sort="org.libreplan.business.externalcompanies.entities.EndDateCommunicationComparator">
+   <key column="subcontracted_task_data_id"/>
+   <one-to-many class="org.libreplan.business.externalcompanies.entities.EndDateCommunication"/>
+  </set>
+ </class>
 </hibernate-mapping>

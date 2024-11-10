@@ -49,40 +49,6 @@
                     <!-- =========================================================== -->
                     <!-- Jasper reports configuration -->
                     <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>jasperreports-maven-plugin</artifactId>
-                        <version>1.0-beta-2</version>
-                        <configuration>
-                            <sourceDirectory>${project.build.sourceDirectory}/../jasper</sourceDirectory>
-                            <outputDirectory>${project.build.sourceDirectory}/../../../target/classes</outputDirectory>
-                            <xmlValidation>true</xmlValidation>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>compile-reports</goal>
-                                </goals>
-                                <phase>compile</phase>
-                            </execution>
-                        </executions>
-                        <dependencies>
-                            <!--
-                                note this must be repeated here to pick up correct xml
-                                validation
-                            -->
-                            <dependency>
-                                <groupId>net.sf.jasperreports</groupId>
-                                <artifactId>jasperreports</artifactId>
-                                <version>6.19.0</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>net.sf.jasperreports</groupId>
-                                <artifactId>jasperreports-fonts</artifactId>
-                                <version>6.19.0</version>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
-                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
                         <version>3.0.0</version>
@@ -720,15 +686,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!--See https://issues.redhat.com/browse/WFLY-19779 and https://github.com/wildfly/quickstart/pull/957/
-            httpclient needs commons-logging yet the server uses this instead,
-            to be fully compatible on apps we need to add this dependency whenever commons-logging is needed,
-            but on testing clients like this we could use commons-logging instead -->
-        <dependency>
-            <groupId>org.jboss.logging</groupId>
-            <artifactId>commons-logging-jboss-logging</artifactId>
-            <scope>test</scope>
-        </dependency>
         <dependency>
         	<groupId>org.zkoss.zk</groupId>
         	<artifactId>zk</artifactId>
@@ -736,6 +693,14 @@
         <dependency>
         	<groupId>org.zkoss.zk</groupId>
         	<artifactId>zkplus</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.commons</groupId>
+        	<artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.logging.log4j</groupId>
+        	<artifactId>log4j-core</artifactId>
         </dependency>
     </dependencies>
 </project>

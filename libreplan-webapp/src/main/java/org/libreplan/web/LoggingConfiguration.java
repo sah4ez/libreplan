@@ -54,26 +54,6 @@ public class LoggingConfiguration implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        if ( System.getProperty("libreplan-log-directory") != null ) {
-            // log4j will do the replacement automatically
-            return;
-        }
-
-        Map<String, String> replacements = new HashMap<>();
-        replacements.put("libreplan-log-directory", findLogDirectory(sce.getServletContext()));
-        try {
-            StringReader newConfiguration = new StringReader(getContents(replacements));
-        	byte[] bytes = newConfiguration.toString().getBytes();
-        	ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-            ConfigurationSource source = new ConfigurationSource(bais);
-        	ConfigurationFactory factory = ConfigurationFactory.getInstance();
-            Configuration configuration = factory.getConfiguration(LoggerContext.getContext(), source);
-            LoggerContext context = (LoggerContext) LogManager.getContext(false);
-            context.start(configuration);
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Let log4j be loaded without replacements
-        }
     }
 
     private String findLogDirectory(ServletContext servletContext) {
