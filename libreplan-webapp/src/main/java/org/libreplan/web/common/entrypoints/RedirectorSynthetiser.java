@@ -51,121 +51,121 @@ import org.springframework.util.ClassUtils;
  */
 public class RedirectorSynthetiser implements BeanFactoryPostProcessor {
 
-    private static final Log LOG = LogFactory.getLog(RedirectorSynthetiser.class);
+		private static final Log LOG = LogFactory.getLog(RedirectorSynthetiser.class);
 
-    private static final class SynthetizedImplementation implements InvocationHandler {
+		private static final class SynthetizedImplementation implements InvocationHandler {
 
-        private final ConfigurableListableBeanFactory beanFactory;
+			private final ConfigurableListableBeanFactory beanFactory;
 
-        private final Class<?> pageInterface;
+			private final Class<?> pageInterface;
 
-        private EntryPointsHandler<?> urlHandler;
+			private EntryPointsHandler<?> urlHandler;
 
-        private SynthetizedImplementation(
-                ConfigurableListableBeanFactory beanFactory,
-                Class<?> pageInterface) {
+			private SynthetizedImplementation(
+					ConfigurableListableBeanFactory beanFactory,
+					Class<?> pageInterface) {
 
-            this.beanFactory = beanFactory;
-            this.pageInterface = pageInterface;
-        }
+				this.beanFactory = beanFactory;
+				this.pageInterface = pageInterface;
+			}
 
-        @Override
-        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            EntryPointsHandler<?> redirector = getHandler();
-            redirector.doTransition(method.getName(), args);
+			@Override
+			public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+				EntryPointsHandler<?> redirector = getHandler();
+				redirector.doTransition(method.getName(), args);
 
-            return null;
-        }
+				return null;
+			}
 
-        private EntryPointsHandler<?> getHandler() {
-            if (urlHandler != null) {
-                return urlHandler;
-            }
+			private EntryPointsHandler<?> getHandler() {
+				if (urlHandler != null) {
+					return urlHandler;
+				}
 
-            URLHandlerRegistry registry = BeanFactoryUtils.beanOfType(beanFactory, URLHandlerRegistry.class);
-            urlHandler = registry.getRedirectorFor(pageInterface);
+				URLHandlerRegistry registry = BeanFactoryUtils.beanOfType(beanFactory, URLHandlerRegistry.class);
+				urlHandler = registry.getRedirectorFor(pageInterface);
 
-            return urlHandler;
-        }
-    }
+				return urlHandler;
+			}
+		}
 
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-        long elapsedTime = System.currentTimeMillis();
+		public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+			long elapsedTime = System.currentTimeMillis();
 
-        for (Class<?> pageInterface : findInterfacesMarkedEntryPoints()) {
-			LOG.error( getBeanName(pageInterface) + " may be null " + EntryPoints.class.getSimpleName());
-        	Object bean = createRedirectorImplementationFor(beanFactory, pageInterface);
-        	if (bean != null) {
-				beanFactory.registerSingleton(getBeanName(pageInterface), bean);
-        	} else {
-				LOG.error( getBeanName(pageInterface) + " is null " + EntryPoints.class.getSimpleName());
-        	}
-        }
-        elapsedTime = System.currentTimeMillis() - elapsedTime;
+			for (Class<?> pageInterface : findInterfacesMarkedEntryPoints()) {
+				String nameBean = getBeanName(pageInterface);
+				if (beanFactory.getSingleton(nameBean) == null) {
+					Object bean = createRedirectorImplementationFor(beanFactory, pageInterface);
+					beanFactory.registerSingleton(getBeanName(pageInterface), bean);
+				} else {
+					LOG.error( nameBean + " is null and reigster as signleton" );
+				}
+			}
+			elapsedTime = System.currentTimeMillis() - elapsedTime;
 
-        LOG.debug(
-                "Took " + elapsedTime + " ms to search for interfaces annotated with " +
-                        EntryPoints.class.getSimpleName());
-    }
+			LOG.debug(
+					"Took " + elapsedTime + " ms to search for interfaces annotated with " +
+							EntryPoints.class.getSimpleName());
+		}
 
-    private List<Class<?>> findInterfacesMarkedEntryPoints() {
-        List<Class<?>> result = new ArrayList<>();
-        PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
-        CachingMetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(resourceResolver);
+		private List<Class<?>> findInterfacesMarkedEntryPoints() {
+			List<Class<?>> result = new ArrayList<>();
+			PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
+			CachingMetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(resourceResolver);
 
-        for (Resource resource : findResourcesCouldMatch(resourceResolver)) {
-            addIfSuitable(result, metadataReaderFactory, resource);
-        }
-        return result;
-    }
+			for (Resource resource : findResourcesCouldMatch(resourceResolver)) {
+				addIfSuitable(result, metadataReaderFactory, resource);
+			}
+			return result;
+		}
 
-    private Resource[] findResourcesCouldMatch(PathMatchingResourcePatternResolver resourceResolver) {
-        try {
-            return resourceResolver.getResources(
-                    "classpath*:" +
-                            ClassUtils.convertClassNameToResourcePath("org.libreplan.web") + "/" + "**/*.class");
+		private Resource[] findResourcesCouldMatch(PathMatchingResourcePatternResolver resourceResolver) {
+			try {
+				return resourceResolver.getResources(
+						"classpath*:" +
+								ClassUtils.convertClassNameToResourcePath("org.libreplan.web") + "/" + "**/*.class");
 
-        } catch (IOException e) {
-            throw new RuntimeException(helperi18n("Could not load any resource"), e);
-        }
-    }
+			} catch (IOException e) {
+				throw new RuntimeException(helperi18n("Could not load any resource"), e);
+			}
+		}
 
-    private void addIfSuitable(List<Class<?>> accumulatedResult,
-                               CachingMetadataReaderFactory metadataReaderFactory,
-                               Resource resource) {
-        try {
-            if (resource.isReadable()) {
-                MetadataReader metadataReader = metadataReaderFactory.getMetadataReader(resource);
-                AnnotationMetadata annotationMetadata = metadataReader.getAnnotationMetadata();
-                ClassMetadata classMetadata = metadataReader.getClassMetadata();
+		private void addIfSuitable(List<Class<?>> accumulatedResult,
+								   CachingMetadataReaderFactory metadataReaderFactory,
+								   Resource resource) {
+			try {
+				if (resource.isReadable()) {
+					MetadataReader metadataReader = metadataReaderFactory.getMetadataReader(resource);
+					AnnotationMetadata annotationMetadata = metadataReader.getAnnotationMetadata();
+					ClassMetadata classMetadata = metadataReader.getClassMetadata();
 
-                if ( classMetadata.isInterface() &&
-                        annotationMetadata.getAnnotationTypes().contains(EntryPoints.class.getName()) ) {
+					if ( classMetadata.isInterface() &&
+							annotationMetadata.getAnnotationTypes().contains(EntryPoints.class.getName()) ) {
 
-                    Class<?> klass = Class.forName(classMetadata.getClassName());
-                    if (klass.isInterface()) {
-                        accumulatedResult.add(klass);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            LOG.warn("exception processing " + resource, e);
-        }
-    }
+						Class<?> klass = Class.forName(classMetadata.getClassName());
+						if (klass.isInterface()) {
+							accumulatedResult.add(klass);
+						}
+					}
+				}
+			} catch (Exception e) {
+				LOG.warn("exception processing " + resource, e);
+			}
+		}
 
-    private Object createRedirectorImplementationFor(
-            final ConfigurableListableBeanFactory beanFactory,
-            final Class<?> pageInterface) {
+		private Object createRedirectorImplementationFor(
+				final ConfigurableListableBeanFactory beanFactory,
+				final Class<?> pageInterface) {
 
-        return Proxy.newProxyInstance(
-                getClass().getClassLoader(),
-                new Class[] { pageInterface },
-                new SynthetizedImplementation(beanFactory, pageInterface));
-    }
+			return Proxy.newProxyInstance(
+					getClass().getClassLoader(),
+					new Class[] { pageInterface },
+					new SynthetizedImplementation(beanFactory, pageInterface));
+		}
 
-    private static String getBeanName(Class<?> pageInterface) {
-        EntryPoints annotation = pageInterface.getAnnotation(EntryPoints.class);
+		private static String getBeanName(Class<?> pageInterface) {
+			EntryPoints annotation = pageInterface.getAnnotation(EntryPoints.class);
 
-        return annotation.registerAs();
-    }
+			return annotation.registerAs();
+		}
 }

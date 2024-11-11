@@ -172,7 +172,7 @@
     -->
     <beans:bean id="dbPasswordEncoderService"
         class="org.libreplan.web.users.services.DBPasswordEncoderService"
-        p:passwordEncoder-ref="passwordEncoder" p:saltSource-ref="saltSource" />
+        p:passwordEncoder-ref="passwordEncoder" />
 
     <beans:bean id="usersBootstrapInDB"
         class="org.libreplan.web.users.bootstrap.UsersBootstrapInDB"

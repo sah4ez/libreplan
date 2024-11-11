@@ -215,9 +215,9 @@
   </id>
   <version generated="never" name="version" type="long"/>
   <property access="field" column="start_date" generated="never"
-   lazy="false" name="startDate" type="date"/>
+   lazy="false" name="startDate"/>
   <property access="field" column="finish_date" generated="never"
-   lazy="false" name="finishDate" type="date"/>
+   lazy="false" name="finishDate"/>
   <many-to-one access="field" class="MachineWorkersConfigurationUnit"
    column="configuration_id" name="machineWorkersConfigurationUnit" not-null="true"/>
   <many-to-one access="field" class="Worker" column="worker_id" name="worker"/>
