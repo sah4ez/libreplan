@@ -37,7 +37,7 @@ import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.WebTarget;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+//import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import org.libreplan.importers.jira.IssueDTO;
 import org.libreplan.importers.jira.SearchResultDTO;
 import org.libreplan.ws.cert.NaiveTrustProvider;

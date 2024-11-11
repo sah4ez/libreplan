@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
                         http://www.springframework.org/schema/security
-                        http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+                        http://www.springframework.org/schema/security/spring-security-6.3.xsd">
 
     <!--
     NOTE: see
@@ -158,13 +158,13 @@
 
     <!-- Beans used by Spring Security (current configuration assumes users are registered in the database). -->
     <beans:bean id="passwordEncoder"
-        class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
-        <beans:constructor-arg value="512" />
+        class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <beans:constructor-arg value="16" />
     </beans:bean>
 
-    <beans:bean id="saltSource"
-        class="org.springframework.security.authentication.dao.ReflectionSaltSource"
-        p:userPropertyToUse="username" />
+<!--     <beans:bean id="saltSource" -->
+<!--         class="org.springframework.security.authentication.dao.ReflectionSaltSource" -->
+<!--         p:userPropertyToUse="username" /> -->
 
     <!--
     Beans used by the LibrePlan Web application when users are registered in the database.

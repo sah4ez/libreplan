@@ -418,7 +418,7 @@ public class ExpenseSheetCRUDController
             bandboxSearch.setSclass("bandbox-workreport-task");
             bandboxSearch.setListboxWidth("450px");
 
-            EventListener eventListenerUpdateOrderElement = event -> {
+            EventListener<?> eventListenerUpdateOrderElement = event -> {
                 Listitem selectedItem = bandboxSearch.getSelectedItem();
                 setOrderElementInESL(selectedItem, expenseSheetLine);
             };

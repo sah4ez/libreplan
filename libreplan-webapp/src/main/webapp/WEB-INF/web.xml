@@ -19,7 +19,14 @@
             classpath:/libreplan-webapp-spring-config.xml
             classpath:/libreplan-webapp-spring-security-config.xml</param-value>
  </context-param>
- <!-- Spring security -->
+ 
+<resource-ref>
+    <description>DB Connection</description>
+    <res-ref-name>jdbc/libreplan-ds</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+</resource-ref>
+<!--  Spring security -->
  <filter>
   <filter-name>springSecurityFilterChain</filter-name>
   <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -64,10 +71,6 @@
   <description>ZK loader for ZUML pages</description>
   <servlet-name>zkLoader</servlet-name>
   <servlet-class>org.zkoss.zk.ui.http.DHtmlLayoutServlet</servlet-class>
-  <!--
-            Specifies URI of the update engine (DHtmlUpdateServlet).
-            It must be the same as <url-pattern> for the update engine.
-        -->
   <init-param>
    <param-name>update-uri</param-name>
    <param-value>/zkau</param-value>
@@ -79,11 +82,11 @@
   <servlet-name>auEngine</servlet-name>
   <servlet-class>org.zkoss.zk.au.http.DHtmlUpdateServlet</servlet-class>
  </servlet>
- <!-- CXF -->
+<!-- CXF -->
  <servlet>
   <display-name>CXF Servlet</display-name>
   <servlet-name>CXFServlet</servlet-name>
-  <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+  <servlet-class>jakarta.servlet.http.HttpServlet</servlet-class>
   <load-on-startup>1</load-on-startup>
  </servlet>
  <servlet-mapping>

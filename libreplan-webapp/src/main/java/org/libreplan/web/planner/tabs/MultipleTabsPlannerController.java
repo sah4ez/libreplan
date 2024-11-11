@@ -49,6 +49,7 @@ import org.libreplan.web.planner.order.PlanningStateCreator;
 import org.libreplan.web.resourceload.ResourceLoadController;
 import org.libreplan.web.security.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

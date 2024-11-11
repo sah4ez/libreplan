@@ -93,10 +93,13 @@ public class RedirectorSynthetiser implements BeanFactoryPostProcessor {
         long elapsedTime = System.currentTimeMillis();
 
         for (Class<?> pageInterface : findInterfacesMarkedEntryPoints()) {
-
-            beanFactory.registerSingleton(
-                    getBeanName(pageInterface),
-                    createRedirectorImplementationFor(beanFactory, pageInterface));
+			LOG.error( getBeanName(pageInterface) + " may be null " + EntryPoints.class.getSimpleName());
+        	Object bean = createRedirectorImplementationFor(beanFactory, pageInterface);
+        	if (bean != null) {
+				beanFactory.registerSingleton(getBeanName(pageInterface), bean);
+        	} else {
+				LOG.error( getBeanName(pageInterface) + " is null " + EntryPoints.class.getSimpleName());
+        	}
         }
         elapsedTime = System.currentTimeMillis() - elapsedTime;
 

@@ -106,7 +106,7 @@ public interface IResourcesSearcher {
      * Search machines or workers based on the value of resourceType.
      *
      * @param resourceType
-     * @return {@link IResourcesQuery<?>}
+     * @return {@link IResourcesQuery<>}
      */
     IResourcesQuery<?> searchBy(ResourceEnum resourceType);
 

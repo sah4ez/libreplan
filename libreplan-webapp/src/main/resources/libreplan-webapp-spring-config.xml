@@ -10,7 +10,7 @@
        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
 
     <!-- For enabling annotation-based configuration (in particular, required for "@Autowired") -->
-    <context:annotation-config />
+    <!-- <context:annotation-config /> -->
 
     <bean id="aspect" class="org.libreplan.web.common.concurrentdetection.ConcurrentModificationHandling" />
 
