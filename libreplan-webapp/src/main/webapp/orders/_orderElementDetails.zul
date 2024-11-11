@@ -29,20 +29,20 @@
         </columns>
         <rows>
             <row>
-                <label value="${i18n:_('Task name')}" />
+                <label value="${i18n:helperi18n('Task name')}" />
                 <textbox id="name"
                     value="@{detailsController.orderElement.name}"
-                    constraint="no empty:${i18n:_('cannot be empty')}" width="500px" />
+                    constraint="no empty:${i18n:helperi18n('cannot be empty')}" width="500px" />
             </row>
             <row>
-                <label value="${i18n:_('Code ')}" />
+                <label value="${i18n:helperi18n('Code ')}" />
                 <textbox id="code"
                     value="@{detailsController.orderElement.code}"
-                    constraint="no empty:${i18n:_('cannot be empty')}" width="150px"
+                    constraint="no empty:${i18n:helperi18n('cannot be empty')}" width="150px"
                     disabled="@{detailsController.codeDisabled}" />
             </row>
             <row>
-                <label value="${i18n:_('Starting date')}" />
+                <label value="${i18n:helperi18n('Starting date')}" />
                 <hbox>
                     <datebox id="initDate"
                              value="@{detailsController.orderElement.initDate}"
@@ -50,7 +50,7 @@
                 </hbox>
             </row>
             <row>
-                <label value="${i18n:_('Deadline')}" />
+                <label value="${i18n:helperi18n('Deadline')}" />
                 <hbox>
                     <datebox id="deadline"
                              value="@{detailsController.orderElement.deadline}"
@@ -58,17 +58,17 @@
                 </hbox>
             </row>
             <row>
-                <label value="${i18n:_('Description')}" />
+                <label value="${i18n:helperi18n('Description')}" />
                 <textbox id="description" rows="3"
                     value="@{detailsController.orderElement.description}"
                     width="600px" />
             </row>
             <row>
-                <label value="${i18n:_('Budget')}" />
+                <label value="${i18n:helperi18n('Budget')}" />
                 <decimalbox id="budget"
                     value="@{detailsController.orderElement.budget}"
                     disabled="@{detailsController.container}"
-                    constraint="no empty,no negative:${i18n:_('cannot be negative or empty')}"
+                    constraint="no empty,no negative:${i18n:helperi18n('cannot be negative or empty')}"
                     format="@{detailsController.moneyFormat}" />
             </row>
         </rows>

@@ -24,7 +24,7 @@
 
         <groupbox style="margin-top: 5px" closable="false">
 
-            <caption label="${i18n:_('Select criteria set or specific resources for allocation')}" />
+            <caption label="${i18n:helperi18n('Select criteria set or specific resources for allocation')}" />
 
             <hbox>
 
@@ -37,8 +37,8 @@
                           sclass="allocationTreeCol"
                           zclass="z-dottree" style="margin-top:5px;margin-bottom:5px;">
                         <treecols>
-                            <treecol label="${i18n:_('Criteria')}"
-                                     tooltiptext="${i18n:_('Criteria (Hold CTRL for multiple selection)')}" />
+                            <treecol label="${i18n:helperi18n('Criteria')}"
+                                     tooltiptext="${i18n:helperi18n('Criteria (Hold CTRL for multiple selection)')}" />
                         </treecols>
                     </tree>
 
@@ -46,7 +46,7 @@
 
                 <!--Matchings -->
                 <vbox>
-                    <label value="${i18n:_('Load ratios calculated between')}:"/>
+                    <label value="${i18n:helperi18n('Load ratios calculated between')}:"/>
                     <separator/>
                     <grid fixedLayout="true">
                         <columns>
@@ -55,12 +55,12 @@
                         </columns>
                         <rows>
                             <row>
-                                <label value="${i18n:_('Start date')}:"/>
+                                <label value="${i18n:helperi18n('Start date')}:"/>
                                 <datebox id="startDateLoadRatiosDatebox"
                                          onChange="selectorController.updateLoadRatios()"/>
                             </row>
                             <row>
-                                <label value="${i18n:_('End date')}:"/>
+                                <label value="${i18n:helperi18n('End date')}:"/>
                                 <datebox id="endDateLoadRatiosDatebox"
                                          onChange="selectorController.updateLoadRatios()"/>
                             </row>
@@ -104,11 +104,11 @@
                              multiple="@{selectorController.allowSelectMultipleResources}" style="margin:5px;"
                              itemRenderer="@{selectorController.listitemRenderer}" >
                         <listhead>
-                            <listheader label="${i18n:_('Found resources')}"
-                                        tooltiptext="${i18n:_('Resources matching selected criteria')}"
+                            <listheader label="${i18n:helperi18n('Found resources')}"
+                                        tooltiptext="${i18n:helperi18n('Resources matching selected criteria')}"
                                         sort="auto" sortDirection="ascending"/>
-                            <listheader label="${i18n:_('Availability')}" hflex="min"/>
-                            <listheader label="${i18n:_('Overtime')}" hflex="min"/>
+                            <listheader label="${i18n:helperi18n('Availability')}" hflex="min"/>
+                            <listheader label="${i18n:helperi18n('Overtime')}" hflex="min"/>
                         </listhead>
                     </listbox>
 
@@ -126,15 +126,15 @@
                     <rows>
                         <row>
                             <hbox width="100%">
-                                <label value="${i18n:_('Assignment Type')}" />
+                                <label value="${i18n:helperi18n('Assignment Type')}" />
                                 <image src="/common/img/axuda.gif" tooltip="allocation-type-popup"
                                        sclass="context-help-popup" height="15px" />
                             </hbox>
                             <radiogroup id="allocationTypeSelector" orient="vertical" />
                         </row>
                         <row>
-                            <label value="${i18n:_('Current selection')}" />
-                            <label id="allocationSelectedItems" value="${i18n:_('[generic all workers]')}" />
+                            <label value="${i18n:helperi18n('Current selection')}" />
+                            <label id="allocationSelectedItems" value="${i18n:helperi18n('[generic all workers]')}" />
                         </row>
                     </rows>
                 </grid>

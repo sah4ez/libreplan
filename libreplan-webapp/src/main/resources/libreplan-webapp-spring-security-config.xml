@@ -37,6 +37,8 @@
         <intercept-url pattern="/help/**" access="permitAll" />
         <intercept-url pattern="/common/layout/login.zul" access="isAnonymous()" />
         <intercept-url pattern="/common/layout/timeout.zul" access="permitAll" />
+        <intercept-url pattern="/timeout.zul" access="permitAll" />
+        <intercept-url pattern="/index.zul" access="isAnonymous()" />
 
         <!-- Pages -->
         <intercept-url pattern="/templates/*" access="hasAnyRole('ROLE_SUPERUSER', 'ROLE_TEMPLATES')" />

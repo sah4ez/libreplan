@@ -24,12 +24,12 @@
         pageSize="10" fixedLayout="true" sclass="clickable-rows"
         rowRenderer="@{controller.unitTypeRenderer}" >
         <columns>
-            <newdatasortablecolumn label="${i18n:_('Material Unit')}"
+            <newdatasortablecolumn label="${i18n:helperi18n('Material Unit')}"
             sortDirection="ascending" sort="auto(measure)"/>
-            <newdatasortablecolumn label="${i18n:_('Operations')}"/>
+            <newdatasortablecolumn label="${i18n:helperi18n('Operations')}"/>
         </columns>
     </newdatasortablegrid>
-    <button id="show_create_form" onClick="controller.goToCreateForm();" label="${i18n:_('Create')}"
+    <button id="show_create_form" onClick="controller.goToCreateForm();" label="${i18n:helperi18n('Create')}"
         sclass="create-button global-action">
     </button>
 </window>

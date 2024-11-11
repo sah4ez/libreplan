@@ -30,37 +30,37 @@
 
         <rows>
             <row>
-                <label value="${i18n:_('Job group')}" />
+                <label value="${i18n:helperi18n('Job group')}" />
                 <textbox id="jobGroupTextBox" width="400px"
-                         constraint="no empty:${i18n:_('cannot be empty')}"
+                         constraint="no empty:${i18n:helperi18n('cannot be empty')}"
                          value="@{controller.jobSchedulerConfiguration.jobGroup}"/>
             </row>
 
             <row>
-                <label value="${i18n:_('Job name')}" />
+                <label value="${i18n:helperi18n('Job name')}" />
                 <textbox id="jobNameTextBox" width="400px"
-                         constraint="no empty:${i18n:_('cannot be empty')}"
+                         constraint="no empty:${i18n:helperi18n('cannot be empty')}"
                          value="@{controller.jobSchedulerConfiguration.jobName}"/>
             </row>
 
             <row>
-                <label value="${i18n:_('Cron expression')}" />
+                <label value="${i18n:helperi18n('Cron expression')}" />
                 <hbox>
                     <textbox id="cronExpressionTextBox"
                              value="@{controller.jobSchedulerConfiguration.cronExpression}"
-                             constraint="no empty:${i18n:_('cannot be empty')}"
+                             constraint="no empty:${i18n:helperi18n('cannot be empty')}"
                              width="400px" disabled="true"/>
                     <button sclass="icono" image="/common/img/ico_editar1.png"
                             hoverImage="/common/img/ico_editar.png"
-                            tooltiptext="${i18n:_('Edit')}"
+                            tooltiptext="${i18n:helperi18n('Edit')}"
                             onClick="controller.openPopup()"/>
                 </hbox>
             </row>
 
             <row>
-                <label value="${i18n:_('Job class name')}" />
+                <label value="${i18n:helperi18n('Job class name')}" />
                 <combobox id="jobCombo" autodrop="true" width="400px"
-                          constraint="no empty:${i18n:_('cannot be empty')}"
+                          constraint="no empty:${i18n:helperi18n('cannot be empty')}"
                           model="@{controller.jobNames}"
                           selectedItem="@{controller.jobSchedulerConfiguration.jobClassName}">
 
@@ -71,7 +71,7 @@
             </row>
 
             <row>
-                <label value="${i18n:_('Connector')}" />
+                <label value="${i18n:helperi18n('Connector')}" />
                 <combobox id="connectorCombo" autodrop="true" width="400px"
                           model="@{controller.connectorNames}"
                           selectedItem="@{controller.jobSchedulerConfiguration.connectorName}">
@@ -83,7 +83,7 @@
             </row>
 
             <row>
-                <label value="${i18n:_('Schedule')}" />
+                <label value="${i18n:helperi18n('Schedule')}" />
                 <checkbox checked="@{controller.jobSchedulerConfiguration.schedule}" />
             </row>
         </rows>
@@ -92,69 +92,69 @@
 
     <!-- Control buttons -->
     <button onClick="controller.saveAndExit()"
-            label="${i18n:_('Save')}"
+            label="${i18n:helperi18n('Save')}"
             sclass="save-button global-action" />
     <button onClick="controller.saveAndContinue()"
-            label="${i18n:_('Save and Continue')}"
+            label="${i18n:helperi18n('Save and Continue')}"
             sclass="save-button global-action" />
     <button onClick="controller.cancelForm()"
-            label="${i18n:_('Cancel')}"
+            label="${i18n:helperi18n('Cancel')}"
             sclass="cancel-button global-action" />
 
     <div>
 
         <groupbox closable="false" >
 
-            <caption label="${i18n:_('Cron expression format')}" />
+            <caption label="${i18n:helperi18n('Cron expression format')}" />
 
             <grid width="500px">
 
                 <columns>
-                    <column label="${i18n:_('Field')}" width="150px"/>
-                    <column label="${i18n:_('Allowed values')}" />
-                    <column label="${i18n:_('Allowed Special Characters')}" />
+                    <column label="${i18n:helperi18n('Field')}" width="150px"/>
+                    <column label="${i18n:helperi18n('Allowed values')}" />
+                    <column label="${i18n:helperi18n('Allowed Special Characters')}" />
                 </columns>
 
                 <rows>
 
                     <row>
-                        <label value="${i18n:_('Seconds')}"/>
+                        <label value="${i18n:helperi18n('Seconds')}"/>
                         <label value="0-59"/>
                         <label value=", - * /"/>
                     </row>
 
                     <row>
-                        <label value="${i18n:_('Minutes')}"/>
+                        <label value="${i18n:helperi18n('Minutes')}"/>
                         <label value="0-59"/>
                         <label value=", - * /"/>
                     </row>
 
                     <row>
-                        <label value="${i18n:_('Hours')}"/>
+                        <label value="${i18n:helperi18n('Hours')}"/>
                         <label value="0-23"/>
                         <label value=", - * /"/>
                     </row>
 
                     <row>
-                        <label value="${i18n:_('Day of month')}"/>
+                        <label value="${i18n:helperi18n('Day of month')}"/>
                         <label value="1-31"/>
                         <label value=", - * ? / L W"/>
                     </row>
 
                     <row>
-                        <label value="${i18n:_('Month')}"/>
-                        <span>1-12 (<label value="${i18n:_('or names')}"/> [JAN-DEC])</span>
+                        <label value="${i18n:helperi18n('Month')}"/>
+                        <span>1-12 (<label value="${i18n:helperi18n('or names')}"/> [JAN-DEC])</span>
                         <label value=", - *"/>
                     </row>
 
                     <row>
-                        <label value="${i18n:_('Day of week')}"/>
-                        <span>1-7 (<label value="${i18n:_('1 or 7 is Sunday, or use names')}"/> [SUN-SAT])</span>
+                        <label value="${i18n:helperi18n('Day of week')}"/>
+                        <span>1-7 (<label value="${i18n:helperi18n('1 or 7 is Sunday, or use names')}"/> [SUN-SAT])</span>
                         <label value=", - * ? / L #"/>
                     </row>
 
                     <row>
-                        <label value="${i18n:_('Year (optional)')}"/>
+                        <label value="${i18n:helperi18n('Year (optional)')}"/>
                         <label value="1970-2099"/>
                         <label value=", - *"/>
                     </row>
@@ -166,12 +166,12 @@
             <div>
 
                 <div>
-                    ${i18n:_("The '?' character is allowed for the day-of-month and day-of-week fields.
+                    ${i18n:helperi18n("The '?' character is allowed for the day-of-month and day-of-week fields.
                     It is used to specify “no specific value”. ")}
                 </div>
 
-                ${i18n:_("For more details on cron expression click")}
-                <a href="http://www.manpagez.com/man/5/crontab/">${i18n:_('here')}.</a>
+                ${i18n:helperi18n("For more details on cron expression click")}
+                <a href="http://www.manpagez.com/man/5/crontab/">${i18n:helperi18n('here')}.</a>
             </div>
 
         </groupbox>
@@ -184,13 +184,13 @@
 
         <grid id="cronExpressionGrid" style="margin: 5px 0 5px 0;">
             <columns>
-                <column label="${i18n:_('Seconds')}" width="75px;"/>
-                <column label="${i18n:_('Minutes')}" width="75px;"/>
-                <column label="${i18n:_('Hours')}" width="75px;"/>
-                <column label="${i18n:_('Day of month')}" width="85px;"/>
-                <column label="${i18n:_('Month')}" width="75px;"/>
-                <column label="${i18n:_('Day of week')}" width="85px;"/>
-                <column label="${i18n:_('Year')}" width="75px;"/>
+                <column label="${i18n:helperi18n('Seconds')}" width="75px;"/>
+                <column label="${i18n:helperi18n('Minutes')}" width="75px;"/>
+                <column label="${i18n:helperi18n('Hours')}" width="75px;"/>
+                <column label="${i18n:helperi18n('Day of month')}" width="85px;"/>
+                <column label="${i18n:helperi18n('Month')}" width="75px;"/>
+                <column label="${i18n:helperi18n('Day of week')}" width="85px;"/>
+                <column label="${i18n:helperi18n('Year')}" width="75px;"/>
             </columns>
 
             <rows>
@@ -207,7 +207,7 @@
 
         </grid>
 
-        <button onClick="controller.updateCronExpression();" label="${i18n:_('OK')}" sclass="add-button" />
-        <button onClick="controller.cancelPopup();" label="${i18n:_('Cancel')}" sclass="add-button"/>
+        <button onClick="controller.updateCronExpression();" label="${i18n:helperi18n('OK')}" sclass="add-button" />
+        <button onClick="controller.cancelPopup();" label="${i18n:helperi18n('Cancel')}" sclass="add-button"/>
     </popup>
 </window>

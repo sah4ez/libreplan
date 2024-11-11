@@ -17,7 +17,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 
-<window id="${arg.id}" title="${i18n:_('Job Scheduling List')}">
+<window id="${arg.id}" title="${i18n:helperi18n('Job Scheduling List')}">
 
     <grid id="listJobSchedulings"
           rowRenderer="@{controller.jobSchedulingRenderer}"
@@ -25,13 +25,13 @@
           mold="paging" pageSize="10" fixedLayout="true">
 
         <columns>
-            <column label="${i18n:_('Job group')}" />
-            <column label="${i18n:_('Job name')}" />
-            <column label="${i18n:_('Cron expression')}" />
-            <column label="${i18n:_('Next fire time')}" />
-            <column label="${i18n:_('Operations')}" />
+            <column label="${i18n:helperi18n('Job group')}" />
+            <column label="${i18n:helperi18n('Job name')}" />
+            <column label="${i18n:helperi18n('Cron expression')}" />
+            <column label="${i18n:helperi18n('Next fire time')}" />
+            <column label="${i18n:helperi18n('Operations')}" />
         </columns>
 
     </grid>
-    <button label="${i18n:_('Create')}" onClick="controller.goToCreateForm()" sclass="add-button global-action"/>
+    <button label="${i18n:helperi18n('Create')}" onClick="controller.goToCreateForm()" sclass="add-button global-action"/>
 </window>

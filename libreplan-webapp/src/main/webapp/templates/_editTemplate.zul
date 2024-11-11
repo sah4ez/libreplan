@@ -52,26 +52,26 @@
         macroURI="/templates/_historicalStatistics.zul" ?>
 
 
-<window id="${arg.top_id}" title="${i18n:_('Edit Template')}">
+<window id="${arg.top_id}" title="${i18n:helperi18n('Edit Template')}">
 
     <editTemplateWindow />
 
     <tabbox>
         <tabs>
-            <tab id="tabGeneralData" label="${i18n:_('General data')}"
+            <tab id="tabGeneralData" label="${i18n:helperi18n('General data')}"
                  onSelect="templatesForOrdersController.reloadBudget()" />
 
-            <tab label="${i18n:_('Template Tree')}"
+            <tab label="${i18n:helperi18n('Template Tree')}"
                  disabled="@{templatesForOrdersController.templateTreeDisabled}"
                  onSelect="templatesForOrdersController.openTemplateTree()" />
 
-            <tab label="${i18n:_('Progress')}" />
-            <tab label="${i18n:_('Labels')}" />
-            <tab id="tabRequirements" label="${i18n:_('Criterion Requirement')}" />
-            <tab label="${i18n:_('Materials')}" />
-            <tab label="${i18n:_('Quality Forms')}" />
-            <tab label="${i18n:_('Assignment log')}" />
-            <tab label="${i18n:_('Statistics log')}" />
+            <tab label="${i18n:helperi18n('Progress')}" />
+            <tab label="${i18n:helperi18n('Labels')}" />
+            <tab id="tabRequirements" label="${i18n:helperi18n('Criterion Requirement')}" />
+            <tab label="${i18n:helperi18n('Materials')}" />
+            <tab label="${i18n:helperi18n('Quality Forms')}" />
+            <tab label="${i18n:helperi18n('Assignment log')}" />
+            <tab label="${i18n:helperi18n('Statistics log')}" />
         </tabs>
 
         <tabpanels>
@@ -84,38 +84,38 @@
 
                     <rows>
                         <row>
-                            <label value="${i18n:_('Name')}" />
+                            <label value="${i18n:helperi18n('Name')}" />
                             <textbox id="name" value="@{templatesForOrdersController.template.name}" width="500px"
                                      constraint = "@{templatesForOrdersController.validateTemplateName}"/>
                         </row>
 
                         <row>
-                            <label value="${i18n:_('Delay from beginning (days)')}" />
+                            <label value="${i18n:helperi18n('Delay from beginning (days)')}" />
                             <intbox value="@{templatesForOrdersController.template.startAsDaysFromBeginning}"
                                     constraint="no negative"/>
                         </row>
 
                         <row>
-                            <label value="${i18n:_('Days from Beginning to Deadline')}" />
+                            <label value="${i18n:helperi18n('Days from Beginning to Deadline')}" />
                             <intbox value="@{templatesForOrdersController.template.deadlineAsDaysFromBeginning}"
                                     constraint="no negative"/>
                         </row>
 
                         <row>
-                            <label value="${i18n:_('Description')}" />
+                            <label value="${i18n:helperi18n('Description')}" />
                             <textbox rows="3" width="600px"
                                      value="@{templatesForOrdersController.template.description}" />
                         </row>
 
                         <row>
-                            <label value="${i18n:_('Budget')}" />
+                            <label value="${i18n:helperi18n('Budget')}" />
                             <decimalbox value="@{templatesForOrdersController.template.budget}"
                                         disabled="@{templatesForOrdersController.container}"
-                                        constraint="no empty,no negative:${i18n:_('cannot be negative or empty')}"
+                                        constraint="no empty,no negative:${i18n:helperi18n('cannot be negative or empty')}"
                                         format="@{templatesForOrdersController.moneyFormat}" />
                         </row>
                         <row visible="@{templatesForOrdersController.orderTemplate}">
-                            <label value="${i18n:_('Calendar')}" />
+                            <label value="${i18n:helperi18n('Calendar')}" />
                             <bandboxSearch id="calendar"
                                            finder="BaseCalendarBandboxFinder"
                                            selectedElement="@{templatesForOrdersController.calendar, access='both'}" />
@@ -159,13 +159,13 @@
     </tabbox>
 
     <hbox>
-        <button label="${i18n:_('Save')}" onClick="templatesForOrdersController.saveAndExit()" autodisable="self"
+        <button label="${i18n:helperi18n('Save')}" onClick="templatesForOrdersController.saveAndExit()" autodisable="self"
                 sclass="save-button global-action" />
 
-        <button label="${i18n:_('Save &amp; Continue')}" onClick="templatesForOrdersController.saveAndContinue()"
+        <button label="${i18n:helperi18n('Save &amp; Continue')}" onClick="templatesForOrdersController.saveAndContinue()"
                 sclass="saveandcontinue-button global-action" />
 
-        <button label="${i18n:_('Cancel')}" onClick="templatesForOrdersController.cancel()"
+        <button label="${i18n:helperi18n('Cancel')}" onClick="templatesForOrdersController.cancel()"
                 sclass="cancel-button global-action" />
     </hbox>
 

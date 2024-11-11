@@ -98,7 +98,7 @@ public class RedirectorSynthetiser implements BeanFactoryPostProcessor {
 					Object bean = createRedirectorImplementationFor(beanFactory, pageInterface);
 					beanFactory.registerSingleton(getBeanName(pageInterface), bean);
 				} else {
-					LOG.error( nameBean + " is null and reigster as signleton" );
+					LOG.error( nameBean + " is not null and reigster as signleton" );
 				}
 			}
 			elapsedTime = System.currentTimeMillis() - elapsedTime;
