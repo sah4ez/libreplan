@@ -141,7 +141,7 @@
 
     <zscript><![CDATA[
         i18iframe = org.libreplan.web.HelpLinkUtil.checkUrlPath(
-            "/help/" + org.libreplan.web.I18nHelper._("en") +
+            "/help/" + org.libreplan.web.I18nHelper.helperi18n("en") +
             "/12-formularios-calidad.html#administracion-de-formularios-de-calidade");
         ]]>
     </zscript>

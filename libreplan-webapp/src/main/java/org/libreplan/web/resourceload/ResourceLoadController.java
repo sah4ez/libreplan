@@ -456,7 +456,7 @@ public class ResourceLoadController implements Composer {
             hbox.appendChild(startBox);
             hbox.appendChild(new Label(helperi18n("To") + ":"));
             hbox.appendChild(endBox);
-            hbox.setAlign("center");
+//            hbox.setAlign("center");
 
             return hbox;
         }
@@ -536,7 +536,7 @@ public class ResourceLoadController implements Composer {
             Hbox hbox = new Hbox();
             hbox.appendChild(getLabel());
             hbox.appendChild(bandBox);
-            hbox.setAlign("center");
+//            hbox.setAlign("center");
 
             return hbox;
         }

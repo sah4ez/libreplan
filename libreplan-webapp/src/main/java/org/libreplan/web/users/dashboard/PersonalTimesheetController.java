@@ -531,7 +531,7 @@ public class PersonalTimesheetController extends GenericForwardComposer implemen
 
         private Cell getCenteredCell(Component component) {
             Cell cell = new Cell();
-            cell.setAlign(ALIGN_CENTER);
+//            cell.setAlign(ALIGN_CENTER);
             cell.appendChild(component);
 
             return cell;
@@ -679,7 +679,7 @@ public class PersonalTimesheetController extends GenericForwardComposer implemen
 
         for (LocalDate day = start; day.compareTo(end) <= 0; day = day.plusDays(1)) {
             Column column = new Column(Integer.toString(day.getDayOfMonth()));
-            column.setAlign(ALIGN_CENTER);
+//            column.setAlign(ALIGN_CENTER);
             column.setWidth(EFFORT_DURATION_TEXTBOX_WIDTH);
             columns.appendChild(column);
         }
@@ -689,7 +689,7 @@ public class PersonalTimesheetController extends GenericForwardComposer implemen
         Column other = new Column(helperi18n("Other"));
         other.setWidth(TOTAL_DURATION_TEXTBOX_WIDTH);
         other.setSclass("totals-column");
-        other.setAlign(ALIGN_CENTER);
+//        other.setAlign(ALIGN_CENTER);
         columns.appendChild(other);
     }
 
@@ -697,7 +697,7 @@ public class PersonalTimesheetController extends GenericForwardComposer implemen
         Column total = new Column(helperi18n("Total"));
         total.setWidth(TOTAL_DURATION_TEXTBOX_WIDTH);
         total.setSclass("totals-column");
-        total.setAlign(ALIGN_CENTER);
+//        total.setAlign(ALIGN_CENTER);
         columns.appendChild(total);
     }
 

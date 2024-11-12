@@ -137,7 +137,7 @@
     <zscript>
         <![CDATA[
             i18iframe = org.libreplan.web.HelpLinkUtil.checkUrlPath(
-                "/help/" + org.libreplan.web.I18nHelper._("en") + "/21-communications.html#subcontractor-work-description");
+                "/help/" + org.libreplan.web.I18nHelper.helperi18n("en") + "/21-communications.html#subcontractor-work-description");
         ]]>
     </zscript>
 

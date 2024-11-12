@@ -513,7 +513,7 @@ public class OrderPlanningModel implements IOrderPlanningModel {
         Vbox vbox = new Vbox();
         this.earnedValueChartLegendContainer = vbox;
         vbox.setClass("legend-container");
-        vbox.setAlign(CENTER);
+//        vbox.setAlign(CENTER);
         vbox.setPack(CENTER);
 
         Hbox dateHbox = new Hbox();
@@ -722,7 +722,7 @@ public class OrderPlanningModel implements IOrderPlanningModel {
     private org.zkoss.zk.ui.Component getLoadChartLegend() {
         Hbox hbox = new Hbox();
         hbox.setClass("legend-container");
-        hbox.setAlign(CENTER);
+//        hbox.setAlign(CENTER);
         hbox.setPack(CENTER);
         Executions.createComponents("/planner/_legendLoadChartOrder.zul", hbox, null);
 

@@ -144,7 +144,7 @@
 
         <zscript><![CDATA[
                 i18iframe = org.libreplan.web.HelpLinkUtil.checkUrlPath(
-                    "/help/" + org.libreplan.web.I18nHelper._("en") + "/08-asignacion.html");
+                    "/help/" + org.libreplan.web.I18nHelper.helperi18n("en") + "/08-asignacion.html");
             ]]>
         </zscript>
 

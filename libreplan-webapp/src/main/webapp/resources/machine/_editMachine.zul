@@ -106,7 +106,7 @@
 
     <zscript><![CDATA[
                  i18iframe = org.libreplan.web.HelpLinkUtil.checkUrlPath(
-                 "/help/" + org.libreplan.web.I18nHelper._("en") + "/05-recursos.html#recursos-limitantes");
+                 "/help/" + org.libreplan.web.I18nHelper.helperi18n("en") + "/05-recursos.html#recursos-limitantes");
               ]]>
     </zscript>
     <popup id="limiting-resources-popup" width="700px" onOpen='iframe.setSrc(i18iframe)'>

@@ -101,10 +101,10 @@
     <zscript>
         <![CDATA[
             i18nHelpLink = org.libreplan.web.HelpLinkUtil.checkUrlPath(
-                "/help/" + org.libreplan.web.I18nHelper._("en") + "/" + menuContainer.getHelpLink());
+                "/help/" + org.libreplan.web.I18nHelper.helperi18n("en") + "/" + menuContainer.getHelpLink());
 
             i18nAboutLink = org.libreplan.web.HelpLinkUtil.checkUrlPath(
-                "/help/" + org.libreplan.web.I18nHelper._("en") + "/20-acerca-de.html");
+                "/help/" + org.libreplan.web.I18nHelper.helperi18n("en") + "/20-acerca-de.html");
         ]]>
     </zscript>
 

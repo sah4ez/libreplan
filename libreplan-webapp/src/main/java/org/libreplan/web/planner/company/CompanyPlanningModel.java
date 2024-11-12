@@ -422,7 +422,7 @@ public class CompanyPlanningModel implements ICompanyPlanningModel {
     public static org.zkoss.zk.ui.Component getLoadChartLegend() {
         Hbox hbox = new Hbox();
         hbox.setClass("legend-container");
-        hbox.setAlign(CENTER);
+//        hbox.setAlign(CENTER);
         hbox.setPack(CENTER);
         Executions.createComponents("/planner/_legendLoadChartCompany.zul", hbox, null);
 
@@ -435,7 +435,7 @@ public class CompanyPlanningModel implements ICompanyPlanningModel {
 
         Vbox vbox = new Vbox();
         vbox.setClass("legend-container");
-        vbox.setAlign(CENTER);
+//        vbox.setAlign(CENTER);
         vbox.setPack(CENTER);
 
         Hbox dateHbox = new Hbox();

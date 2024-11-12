@@ -34,7 +34,7 @@
         controller = loginController;
         contextPath = Executions.getCurrent().getContextPath();
         loginError = Executions.getCurrent().getParameter("login_error");
-        logoLoginLink = contextPath + "/common/img/" + org.libreplan.web.I18nHelper._("en") + "/logo_login.png";
+        logoLoginLink = contextPath + "/common/img/" + org.libreplan.web.I18nHelper.helperi18n("en") + "/logo_login.png";
     ]]>
     </zscript>
 
