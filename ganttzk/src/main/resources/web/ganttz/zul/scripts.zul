@@ -25,5 +25,5 @@
 top = self;
 ]]>
 </zscript>
-<n:script type="text/javascript" src="${each.URL}" forEach="${top.scriptDependencies}" />
+<n:script type="text/javascript" src="${URL}" forEach="${top.scriptDependencies}" />
 </zk>

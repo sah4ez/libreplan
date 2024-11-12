@@ -24,27 +24,27 @@
         <n:table style="width: ${top.horizontalSize-2}px;" class="second_level_">
 
             <n:tr class="z-columns">
-                <n:th class="z-column" forEach="${top.detailsSecondLevel}" style="width: ${each.size}px">
-                    ${each.name}
+                <n:th class="z-column" forEach="${top.detailsSecondLevel}" style="width: ${size}px">
+                    ${name}
                 </n:th>
             </n:tr>
 
             <n:tr id="watermark">
-                <n:td class="${(top.weekLevel)?'week-level':''} timetracker_column${(each.even)?'_even':''}${(each.bankHoliday?' bankHoliday':'')}"
+                <n:td class="${(top.weekLevel)?'week-level':''} timetracker_column${(even)?'_even':''}${(bankHoliday?' bankHoliday':'')}"
                       forEach="${top.detailsSecondLevel}"
-                      style="width: ${each.size}px;background-position: ${each.bankHolidayWeek}; ">
+                      style="width: ${size}px;background-position: ${bankHolidayWeek}; ">
 
-                    <n:div if="${each.projectStart}" class="timetracker_column_start"
-                           style="background-position: ${each.projectStartOffset}px;" />
+                    <n:div if="${projectStart}" class="timetracker_column_start"
+                           style="background-position: ${projectStartOffset}px;" />
 
-                    <n:div if="${each.currentPeriod and !(each.deadlinePeriod)}" class="timetracker_column_today"
-                           style="background-position: ${each.currentDayOffset}px; width:auto;height:100%" />
+                    <n:div if="${currentPeriod and !(deadlinePeriod)}" class="timetracker_column_today"
+                           style="background-position: ${currentDayOffset}px; width:auto;height:100%" />
 
-                    <n:div if="${each.deadlinePeriod and !(each.currentPeriod)}" class="timetracker_column_deadline"
-                           style="background-position: ${each.deadlineOffset}px; width:auto;height:100%" />
+                    <n:div if="${deadlinePeriod and !(currentPeriod)}" class="timetracker_column_deadline"
+                           style="background-position: ${deadlineOffset}px; width:auto;height:100%" />
 
-                    <n:div if="${each.currentPeriod and each.deadlinePeriod}" class="timetracker_column_today_deadline"
-                           style="background-position: ${each.currentDayOffset}px 0, ${each.deadlineOffset}px 0; width:auto;height:100%" />
+                    <n:div if="${currentPeriod and deadlinePeriod}" class="timetracker_column_today_deadline"
+                           style="background-position: ${currentDayOffset}px 0, ${deadlineOffset}px 0; width:auto;height:100%" />
                 </n:td>
             </n:tr>
         </n:table>

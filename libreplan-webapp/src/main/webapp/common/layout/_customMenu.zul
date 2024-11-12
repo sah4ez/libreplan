@@ -31,16 +31,16 @@
     <menubar id="menubar" top="0px" left="0px"
              ctrlKeys="^k#f2" onCtrlKey="doCtrlKey()" sclass="mainmenu z-menubar" autodrop="true">
 
-        <menu forEach="${menuContainer.customMenuItems}" label="${i18n:helperi18n(each.name)}"
-              class="${each.activeParent?'current-section':''}" >
+        <menu forEach="${menuContainer.customMenuItems}" label="${i18n:helperi18n(name)}"
+              class="${activeParent?'current-section':''}" >
             <menupopup sclass="submenu">
-                <menuitem forEach="${each.children}" label="${i18n:helperi18n(each.name)}"
-                          href='${each.url}' visible="${each.hasNotChildren}" />
+                <menuitem forEach="${children}" label="${i18n:helperi18n(name)}"
+                          href='${url}' visible="${hasNotChildren}" />
 
-                <menu forEach="${each.children}" label="${i18n:helperi18n(each.name)}" visible="${each.hasChildren}" >
+                <menu forEach="${children}" label="${i18n:helperi18n(name)}" visible="${hasChildren}" >
                     <menupopup>
-                        <menuitem forEach="${forEachStatus.each.children}"
-                                  label="${i18n:helperi18n(each.name)}" href='${each.url}' />
+                        <menuitem forEach="${forEachStatus.children}"
+                                  label="${i18n:helperi18n(name)}" href='${url}' />
                     </menupopup>
                 </menu>
             </menupopup>
@@ -68,7 +68,7 @@
                                     <n:div align="center">
                                         <n:img src="${contextPath}/common/img/migas_separacion.gif" />
                                     </n:div>
-                                    <n:span class="ruta">${i18n:helperi18n(each.name)}</n:span>
+                                    <n:span class="ruta">${i18n:helperi18n(name)}</n:span>
                                 </hbox>
                             </hbox>
                         </n:td>

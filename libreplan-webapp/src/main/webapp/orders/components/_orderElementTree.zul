@@ -97,9 +97,9 @@
 
                 <treecols id="treeCols" sizable="true">
                     <treecol forEach="${treeComponent.columns}"
-                             label="${each.label}"
-                             sclass="${each.cssClass}"
-                             tooltiptext="${each.tooltip}"/>
+                             label="${label}"
+                             sclass="${cssClass}"
+                             tooltiptext="${tooltip}"/>
                 </treecols>
             </tree>
         </vbox>

@@ -29,7 +29,7 @@
           rowRenderer="${top.rowRenderer}" fixedLayout="${true}">
 
         <columns visible="${false}">
-            <column label="${each.name}" width="${each.size}px" forEach="${top.detailsSecondLevel}"/>
+            <column label="${name}" width="${size}px" forEach="${top.detailsSecondLevel}"/>
         </columns>
     </grid>
 </zk>
