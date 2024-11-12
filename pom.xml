@@ -429,7 +429,7 @@
             <dependency>
                 <groupId>org.zkoss.zk</groupId>
                 <artifactId>zul</artifactId>
-                <version>10.0.0-jakarta</version>
+                <version>10.1.0-jakarta.FL.202410181040-Eval</version>
             </dependency>
 
             <dependency>
@@ -447,13 +447,13 @@
             <dependency>
                 <groupId>org.zkoss.common</groupId>
                 <artifactId>zcommon</artifactId>
-                <version>10.0.0-jakarta</version>
+                <version>10.1.0-jakarta.FL.202410181040-Eval</version>
             </dependency>
 
             <dependency>
                 <groupId>org.zkoss.zk</groupId>
                 <artifactId>zk</artifactId>
-                <version>10.0.0-jakarta</version>
+                <version>10.1.0-jakarta.FL.202410181040-Eval</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.jruby</groupId>
@@ -468,7 +468,7 @@
             <dependency>
                 <groupId>org.zkoss.common</groupId>
                 <artifactId>zweb</artifactId>
-                <version>10.0.0-jakarta</version>
+                <version>10.1.0-jakarta.FL.202410181040-Eval</version>
             </dependency>
 
             <!-- JGraphT -->
@@ -713,6 +713,16 @@
             	<groupId>com.mchange</groupId>
             	<artifactId>mchange-commons-java</artifactId>
             	<version>0.3.1</version>
+            </dependency>
+            <dependency>
+            	<groupId>org.springframework.security</groupId>
+            	<artifactId>spring-security-core</artifactId>
+            	<version>6.3.4</version>
+            </dependency>
+            <dependency>
+            	<groupId>org.springframework.boot</groupId>
+            	<artifactId>spring-boot-starter-security</artifactId>
+            	<version>3.3.5</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

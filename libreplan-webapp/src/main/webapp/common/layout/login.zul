@@ -71,7 +71,7 @@
         </n:tr>
     </n:table>
 
-    <n:form action="${contextPath}/j_spring_security_check" method="POST">
+    <n:form action="${contextPath}/login" method="POST">
 
         <n:table width="750" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF"
                  class="fondo_identificacion">
@@ -94,9 +94,10 @@
                         <n:tr>
                             <n:td>
                                 <label/>
-                                <div align="center">
+<!--                                 <div align="center"> -->
+                                <div>
                                     <n:input id="textfield" type="text" class="campotexto" size="30" autofocus="autofocus"
-                                             name="j_username" value="${controller.loginValue}"/>
+                                             name="username" value="${controller.loginValue}"/>
                                 </div>
                             </n:td>
                         </n:tr>
@@ -107,9 +108,10 @@
 
                         <n:tr>
                             <n:td>
-                                <div align="center">
+<!--                                 <div align="center"> -->
+                                <div>
                                     <n:input id="textfield2" type="password" class="campotexto"  size="30"
-                                             name="j_password" value="${controller.loginValue}"/>
+                                             name="password" value="${controller.loginValue}"/>
                                 </div>
                             </n:td>
                         </n:tr>
@@ -120,7 +122,8 @@
 
                         <n:tr>
                             <n:td>
-                                <n:div align="left">
+<!--                                 <n:div align="left"> -->
+                                <n:div>
                                     <n:input id="button" type="submit" class="entrar"
                                              name="button" value="${i18n:helperi18n('Log in')}" />
                                 </n:div>
@@ -166,7 +169,8 @@
 
         <n:tr>
             <n:td height="100">
-                <div align="right">
+<!--                 <div align="right"> -->
+                <div>
                     <n:a href="http://www.libreplan-enterprise.com" target="_blank">
                         <n:img src="${contextPath}/common/img/login-banner.png" width="750" height="40" />
                     </n:a>
@@ -181,22 +185,4 @@
             <n:td background="${contextPath}/common/img/flechitas.gif"/>
         </n:tr>
     </n:table>
-
-    <n:script language="javascript">
-        <![CDATA[
-
-            function checkbrowser() {
-                if ( (navigator.appName =="Microsoft Internet Explorer") || (navigator.appName =="Opera") ) {
-                    document.getElementById("supported-browsers-box").setAttribute("class", "supported-browsers not-supported");
-                    alertString = "${i18n:helperi18n('The browser you are using')}";
-                    alertString += " ("+navigator.appName+") ";
-                    alertString += "${i18n:helperi18n('is not supported for its use with LibrePlan.')}";
-                    alertString += "${i18n:helperi18n('Please use some of the compatible browsers: Chrome, Firefox, Safari or Epiphany.')}";
-                    window.alert(alertString);
-                }
-            }
-
-            document.onload = checkbrowser();
-        ]]>
-    </n:script>
 </div>

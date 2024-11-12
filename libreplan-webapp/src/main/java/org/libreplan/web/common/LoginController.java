@@ -39,7 +39,7 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class LoginController extends GenericForwardComposer {
 
-    private static final String autocompletedLoginValue = "admin";
+    private static final String autocompletedLoginValue = "admin2";
 
     @Autowired
     private IConfigurationDAO configurationDAO;
