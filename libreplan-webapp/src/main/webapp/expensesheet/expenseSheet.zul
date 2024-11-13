@@ -65,7 +65,7 @@
                 <caption label="${i18n:helperi18n('Identification')}" />
                 <separator bar="false" spacing="5px" orient="horizontal"/>
                 <vbox>
-                    <grid width="100%" fixedLayout="true">
+                    <grid width="100%">
                         <columns>
                             <column width="100px" />
                             <column />

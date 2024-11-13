@@ -15,7 +15,7 @@
 
     for an explanation of the meaning of IS_AUTHENTICATED_ANONYMOUSLY and IS_AUTHENTICATED_FULLY. -->
 
-    <http auto-config="false" realm="LibrePlan Web Application" >
+    <http auto-config="true" realm="LibrePlan Web Application" >
 
         <!-- In Spring Security 4.1.0 it is useless to use hasRole() for single role because Spring is calling hasAnyRole() anyway -->
 
@@ -27,6 +27,7 @@
         <intercept-url pattern="/ws/rest/**" access="hasAnyRole('ROLE_WS_READER')" method="GET" />
         <intercept-url pattern="/ws/rest/**" access="hasAnyRole('ROLE_WS_WRITER')" method="POST" />
         <intercept-url pattern="/ws/rest/**" access="hasAnyRole('ROLE_WS_WRITER')" method="DELETE" />
+        <intercept-url pattern="/login*" access="isAnonymous()" />
 
         <!-- Web application -->
         <intercept-url pattern="/common/img/**" access="permitAll" ></intercept-url>

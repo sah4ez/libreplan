@@ -52,7 +52,7 @@
         <grid id="listing"
               model="@{controller.subcontractorCommunications}"
               rowRenderer="@{controller.subcontractorCommunicationRenderer}"
-              mold="paging" pageSize="10" fixedLayout="true">
+              mold="paging" pageSize="10">
             <columns>
                 <column label="${i18n:helperi18n('Communication Type')}" align="center" width="140px"
                         sort="auto(lower(communicationType))"/>
@@ -83,7 +83,7 @@
 
 
         <popup id="pp">
-            <grid id="listingValues" width="300px" fixedLayout="true">
+            <grid id="listingValues" width="300px">
                 <columns>
                     <column label="${i18n:helperi18n('Progress %')}" width="150px"/>
                     <column label="${i18n:helperi18n('Date')}" width="150px"/>

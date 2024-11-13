@@ -39,7 +39,7 @@
     <grid id="listing"
         model="@{controller.subcontractedTasks}"
         rowRenderer="@{controller.subcontractedTasksRenderer}"
-        mold="paging" pageSize="10" fixedLayout="true"
+        mold="paging" pageSize="10"
         onInitRender="controller.initRender();">
         <columns>
             <column label="${i18n:helperi18n('Subcontracting date')}"

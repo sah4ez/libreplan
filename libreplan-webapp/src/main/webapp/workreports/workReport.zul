@@ -162,7 +162,7 @@
 
                             <groupbox closable="false">
                                 <caption label="${i18n:helperi18n('General data')}" />
-                                <grid fixedLayout="false" width="100%" span="1">
+                                <grid width="100%" span="1">
                                     <columns>
                                         <column width="200px" />
                                         <column />
@@ -191,7 +191,7 @@
 
                                 <caption label="${i18n:helperi18n('Heading Fields')}" />
 
-                                <grid id="HeadingRequirementsFields" mold="paging" pageSize="4" fixedLayout="true"
+                                <grid id="HeadingRequirementsFields" mold="paging" pageSize="4" 
                                       style="border-bottom:0">
                                     <columns>
                                         <column width="200px"/>
@@ -225,7 +225,6 @@
                                 </grid>
 
                                 <grid id="headingFieldsAndLabels" mold="paging" pageSize="4"
-                                      fixedLayout="true"
                                       style="border-top:0;"
                                       model="@{controller.fieldsAndLabelsHeading}"
                                       rowRenderer= "@{controller.orderedFieldsAndLabelsRowRenderer}">

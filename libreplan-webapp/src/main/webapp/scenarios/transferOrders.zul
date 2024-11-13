@@ -33,7 +33,7 @@
 
     <vbox id="messagesContainer"></vbox>
 
-                <grid fixedLayout="true">
+                <grid>
                     <columns>
                         <column label="${i18n:helperi18n('Source scenario')}"/>
                         <column label="${i18n:helperi18n('Destination scenario')}"/>

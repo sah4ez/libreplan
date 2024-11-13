@@ -46,7 +46,7 @@
 
                         <caption label="${i18n:helperi18n('Personal Data')}" />
 
-                        <grid fixedLayout="true" id="personalData">
+                        <grid id="personalData">
                             <columns>
                                 <column width="200px" />
                                 <column />
@@ -83,7 +83,7 @@
 
                         <caption label="${i18n:helperi18n('Application settings')}" />
 
-                        <grid fixedLayout="true" id="configurationVariables">
+                        <grid id="configurationVariables">
                             <columns>
                                 <column width="200px" />
                                 <column />

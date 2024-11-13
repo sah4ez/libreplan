@@ -21,7 +21,7 @@
 
 <panel title="${i18n:helperi18n('Criteria Requirement')}" border="normal">
     <panelchildren >
-        <newdatasortablegrid mold="paging" pageSize="5" fixedLayout="true"
+        <newdatasortablegrid mold="paging" pageSize="5"
                              emptyMessage="${i18n:helperi18n('No criterions')}"
                              model="@{hoursGroupWrapper.criterionRequirementWrappersView}">
             <columns>

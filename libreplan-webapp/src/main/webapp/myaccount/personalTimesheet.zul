@@ -40,7 +40,7 @@
         <hbox width="100%">
             <groupbox style="margin-top: 5px" closable="false" hflex="1">
                 <caption label="${i18n:helperi18n('Timesheet data')}" />
-                <grid fixedLayout="true">
+                <grid >
                     <columns>
                         <column width="200px" />
                         <column />
@@ -79,7 +79,7 @@
 
             <groupbox style="margin-top: 5px; margin-left: 10px;" closable="false" hflex="1">
                 <caption label="${i18n:helperi18n('Timesheet summary')}" />
-                <grid fixedLayout="true">
+                <grid >
                     <columns>
                         <column width="200px" />
                         <column />

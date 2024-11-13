@@ -57,10 +57,10 @@ public class PageForErrorOnEvent extends GenericForwardComposer {
     }
 
     private void logError() {
-        String urlPath = (String) Executions.getCurrent().getAttribute("javax.servlet.forward.servlet_path");
-        Throwable exception = (Throwable) Executions.getCurrent().getAttribute("javax.servlet.error.exception");
-        String errorMessage = (String) Executions.getCurrent().getAttribute("javax.servlet.error.message");
-        Integer code = (Integer) Executions.getCurrent().getAttribute("javax.servlet.error.status_code");
+        String urlPath = (String) Executions.getCurrent().getAttribute("jakarta.servlet.forward.servlet_path");
+        Throwable exception = (Throwable) Executions.getCurrent().getAttribute("jakarta.servlet.error.exception");
+        String errorMessage = (String) Executions.getCurrent().getAttribute("jakarta.servlet.error.message");
+        Integer code = (Integer) Executions.getCurrent().getAttribute("jakarta.servlet.error.status_code");
 
         if (urlPath != null && urlPath.contains("help")) {
             isHelpLink = true;
@@ -69,7 +69,7 @@ public class PageForErrorOnEvent extends GenericForwardComposer {
         if ( code != null ) {
             errorMessage += " [Status Code: " + code + "]";
             if ( code == HttpServletResponse.SC_FORBIDDEN ) {
-                String uri = (String) Executions.getCurrent().getAttribute("javax.servlet.error.request_uri");
+                String uri = (String) Executions.getCurrent().getAttribute("jakarta.servlet.error.request_uri");
                 errorMessage += " [Request URI: " + uri + "]";
             }
         }
@@ -91,7 +91,7 @@ public class PageForErrorOnEvent extends GenericForwardComposer {
     }
 
     private String getStacktrace() {
-        Throwable exception = (Throwable) Executions.getCurrent().getAttribute("javax.servlet.error.exception");
+        Throwable exception = (Throwable) Executions.getCurrent().getAttribute("jakarta.servlet.error.exception");
         if ( exception != null ) {
             Writer stacktrace = new StringWriter();
             exception.printStackTrace(new PrintWriter(stacktrace));

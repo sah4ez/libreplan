@@ -20,7 +20,7 @@
 <window id="syncInfoWin" title="${i18n:helperi18n('LibrePlan: Synchronization info')}" width="500px"
         sclass="job-scheduling-manual-header">
 
-    <grid id="syncInfoGrid" mold="paging" pageSize="10" fixedLayout="true"/>
+    <grid id="syncInfoGrid" mold="paging" pageSize="10"/>
 
 
     <button id="closeBtn" label="${i18n:helperi18n('Close')}" onClick="syncInfoWin.detach()"

@@ -29,7 +29,7 @@
     <separator bar="false" spacing="5px" orient="horizontal"/>
 
     <newdatasortablegrid id="listing" model="@{controller.virtualWorkers}" mold="paging"
-        pageSize="10" fixedLayout="true" sclass="clickable-rows">
+        pageSize="10" sclass="clickable-rows">
         <columns>
             <newdatasortablecolumn label="${i18n:helperi18n('Name')}" sort="auto(lower(name))" sortDirection="ascending"/>
             <newdatasortablecolumn label="${i18n:helperi18n('Capacity')}" sort="auto(capacity)" />
