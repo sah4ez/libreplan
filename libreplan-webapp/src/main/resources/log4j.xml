@@ -101,7 +101,17 @@
         <level value="ERROR"/>
         <appender-ref ref="ASYNC"/>
     </logger>
-
+    
+    <logger name="org.hibernate.SQL">
+        <level value="DEBUG"/>
+        <appender-ref ref="ASYNC" />
+    </logger>
+    
+    <logger name="org.hibernate.type.descriptor.sql">
+        <level value="TRACE"/>
+        <appender-ref ref="ASYNC" />
+    </logger>
+    
     <!-- To filter roles -->
     <logger name="org.springframework.security.config.http.FilterInvocationSecurityMetadataSourceParser">
         <level value="ERROR"/>

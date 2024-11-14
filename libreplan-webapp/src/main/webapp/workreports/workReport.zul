@@ -246,7 +246,6 @@
                                 </hbox>
 
                                 <newdatasortablegrid id="listWorkReportLines"
-                                                     fixedLayout="false"
                                                      rowRenderer="@{controller.renderer}"
                                                      sclass="listWorkReportLines report-margin"/>
                             </groupbox>

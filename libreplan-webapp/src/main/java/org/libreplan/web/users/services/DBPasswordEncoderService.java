@@ -55,22 +55,11 @@ public class DBPasswordEncoderService implements IDBPasswordEncoderService {
      * (which must be configured to use "username" property as a salt).
      */
     public String encodePassword(String clearPassword, String loginName) {
-
-        /*
-         * The only important parameter in User's constructor is "loginName",
-         * which corresponds to the "username" property if the "saltSource" is
-         * "ReflectionSaltSource". Note that "SystemWideSaltSource" ignores
-         * the "user" passed as a parameter to "saltSource.getSalt"
-         */
-        UserDetails userDetails = new User(loginName, clearPassword, true, true, true, true, Collections.emptyList());
-
-     
-        if (passwordEncoder == null) {
-        	this.passwordEncoder = new BCryptPasswordEncoder(16);
-        }
-
         return passwordEncoder.encode(clearPassword);
-
+    }
+    
+    public boolean matchPassword(String rawPassword, String encodedPassword) {
+    	return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
 }

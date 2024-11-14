@@ -51,6 +51,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -112,24 +113,23 @@ public class LDAPCustomAuthenticationProvider
     public UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) {
 
         String clearPassword = authentication.getCredentials().toString();
-
+        
         if ( StringUtils.isBlank(username) || StringUtils.isBlank(clearPassword) ) {
             throw new BadCredentialsException("Username and password can not be empty");
         }
 
-        String encodedPassword = passwordEncoderService.encodePassword(clearPassword, username);
         User user = getUserFromDB(username);
-
         // If user != null then exists in LibrePlan
         if ( null != user && user.isLibrePlanUser() ) {
             // is a LibrePlan user, then we must authenticate against DB
-            return authenticateInDatabase(username, user, encodedPassword);
+            return authenticateInDatabase(username, user, clearPassword);
         }
 
         // If it's a LDAP or null user, then we must authenticate against LDAP
 
         // Load LDAPConfiguration properties
-        configuration = loadLDAPConfiguration();
+        /* TODO replace to keckloack auth by token and introspect
+         
 
         if ( configuration.getLdapAuthEnabled() ) {
             // Sets the new context to ldapTemplate
@@ -166,9 +166,9 @@ public class LDAPCustomAuthenticationProvider
                 LOG.info("LDAP not reachable. Trying to authenticate against database.", e);
             }
         }
-
+		*/
         // LDAP is not enabled we must check if the LDAP user is in DB
-        return authenticateInDatabase(username, user, encodedPassword);
+        return authenticateInDatabase(username, user, clearPassword);
     }
 
     private UserDetails loadUserDetails(String username) {
@@ -269,8 +269,9 @@ public class LDAPCustomAuthenticationProvider
         });
     }
 
-    private UserDetails authenticateInDatabase(String username, User user, String encodedPassword) {
-        if ( null != user && null != user.getPassword() && encodedPassword.equals(user.getPassword()) ) {
+    private UserDetails authenticateInDatabase(String username, User user, String clearPassword) {
+    	
+        if ( null != user && null != user.getPassword() && passwordEncoderService.matchPassword(clearPassword, user.getPassword())) {
             return loadUserDetails(username);
         } else {
             throw new BadCredentialsException("Credentials are not the same as in database.");
