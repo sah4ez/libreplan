@@ -29,10 +29,19 @@ import org.libreplan.web.common.IMessagesForUser;
 import org.libreplan.web.common.Level;
 import org.libreplan.web.common.MessagesForUser;
 import org.libreplan.web.common.components.bandboxsearch.BandboxSearch;
+import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.SelectEvent;
+import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Listitem;
@@ -56,17 +65,19 @@ import static org.libreplan.web.I18nHelper.helperi18n;
  */
 public class SettingsController extends GenericForwardComposer {
 
-    private IMessagesForUser messages;
-
+    private static final long serialVersionUID = 8785324286911212769L;
+    @Wire
+	private IMessagesForUser messages;
+    @Wire
     private Component messagesContainer;
 
     private ISettingsModel settingsModel;
-
+    @Wire
     private BandboxSearch projectsFilterLabelBandboxSearch;
-
+    @Wire
     private BandboxSearch resourcesLoadFilterCriterionBandboxSearch;
 
-    private static ListitemRenderer languagesRenderer = (item, data, i) -> {
+    private static ListitemRenderer<?> languagesRenderer = (item, data, i) -> {
         Language language = (Language) data;
         String displayName = language.getDisplayName();
 
@@ -80,14 +91,14 @@ public class SettingsController extends GenericForwardComposer {
     public SettingsController() {
         settingsModel = (ISettingsModel) SpringUtil.getBean("settingsModel");
     }
-
-    @Override
-    public void doAfterCompose(Component comp) throws Exception {
+    
+    @AfterCompose
+    public void doAfterCompose(@ContextParam(ContextType.VIEW) Component comp) throws Exception {
+    	Selectors.wireComponents(comp, this, false);
         super.doAfterCompose(comp);
         comp.setAttribute("settingsController", this, true);
         messages = new MessagesForUser(messagesContainer);
         settingsModel.initEditLoggedUser();
-
         projectsFilterLabelBandboxSearch.setListboxEventListener(
                 Events.ON_SELECT, event -> {
                     Listitem selectedItem = (Listitem) ((SelectEvent) event).getSelectedItems().iterator().next();
@@ -118,19 +129,21 @@ public class SettingsController extends GenericForwardComposer {
         return languages;
     }
 
+    @Command
+    @NotifyChange("*")
     public boolean save() {
         try {
             if ( monthsValuesAreValid() ) {
                 checkEmptyBandboxes();
                 clearSessionVariables();
                 settingsModel.confirmSave();
-                messages.showMessage(Level.INFO, helperi18n("Settings saved"));
+                //messages.showMessage(Level.INFO, helperi18n("Settings saved"));
 
                 return true;
             }
 
         } catch (ValidationException e) {
-            messages.showInvalidValues(e);
+            //messages.showInvalidValues(e);
         }
 
         return false;
@@ -195,7 +208,7 @@ public class SettingsController extends GenericForwardComposer {
         return settingsModel.getApplicationLanguage();
     }
 
-    public static ListitemRenderer getLanguagesRenderer() {
+    public static ListitemRenderer<?> getLanguagesRenderer() {
         return languagesRenderer;
     }
 

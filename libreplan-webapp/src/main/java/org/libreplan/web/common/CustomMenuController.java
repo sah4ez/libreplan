@@ -65,7 +65,9 @@ import org.zkoss.zul.Vbox;
  */
 public class CustomMenuController extends Div implements IMenuItemsRegister {
 
-    private static final Pattern perspectiveCssClass = Pattern.compile("\\bperspective(-\\w+)?\\b");
+    private static final long serialVersionUID = 1L;
+
+	private static final Pattern perspectiveCssClass = Pattern.compile("\\bperspective(-\\w+)?\\b");
 
     private List<CustomMenuItem> firstLevel;
 

@@ -38,7 +38,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.glassfish.jaxb.runtime.v2.runtime.BinderImpl;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -246,7 +245,7 @@ public class Util {
          * Boolean value for setAttribute() means recursive actions, but in setVariable() it was not so.
          * And after, it still was calling method setAttribute() with (attr1, attr2, !booleanValue).
          */
-        //result.setAttribute("binder", binder, false);
+        result.setAttribute("binder", binder, false);
 
         markAsNotReloadedForThisRequest(result);
     }

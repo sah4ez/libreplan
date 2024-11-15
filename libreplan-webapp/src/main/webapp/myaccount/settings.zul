@@ -20,7 +20,6 @@
  -->
 
 <?page title="${i18n:helperi18n('LibrePlan: Settings')}"?>
-<?init class="org.zkoss.zkplus.databind.AnnotateDataBinderInit" ?>
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
 <?page  id="List"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/common/layout/template.zul"?>
@@ -31,8 +30,11 @@
 
 <zk>
     <window id="settingsWindow" self="@{define(content)}"
-            apply="org.libreplan.web.users.settings.SettingsController"
-            title="${i18n:helperi18n('User settings')}">
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('settingsController') @init('org.libreplan.web.users.settings.SettingsController')"
+            title="${i18n:helperi18n('User settings')}"
+            xmlns:n="native" xmlns:zk="http://www.zkoss.org/2005/zul"
+            >
 
         <vbox id="messagesContainer" />
 
@@ -55,25 +57,25 @@
                                 <row>
                                     <label value="${i18n:helperi18n('Username')}" />
                                     <textbox id="loginName"
-                                             value="@{settingsController.loginName}"
+                                             value="@load(settingsController.loginName)"
                                              disabled="true"
                                              width="300px" />
                                 </row>
                                 <row>
                                     <label value="${i18n:helperi18n('First name')}" />
                                     <textbox id="firstName"
-                                             value="@{settingsController.firstName}" width="300px"
-                                             disabled="@{settingsController.bound}" />
+                                             value="@bind(settingsController.firstName)" width="300px"
+                                             disabled="@load(settingsController.bound)" />
                                 </row>
                                 <row>
                                     <label value="${i18n:helperi18n('Last name')}" />
                                     <textbox id="lastName"
-                                             value="@{settingsController.lastName}" width="300px"
-                                             disabled="@{settingsController.bound}" />
+                                             value="@bind(settingsController.lastName)" width="300px"
+                                             disabled="@load(settingsController.bound)" />
                                 </row>
                                 <row>
                                     <label value="${i18n:helperi18n('E-mail')}" />
-                                    <textbox id="email" value="@{settingsController.email}" width="300px"/>
+                                    <textbox id="email" value="@bind(settingsController.email)" width="300px"/>
                                 </row>
                             </rows>
                         </grid>
@@ -93,9 +95,9 @@
                                     <label value="${i18n:helperi18n('Select language')}" />
 
                                     <listbox id="applicationLanguage"
-                                             model="@{settingsController.languages}"
+                                             model="@bind(settingsController.languages)"
                                              itemRenderer="@{settingsController.languagesRenderer}"
-                                             selectedItem="@{settingsController.selectedLanguage}"
+                                             selectedItem="@{settingsController.languagesRenderer}"
                                              mold="select" />
                                 </row>
                                 <row>
@@ -110,13 +112,13 @@
                                             <row>
                                                 <checkbox id="expandCompanyPlanningViewCharts"
                                                           label="${i18n:helperi18n('Company view')}"
-                                                          checked="@{settingsController.expandCompanyPlanningViewCharts}"/>
+                                                          checked="@bind(settingsController.expandCompanyPlanningViewCharts)"/>
                                                 <checkbox id="expandOrderPlanningViewCharts"
                                                           label="${i18n:helperi18n('Project view')}"
-                                                          checked="@{settingsController.expandOrderPlanningViewCharts}"/>
+                                                          checked="@bind(settingsController.expandOrderPlanningViewCharts)"/>
                                                 <checkbox id="expandResourceLoadViewCharts"
                                                           label="${i18n:helperi18n('Resource load view')}"
-                                                          checked="@{settingsController.expandResourceLoadViewCharts}"/>
+                                                          checked="@bind(settingsController.expandResourceLoadViewCharts)"/>
                                             </row>
                                         </rows>
                                     </grid>
@@ -213,7 +215,7 @@
         <hbox>
             <button label="${i18n:helperi18n('Save')}"
                     sclass="save-button global-action"
-                    onClick="settingsController.save()" />
+                    onClick="@command('save')" />
         </hbox>
     </window>
 </zk>
