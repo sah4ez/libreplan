@@ -30,12 +30,11 @@ package org.libreplan.web.users.services;
  *
  * @author Fernando Bellas Permuy <fbellas@udc.es>
  */
-@FunctionalInterface
 public interface IDBPasswordEncoderService {
 
     /**
      * Encodes a clear password. The second parameter (which must be the username) may be used as a salt.
      */
     String encodePassword(String clearPassword, String loginName);
-
+    boolean matchPassword(String rawPassword, String encodedPassword);
 }

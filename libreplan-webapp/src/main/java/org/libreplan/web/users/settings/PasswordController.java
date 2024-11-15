@@ -29,8 +29,12 @@ import org.libreplan.web.common.IMessagesForUser;
 import org.libreplan.web.common.Level;
 import org.libreplan.web.common.MessagesForUser;
 import org.libreplan.web.users.PasswordUtil;
+import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.WrongValueException;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zkplus.spring.SpringUtil;
 import org.zkoss.zul.Constraint;
@@ -44,22 +48,22 @@ import org.zkoss.zul.Window;
  * @author Ignacio Diaz Teijido <ignacio.diaz@comtecsf.es>
  */
 public class PasswordController extends GenericForwardComposer {
-
+	@Wire
     private Window passwordWindow;
-
+	@Wire
     private IMessagesForUser messages;
-
+	@Wire
     private Component messagesContainer;
-
+	
     private IPasswordModel passwordModel;
-
+	@Wire
     private Textbox password;
 
     public PasswordController() {
         passwordModel = (IPasswordModel) SpringUtil.getBean("passwordModel");
     }
-
-    public void doAfterCompose(Component comp) throws Exception {
+    @AfterCompose
+    public void doAfterCompose(@ContextParam(ContextType.VIEW) Component comp) throws Exception {
         super.doAfterCompose(comp);
         comp.setAttribute("passwordController", this, true);
         messages = new MessagesForUser(messagesContainer);

@@ -135,19 +135,19 @@
                                             <row>
                                                 <checkbox id="showResourcesOn"
                                                           label="${i18n:helperi18n('Show resources')}"
-                                                          checked="@{settingsController.showResourcesOn}"/>
+                                                          checked="@bind(settingsController.showResourcesOn)"/>
                                                 <checkbox id="showAdvancesOn"
                                                           label="${i18n:helperi18n('Show progress')}"
-                                                          checked="@{settingsController.showAdvancesOn}"/>
+                                                          checked="@bind(settingsController.showAdvancesOn)"/>
                                                 <checkbox id="showReportedHoursOn"
                                                           label="${i18n:helperi18n('Show reported hours')}"
-                                                          checked="@{settingsController.showReportedHoursOn}"/>
+                                                          checked="@bind(settingsController.showReportedHoursOn)"/>
                                                 <checkbox id="showLabelsOn"
                                                           label="${i18n:helperi18n('Show labels')}"
-                                                          checked="@{settingsController.showLabelsOn}"/>
+                                                          checked="@bind(settingsController.showLabelsOn)"/>
                                                 <checkbox id="showMoneyCostBarOn"
                                                           label="${i18n:helperi18n('Show money cost bar')}"
-                                                          checked="@{settingsController.showMoneyCostBarOn}"/>
+                                                          checked="@bind(settingsController.showMoneyCostBarOn)"/>
                                             </row>
                                         </rows>
                                     </grid>
@@ -187,20 +187,20 @@
                                         <bandboxSearch
                                                 id="resourcesLoadFilterCriterionBandboxSearch"
                                                 finder="CriterionBandboxFinder"
-                                                model="@{settingsController.allCriteria}"
-                                                selectedElement="@{settingsController.resourcesLoadFilterCriterion}"
+                                                model="@save(settingsController.allCriteria)"
+                                                selectedElement="@save(settingsController.resourcesLoadFilterCriterion)"
                                                 widthListbox="450px"
                                                 widthBandbox="200px"/>
 
                                         <label value="${i18n:helperi18n('Resources load since')}" />
                                         <intbox id="resourcesLoadFilterPeriodSince"
-                                                value="@{settingsController.resourcesLoadFilterPeriodSince}"
+                                                value="@bind(settingsController.resourcesLoadFilterPeriodSince)"
                                                 width="50px"
-                                                constraint="@{settingsController.checkMonthsMaxValue}"/>
+                                                constraint="@}settingsController.checkMonthsMaxValue}"/>
 
                                         <label value="${i18n:helperi18n('months to')}" />
                                         <intbox id="resourcesLoadFilterPeriodTo"
-                                                value="@{settingsController.resourcesLoadFilterPeriodTo}"
+                                                value="@bind(settingsController.resourcesLoadFilterPeriodTo)"
                                                 width="50px"
                                                 constraint="@{settingsController.checkMonthsMaxValue}"/>
                                     </hbox>

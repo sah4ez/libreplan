@@ -137,13 +137,13 @@ public class SettingsController extends GenericForwardComposer {
                 checkEmptyBandboxes();
                 clearSessionVariables();
                 settingsModel.confirmSave();
-                //messages.showMessage(Level.INFO, helperi18n("Settings saved"));
+                messages.showMessage(Level.INFO, helperi18n("Settings saved"));
 
                 return true;
             }
 
         } catch (ValidationException e) {
-            //messages.showInvalidValues(e);
+            messages.showInvalidValues(e);
         }
 
         return false;

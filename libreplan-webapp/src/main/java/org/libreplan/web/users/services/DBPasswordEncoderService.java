@@ -58,6 +58,7 @@ public class DBPasswordEncoderService implements IDBPasswordEncoderService {
         return passwordEncoder.encode(clearPassword);
     }
     
+    @Override
     public boolean matchPassword(String rawPassword, String encodedPassword) {
     	return passwordEncoder.matches(rawPassword, encodedPassword);
     }

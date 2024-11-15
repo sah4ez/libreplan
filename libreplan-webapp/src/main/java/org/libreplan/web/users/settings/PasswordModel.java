@@ -141,11 +141,7 @@ public class PasswordModel implements IPasswordModel {
     @Override
     public boolean validateCurrentPassword(String value)
     {
-        String currentPasswordEncoded = dbPasswordEncoderService.encodePassword((String)value, user.getLoginName());
-        if(!(currentPasswordEncoded).equals(user.getPassword())) {
-            return false;
-        }
-        return true;
+        return dbPasswordEncoderService.matchPassword((String)value, user.getPassword());
     }
 
     @Transactional(readOnly = true)
